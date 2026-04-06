@@ -1,69 +1,167 @@
 import { HugeiconsIcon } from "@hugeicons/react"
-import { SaveIcon } from "@hugeicons/core-free-icons"
+import { SaveIcon, Store01Icon, Call02Icon, Share01Icon, PaintBoardIcon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function SettingsPage() {
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">Paramètres</h1>
-        <p className="mt-1 text-sm text-slate-500">Configurez les paramètres de votre boutique</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Paramètres</h1>
+          <p className="mt-1 text-sm text-slate-500">Gérez les informations globales et l'apparence de votre boutique</p>
+        </div>
+        <Button className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">
+          <HugeiconsIcon icon={SaveIcon} size={18} className="mr-2" />
+          Enregistrer tout
+        </Button>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div className="grid gap-6 lg:grid-cols-2">
         {/* General Settings */}
-        <div className="rounded-xl border border-slate-200 bg-white p-6">
-          <h2 className="text-lg font-semibold text-slate-900 mb-4">Informations générales</h2>
-          <div className="space-y-4">
+        <Card className="border-slate-200 shadow-none rounded-xl">
+          <CardHeader className="border-b border-slate-100 pb-4">
+            <CardTitle className="flex items-center gap-2 text-lg text-slate-900">
+              <HugeiconsIcon icon={Store01Icon} size={18} className="text-[#1E40AF]" />
+              Informations générales
+            </CardTitle>
+            <CardDescription>Nom de la boutique, devise et description principale.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4 pt-6">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Nom de la boutique</label>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Nom de la boutique</label>
               <input
                 type="text"
                 defaultValue="Dakar Sport"
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Tagline</label>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Slogan (Tagline)</label>
               <input
                 type="text"
                 defaultValue="Tout pour le Sport"
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
               />
             </div>
-            <Button className="w-full bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">
-              <HugeiconsIcon icon={SaveIcon} size={18} className="mr-2" />
-              Enregistrer
-            </Button>
-          </div>
-        </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Description SEO</label>
+              <textarea
+                rows={3}
+                defaultValue="Boutique d'équipements sportifs à Dakar. Spécialiste en football et clubs associatifs."
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20 resize-none"
+              />
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Contact Settings */}
-        <div className="rounded-xl border border-slate-200 bg-white p-6">
-          <h2 className="text-lg font-semibold text-slate-900 mb-4">Informations de contact</h2>
-          <div className="space-y-4">
+        <Card className="border-slate-200 shadow-none rounded-xl">
+          <CardHeader className="border-b border-slate-100 pb-4">
+            <CardTitle className="flex items-center gap-2 text-lg text-slate-900">
+              <HugeiconsIcon icon={Call02Icon} size={18} className="text-[#1E40AF]" />
+              Contact et Adresse
+            </CardTitle>
+            <CardDescription>Coordonnées affichées sur le storefront et dans les devis.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4 pt-6">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Email de contact</label>
               <input
                 type="email"
                 defaultValue="promosportsdakar@yahoo.fr"
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Adresse</label>
-              <input
-                type="text"
-                defaultValue="Avenue G. Pompidou, Dakar"
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
+              <label className="mb-1 block text-sm font-medium text-slate-700">Adresse physique</label>
+              <textarea
+                rows={2}
+                defaultValue="Avenue G. Pompidou en face Restaurant Ali baba, Dakar, Senegal"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20 resize-none"
               />
             </div>
-            <Button className="w-full bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">
-              <HugeiconsIcon icon={SaveIcon} size={18} className="mr-2" />
-              Enregistrer
-            </Button>
-          </div>
-        </div>
+            <div>
+              <div className="mb-1 flex items-center justify-between">
+                <label className="block text-sm font-medium text-slate-700">Numéros de téléphone</label>
+                <Button variant="ghost" size="sm" className="h-6 px-2 text-xs text-[#1E40AF]">Ajouter</Button>
+              </div>
+              <div className="space-y-2">
+                <input type="text" defaultValue="+221 33 840 09 45" className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" />
+                <input type="text" defaultValue="+221 77 634 51 15" className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" />
+                <input type="text" defaultValue="+221 77 041 49 30" className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Social Media Settings */}
+        <Card className="border-slate-200 shadow-none rounded-xl">
+          <CardHeader className="border-b border-slate-100 pb-4">
+            <CardTitle className="flex items-center gap-2 text-lg text-slate-900">
+              <HugeiconsIcon icon={Share01Icon} size={18} className="text-[#1E40AF]" />
+              Réseaux sociaux
+            </CardTitle>
+            <CardDescription>Liens vers vos pages sociales.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4 pt-6">
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Facebook</label>
+              <input
+                type="url"
+                placeholder="https://facebook.com/..."
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Instagram</label>
+              <input
+                type="url"
+                placeholder="https://instagram.com/..."
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">WhatsApp (Numéro business)</label>
+              <input
+                type="text"
+                defaultValue="+221 77 634 51 15"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Appearance Settings */}
+        <Card className="border-slate-200 shadow-none rounded-xl">
+          <CardHeader className="border-b border-slate-100 pb-4">
+            <CardTitle className="flex items-center gap-2 text-lg text-slate-900">
+              <HugeiconsIcon icon={PaintBoardIcon} size={18} className="text-[#1E40AF]" />
+              Apparence
+            </CardTitle>
+            <CardDescription>Logos et identité visuelle.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4 pt-6">
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Logo principal</label>
+              <div className="flex items-center gap-4">
+                <div className="flex h-16 w-32 items-center justify-center rounded-lg border border-dashed border-slate-300 bg-slate-50 text-xs text-slate-400">
+                  dakar-sport.png
+                </div>
+                <Button variant="outline" size="sm" className="border-slate-200">Changer</Button>
+              </div>
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Icône (Favicon)</label>
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-dashed border-slate-300 bg-slate-50 text-xs text-slate-400">
+                  icon.png
+                </div>
+                <Button variant="outline" size="sm" className="border-slate-200">Changer</Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

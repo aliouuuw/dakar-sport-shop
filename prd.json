@@ -113,7 +113,7 @@
         "Updating a setting saves immediately with success toast — verify by changing a value",
         "Phone numbers displayed as editable list (add/remove) — verify by adding a phone number"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Admin-UI",
