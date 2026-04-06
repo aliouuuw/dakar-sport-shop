@@ -37,3 +37,20 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 * **Result:** Success — `docs/design/admin-wireframes.md` created with 563 lines covering all 8 pages, 12 components, color/typography specs, responsive layouts
 
 ---
+
+## Working on: Storefront UI wireframes and user flows
+
+* **Status:** In Progress
+* **Started:** 2026-04-06 18:38
+* **Task:** Create wireframes for 5 storefront pages + user flow diagrams
+* **Plan:**
+  - Create `docs/design/storefront-wireframes.md`
+  - Pages: homepage (hero, announcements, featured products, categories, trust), products listing (filters, grid, pagination), product detail (gallery, WhatsApp CTA, related), contact (form, map, info), 404
+  - User flows: product discovery → detail → WhatsApp order, contact form submission
+  - Mobile-first responsive approach
+  - Brand colors: blue hero/header, red CTAs, white backgrounds
+* **Files:** `docs/design/storefront-wireframes.md`
+* **Verification:** File exists with all 5 pages, user flows, mobile-first layouts, brand color usage
+* **Result:** Success — `docs/design/storefront-wireframes.md` created with 5 pages, 3 user flows, responsive strategy, product card specs
+
+---

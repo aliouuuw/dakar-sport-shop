@@ -30,7 +30,7 @@
         "Hero section, product cards, and CTA buttons designed with brand colors — verify visually",
         "Design approved by team before implementation begins — verify with sign-off"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Design",
