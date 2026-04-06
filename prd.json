@@ -1,0 +1,398 @@
+{
+  "project_meta": {
+    "name": "dakar-sport-shop",
+    "version": "0.1.0",
+    "ralph_type": "opencode",
+    "opencode_session_id": "deep-init-2026-04-06"
+  },
+  "backlog": [
+    {
+      "group": "Database",
+      "feature": "Drizzle ORM setup and database connection",
+      "description": "Install drizzle-orm, drizzle-kit, and postgres driver. Configure NeonDB connection with environment variables. Create drizzle.config.ts and lib/db/index.ts with connection pool. Add .env.example with DATABASE_URL placeholder.",
+      "acceptance_criteria": [
+        "drizzle-orm, drizzle-kit, @neondatabase/serverless installed — verify with bun pm ls",
+        "lib/db/index.ts exports a drizzle instance connected to NeonDB — verify by importing and calling a simple query",
+        "drizzle.config.ts points to lib/db/schema/ — verify with bunx drizzle-kit generate",
+        ".env.example contains DATABASE_URL — verify file exists"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Database",
+      "feature": "Core schema: site settings, categories, products",
+      "description": "Create Drizzle schema files in lib/db/schema/ for: siteSettings (key/value store for contact info, social links, about text), categories (id, name, slug, image, description, order), products (id, name, slug, description, price, compareAtPrice, images[], categoryId, featured, active, stock, createdAt, updatedAt). Use pgTable with proper types, indexes, and relations.",
+      "acceptance_criteria": [
+        "lib/db/schema/site-settings.ts exports siteSettings table with key, value, type columns — verify with tsc --noEmit",
+        "lib/db/schema/categories.ts exports categories table with slug uniqueness constraint — verify with tsc --noEmit",
+        "lib/db/schema/products.ts exports products table with categoryId FK, json images column — verify with tsc --noEmit",
+        "lib/db/schema/index.ts re-exports all schemas — verify with tsc --noEmit",
+        "bunx drizzle-kit generate produces valid migration SQL"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Database",
+      "feature": "Schema: promotions, announcements, messages",
+      "description": "Create schema for: promotions (id, title, description, discountType, discountValue, code, active, startsAt, endsAt), announcements (id, title, body, type, active, startsAt, endsAt, order), messages (id, name, email, phone, subject, body, read, archivedAt, createdAt). Add relations and indexes.",
+      "acceptance_criteria": [
+        "lib/db/schema/promotions.ts exports promotions table with discount fields and date range — verify with tsc --noEmit",
+        "lib/db/schema/announcements.ts exports announcements table with type enum (banner, popup, info) — verify with tsc --noEmit",
+        "lib/db/schema/messages.ts exports messages table with read boolean and archive support — verify with tsc --noEmit",
+        "All relations defined properly — verify with bunx drizzle-kit generate"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Database",
+      "feature": "Seed script with Dakar Sport data",
+      "description": "Create lib/db/seed.ts that populates the database with: site settings (name: Dakar Sport, tagline: Tout pour le Sport, phone numbers, address, email), 6+ product categories (Football, Basketball, Running, Fitness, Natation, Textile), 20+ sample products with realistic names/prices in CFA, 2 sample promotions, 1 active announcement, 3 sample messages. Script should be idempotent (upsert or truncate-then-insert).",
+      "acceptance_criteria": [
+        "bun run lib/db/seed.ts completes without error — verify by running",
+        "Site settings contain Dakar Sport contact info (phones, address, email) — verify by querying DB",
+        "At least 6 categories and 20 products seeded with CFA prices — verify by querying DB",
+        "Running seed twice does not create duplicates — verify by running twice and checking counts"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Database",
+      "feature": "Database migration and push scripts",
+      "description": "Add package.json scripts for db:generate, db:migrate, db:push, db:seed, db:studio. Verify the full migration flow works end-to-end: generate migration from schema, push to NeonDB, run seed.",
+      "acceptance_criteria": [
+        "package.json has db:generate, db:migrate, db:push, db:seed, db:studio scripts — verify with cat package.json",
+        "bun run db:generate creates migration files in drizzle/ — verify folder exists after running",
+        "bun run db:push applies schema to database — verify by connecting and listing tables",
+        "bun run db:seed populates data — verify by querying"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Auth",
+      "feature": "better-auth installation and configuration",
+      "description": "Install better-auth and configure it in lib/auth.ts. Set up with Drizzle adapter pointing to NeonDB. Configure email+password provider. Create auth schema tables (users, sessions, accounts, verifications) via better-auth's built-in schema generation. Add BETTER_AUTH_SECRET and BETTER_AUTH_URL to .env.example.",
+      "acceptance_criteria": [
+        "better-auth package installed — verify with bun pm ls",
+        "lib/auth.ts exports configured auth instance with Drizzle adapter — verify with tsc --noEmit",
+        "Auth schema tables (users, sessions, accounts) created in database — verify with bunx drizzle-kit push",
+        ".env.example includes BETTER_AUTH_SECRET and BETTER_AUTH_URL — verify file contents"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Auth",
+      "feature": "Auth API route handler",
+      "description": "Create app/api/auth/[...all]/route.ts that delegates all auth requests to better-auth's handler. This covers login, register, logout, session validation. Ensure CORS and cookie settings work in development and production.",
+      "acceptance_criteria": [
+        "app/api/auth/[...all]/route.ts exports GET and POST handlers — verify with tsc --noEmit",
+        "POST /api/auth/sign-up/email creates a new user — verify with curl or fetch",
+        "POST /api/auth/sign-in/email returns session cookie — verify with curl or fetch",
+        "GET /api/auth/get-session returns current session — verify with curl or fetch"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Auth",
+      "feature": "Auth client and React hooks",
+      "description": "Create lib/auth-client.ts using better-auth's createAuthClient for client-side usage. Create lib/auth-server.ts with getSession helper for Server Components. Build a useSession hook or integrate better-auth's built-in React hooks. Ensure typed session data is available throughout the app.",
+      "acceptance_criteria": [
+        "lib/auth-client.ts exports authClient with signIn, signUp, signOut, useSession — verify with tsc --noEmit",
+        "lib/auth-server.ts exports getSession() for server-side session access — verify with tsc --noEmit",
+        "Session includes user.id, user.email, user.name, user.role — verify with tsc --noEmit"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Auth",
+      "feature": "Admin role and route protection middleware",
+      "description": "Add role field to users (admin, user) via better-auth plugin or custom field. Create middleware.ts that protects /admin/* routes — redirects to /admin/login if no session, redirects to / if not admin role. Create a requireAdmin() server-side helper for Server Actions.",
+      "acceptance_criteria": [
+        "Users have a role field (default: 'user', admin: 'admin') — verify in DB schema",
+        "middleware.ts redirects unauthenticated users from /admin/* to /admin/login — verify by accessing /admin without session",
+        "middleware.ts redirects non-admin users from /admin/* to / — verify by accessing /admin with user role",
+        "lib/auth-server.ts exports requireAdmin() that throws if not admin — verify with tsc --noEmit"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Auth",
+      "feature": "Admin login page",
+      "description": "Create app/admin/login/page.tsx with email/password login form. Use shadcn/ui Card, Input, Button components. Show loading state during auth, display error messages in French. Redirect to /admin on success. Style with brand colors (blue primary, red accent).",
+      "acceptance_criteria": [
+        "app/admin/login/page.tsx renders a login form with email and password — verify by visiting /admin/login",
+        "Form submits via better-auth signIn and redirects to /admin on success — verify by logging in",
+        "Error messages display in French (e.g., 'Email ou mot de passe incorrect') — verify with wrong credentials",
+        "Loading spinner shown during authentication — verify visually",
+        "Page uses brand colors and Plus Jakarta Sans font — verify visually"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-API",
+      "feature": "Site settings CRUD server actions",
+      "description": "Create lib/actions/site-settings.ts with server actions: getSiteSettings(), updateSiteSetting(key, value). Settings include: siteName, tagline, phones (JSON array), email, address, socialLinks (JSON), aboutText, logoUrl, faviconUrl. All mutations require admin role. Use Zod for input validation. Return typed responses with error handling.",
+      "acceptance_criteria": [
+        "getSiteSettings() returns all settings as key-value map — verify by calling from a Server Component",
+        "updateSiteSetting() validates input with Zod and updates DB — verify by updating a value and re-reading",
+        "updateSiteSetting() rejects non-admin users — verify by calling without admin session",
+        "Zod schema rejects invalid keys — verify with invalid input"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-API",
+      "feature": "Categories CRUD server actions",
+      "description": "Create lib/actions/categories.ts with: getCategories(), getCategoryBySlug(slug), createCategory(data), updateCategory(id, data), deleteCategory(id), reorderCategories(orderedIds). Auto-generate slug from name. Validate with Zod. Include image URL field. Prevent deletion if category has products.",
+      "acceptance_criteria": [
+        "getCategories() returns all categories ordered by 'order' field — verify by calling",
+        "createCategory() generates slug, validates uniqueness, inserts row — verify by creating and querying",
+        "updateCategory() validates input, updates row — verify by updating name and checking slug",
+        "deleteCategory() fails if category has products (returns error) — verify with category that has products",
+        "reorderCategories() updates order field for each id — verify by reordering and re-reading"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-API",
+      "feature": "Products CRUD server actions",
+      "description": "Create lib/actions/products.ts with: getProducts(filters?), getProductBySlug(slug), createProduct(data), updateProduct(id, data), deleteProduct(id), toggleProductActive(id). Support filtering by category, active status, featured. Auto-generate slug. Validate prices are positive integers (CFA). Support multiple image URLs as JSON array.",
+      "acceptance_criteria": [
+        "getProducts() returns paginated products with category join — verify by calling with limit/offset",
+        "getProducts({categoryId}) filters by category — verify with specific category",
+        "createProduct() validates all fields with Zod (price > 0, name required, valid categoryId) — verify with valid and invalid data",
+        "updateProduct() updates only provided fields — verify by partial update",
+        "toggleProductActive() flips the active boolean — verify by toggling and re-reading",
+        "deleteProduct() removes product from DB — verify by deleting and confirming removal"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-API",
+      "feature": "Promotions and announcements CRUD server actions",
+      "description": "Create lib/actions/promotions.ts with: getPromotions(), createPromotion(data), updatePromotion(id, data), deletePromotion(id), togglePromotionActive(id). Create lib/actions/announcements.ts with: getAnnouncements(), createAnnouncement(data), updateAnnouncement(id, data), deleteAnnouncement(id), reorderAnnouncements(). Validate date ranges (endsAt > startsAt). Validate discount values.",
+      "acceptance_criteria": [
+        "getPromotions() returns all promotions sorted by createdAt desc — verify by calling",
+        "createPromotion() validates discount (percentage 0-100, fixed > 0) and date range — verify with invalid data",
+        "getAnnouncements() returns active announcements sorted by order — verify by calling",
+        "createAnnouncement() validates type enum (banner, popup, info) — verify with invalid type",
+        "All mutations require admin role — verify by calling without admin session"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-API",
+      "feature": "Messages management server actions",
+      "description": "Create lib/actions/messages.ts with: getMessages(filters?), getMessageById(id), markAsRead(id), archiveMessage(id), deleteMessage(id), getUnreadCount(). Support filtering by read/unread status. Return messages sorted by createdAt desc. Include sender contact info for future WhatsApp integration.",
+      "acceptance_criteria": [
+        "getMessages() returns paginated messages with newest first — verify by calling",
+        "getMessages({read: false}) returns only unread messages — verify by filtering",
+        "markAsRead() updates read to true — verify by marking and re-reading",
+        "archiveMessage() sets archivedAt timestamp — verify by archiving and checking",
+        "getUnreadCount() returns accurate count — verify by counting unread messages",
+        "deleteMessage() removes message permanently — verify by deleting"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-UI",
+      "feature": "Admin layout with sidebar navigation",
+      "description": "Create app/admin/layout.tsx with a responsive sidebar layout. Sidebar includes: logo/brand, nav links (Tableau de bord, Produits, Catégories, Promotions, Annonces, Messages, Paramètres), user info with logout button, collapsible on mobile. Use shadcn/ui Sheet for mobile, fixed sidebar for desktop. Brand colors: blue (#1E40AF) sidebar background, white text. Show unread message count badge on Messages link.",
+      "acceptance_criteria": [
+        "app/admin/layout.tsx renders sidebar + main content area — verify by visiting /admin",
+        "Sidebar shows all 7 nav links with Lucide icons — verify visually",
+        "Active link is highlighted — verify by navigating between pages",
+        "Mobile: sidebar collapses into hamburger menu using Sheet — verify at mobile viewport",
+        "Logout button calls signOut and redirects to /admin/login — verify by clicking",
+        "Messages link shows unread count badge — verify with unread messages in DB"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-UI",
+      "feature": "Admin dashboard page",
+      "description": "Create app/admin/page.tsx (dashboard) showing key metrics cards: total products, active products, total categories, unread messages, active promotions. Include a recent messages list (last 5) and quick action buttons (Ajouter un produit, Nouvelle promotion). Use shadcn/ui Card components. Data fetched via Server Components calling server actions directly.",
+      "acceptance_criteria": [
+        "Dashboard shows 5 metric cards with correct counts from DB — verify by comparing with DB data",
+        "Recent messages section shows last 5 messages with sender name, subject, date — verify visually",
+        "Quick action buttons link to /admin/products/new and /admin/promotions/new — verify navigation",
+        "Page is a Server Component (no 'use client') — verify file has no use client directive",
+        "Loading states handled with Suspense boundaries — verify by checking for Suspense wrappers"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-UI",
+      "feature": "Products management pages (list, create, edit)",
+      "description": "Create app/admin/products/page.tsx with a data table listing all products (name, category, price, stock, active status, actions). Add search/filter by category and active status. Create app/admin/products/new/page.tsx and app/admin/products/[id]/edit/page.tsx with forms using shadcn/ui (Input, Select, Textarea, Switch, Button). Form fields: name, description, price (CFA), compareAtPrice, category, images (URL inputs), featured, active. Use server actions for mutations with optimistic UI or revalidation.",
+      "acceptance_criteria": [
+        "Products list page shows all products in a table with sortable columns — verify by visiting /admin/products",
+        "Search filters products by name — verify by typing in search",
+        "Category filter dropdown filters products — verify by selecting a category",
+        "Create form validates all fields and creates product — verify by submitting valid data",
+        "Edit form pre-fills existing product data — verify by clicking edit on a product",
+        "Delete button shows confirmation dialog then deletes — verify by deleting a product",
+        "Price displayed in CFA format (e.g., 15 000 FCFA) — verify visually"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-UI",
+      "feature": "Categories, promotions, announcements management pages",
+      "description": "Create CRUD pages for categories (app/admin/categories/), promotions (app/admin/promotions/), and announcements (app/admin/announcements/). Each has a list page with table/grid and create/edit forms. Categories: drag-to-reorder or order input. Promotions: discount type toggle (percentage/fixed), date range picker, promo code field. Announcements: type selector (banner/popup/info), rich text body, date range, active toggle. All forms use shadcn/ui components and validate with Zod.",
+      "acceptance_criteria": [
+        "Categories page lists categories with reorder capability — verify by reordering",
+        "Promotions page shows active/expired status based on dates — verify visually",
+        "Announcement form has type selector with 3 options — verify by creating each type",
+        "Date range picker works for promotions and announcements — verify by selecting dates",
+        "All forms show French validation errors — verify by submitting empty forms",
+        "Successful mutations show French toast notifications — verify by creating/updating"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-UI",
+      "feature": "Messages inbox and site settings pages",
+      "description": "Create app/admin/messages/page.tsx as an inbox-style interface: list view with unread indicators, click to expand message detail, mark as read, archive, delete actions. Badge shows unread count. Create app/admin/settings/page.tsx for site settings: grouped form sections (Informations générales, Contact, Réseaux sociaux, Apparence). Each section editable inline with save button. Use optimistic updates for settings.",
+      "acceptance_criteria": [
+        "Messages page shows inbox list with unread bold styling — verify visually",
+        "Clicking a message shows full content and marks as read — verify by clicking unread message",
+        "Archive and delete actions work with confirmation — verify by archiving/deleting",
+        "Settings page shows grouped sections with current values — verify by visiting /admin/settings",
+        "Updating a setting saves immediately with success toast — verify by changing a value",
+        "Phone numbers displayed as editable list (add/remove) — verify by adding a phone number"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Storefront",
+      "feature": "Store layout with header and footer",
+      "description": "Create app/(store)/layout.tsx with a responsive header (logo, nav links: Accueil, Produits, Promotions, Contact, search icon, mobile hamburger menu) and footer (contact info, social links, copyright, quick links). Fetch site settings from DB for dynamic contact info. Brand colors: blue header, red accents, white background. Plus Jakarta Sans font. Mobile-first responsive design.",
+      "acceptance_criteria": [
+        "app/(store)/layout.tsx renders header + main + footer — verify by visiting /",
+        "Header shows logo, 4 nav links, and mobile menu — verify at desktop and mobile viewports",
+        "Footer displays phone numbers, address, email from site settings — verify matches seeded data",
+        "Mobile hamburger menu opens full nav with Sheet component — verify at mobile viewport",
+        "Active nav link highlighted with brand color — verify by navigating"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Storefront",
+      "feature": "Homepage with hero, featured products, and announcements",
+      "description": "Create app/(store)/page.tsx with: hero section (large banner with tagline 'Tout pour le Sport', CTA button 'Voir nos produits'), active announcements banner, featured products grid (8 products marked as featured), categories showcase (grid of category cards with images), and a trust/info section (phones, location, opening hours). All data from DB via Server Components.",
+      "acceptance_criteria": [
+        "Hero section shows tagline and CTA linking to /produits — verify visually",
+        "Active announcements display as banner at top of page — verify with active announcement in DB",
+        "Featured products grid shows up to 8 products with image, name, price in CFA — verify visually",
+        "Categories section shows all categories as clickable cards — verify navigation to /produits?category=slug",
+        "Page is Server Component with no 'use client' at top level — verify file contents"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Storefront",
+      "feature": "Products listing page with filters",
+      "description": "Create app/(store)/produits/page.tsx with product grid, sidebar filters (category, price range), sort options (prix croissant, décroissant, nouveautés), and search. Use URL search params for filter state (SSR-friendly). Show active product count. Each product card: image, name, price, compare-at-price strikethrough, category badge, 'Voir détails' button. Pagination or infinite scroll.",
+      "acceptance_criteria": [
+        "Product grid shows all active products — verify by visiting /produits",
+        "Category filter updates URL and filters products — verify by selecting a category",
+        "Sort by price ascending/descending works — verify by changing sort",
+        "Search filters by product name — verify by searching",
+        "Product cards show price in CFA format with strikethrough for compare-at-price — verify visually",
+        "Pagination works with page numbers — verify by navigating pages"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Storefront",
+      "feature": "Product detail page",
+      "description": "Create app/(store)/produits/[slug]/page.tsx showing full product details: image gallery (main image + thumbnails), product name, price, compare-at-price, description, category breadcrumb, stock status, WhatsApp order button (links to wa.me with pre-filled message), related products from same category. Generate metadata for SEO (title, description, OG image).",
+      "acceptance_criteria": [
+        "Product page shows all product details — verify by visiting /produits/[slug]",
+        "Image gallery shows main image with clickable thumbnails — verify with product that has multiple images",
+        "WhatsApp button links to wa.me/22177634511 with product name in message — verify link href",
+        "Related products section shows 4 products from same category — verify visually",
+        "SEO metadata generated (title, description, og:image) — verify with view-source or meta inspector",
+        "404 page shown for non-existent slug — verify with random slug"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Storefront",
+      "feature": "Contact page with message form",
+      "description": "Create app/(store)/contact/page.tsx with: contact form (name, email, phone, subject, message) submitting to createMessage server action, contact info section (address, phones, email from site settings), embedded Google Maps iframe for Avenue G. Pompidou Dakar. Form validates with Zod, shows success/error messages in French. Rate limiting consideration for spam prevention.",
+      "acceptance_criteria": [
+        "Contact page shows form and contact info side by side — verify by visiting /contact",
+        "Form validates required fields and email format — verify by submitting empty form",
+        "Successful submission creates message in DB and shows success toast in French — verify by submitting and checking DB",
+        "Contact info displays all phone numbers, address, email from site settings — verify matches seed data",
+        "Google Maps embed shows correct location — verify visually",
+        "Form resets after successful submission — verify by submitting and checking form state"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Infrastructure",
+      "feature": "Environment configuration and project dependencies",
+      "description": "Install all required dependencies: drizzle-orm, @neondatabase/serverless, drizzle-kit, better-auth, zod, lucide-react, sonner (toast notifications). Create .env.example with all required env vars (DATABASE_URL, BETTER_AUTH_SECRET, BETTER_AUTH_URL, NEXT_PUBLIC_APP_URL). Configure next.config.ts with image domains, experimental features. Update tsconfig.json path aliases if needed.",
+      "acceptance_criteria": [
+        "All dependencies installed — verify with bun pm ls",
+        ".env.example lists all required environment variables — verify file contents",
+        "next.config.ts configured with image remotePatterns — verify with tsc --noEmit",
+        "bun run build succeeds with no errors — verify by running build"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Infrastructure",
+      "feature": "Shared UI components and design system",
+      "description": "Install and configure shadcn/ui components needed across the app: Button, Input, Card, Table, Dialog, Sheet, Select, Textarea, Switch, Badge, Toast (via Sonner), DropdownMenu, Separator, Label, Form. Configure Tailwind with brand colors as CSS variables (--brand-blue, --brand-red). Set up Plus Jakarta Sans via next/font. Create a shared PageHeader component and DataTable component for admin reuse.",
+      "acceptance_criteria": [
+        "shadcn/ui components installed in components/ui/ — verify folder contents",
+        "Brand colors available as Tailwind utilities (bg-brand-blue, text-brand-red) — verify in CSS/tailwind config",
+        "Plus Jakarta Sans loaded via next/font in root layout — verify by inspecting font in browser",
+        "PageHeader component renders title, description, and optional action button — verify with tsc --noEmit",
+        "DataTable component wraps @tanstack/react-table with sorting, filtering, pagination — verify with tsc --noEmit"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Infrastructure",
+      "feature": "SEO metadata and Open Graph defaults",
+      "description": "Configure app/layout.tsx with default metadata: title template 'Page | Dakar Sport', description, Open Graph defaults (site name, locale fr_SN, type website), Twitter card. Create app/(store)/opengraph-image.tsx for dynamic OG images. Add robots.txt and sitemap.ts that dynamically lists all product and category pages. Set canonical URLs.",
+      "acceptance_criteria": [
+        "Default metadata includes title template, description, OG defaults — verify with view-source on homepage",
+        "robots.txt accessible at /robots.txt — verify by visiting URL",
+        "sitemap.xml lists homepage, /produits, /contact, all product slugs, all category pages — verify by visiting /sitemap.xml",
+        "Each page has unique title via metadata export — verify on products and contact pages"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Infrastructure",
+      "feature": "Image upload utility with local storage fallback",
+      "description": "Create lib/upload.ts with an uploadImage(file) function that stores images. For MVP, store in public/uploads/ with unique filenames. Design the interface so it can be swapped to Cloudinary/S3 later (return URL string). Create an ImageUpload React component (client component) with drag-and-drop, preview, and remove functionality for use in admin forms.",
+      "acceptance_criteria": [
+        "lib/upload.ts exports uploadImage() returning a URL string — verify with tsc --noEmit",
+        "API route app/api/upload/route.ts handles multipart form data — verify with tsc --noEmit",
+        "ImageUpload component shows drag-and-drop zone, preview, remove button — verify visually",
+        "Uploaded files saved to public/uploads/ with unique names — verify by uploading a file",
+        "Component works in product and category create/edit forms — verify by using in form"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Infrastructure",
+      "feature": "Error handling, loading states, and not-found pages",
+      "description": "Create app/not-found.tsx (global 404), app/(store)/not-found.tsx (store 404 with navigation), app/admin/not-found.tsx (admin 404). Create app/error.tsx and app/admin/error.tsx for error boundaries. Add loading.tsx files for key routes (admin/products, admin/messages, store products). All pages in French with helpful navigation links. Style consistently with brand.",
+      "acceptance_criteria": [
+        "Global 404 page shows friendly French message with link to homepage — verify by visiting /random-path",
+        "Admin 404 shows admin-styled page with link to dashboard — verify by visiting /admin/random-path",
+        "Error boundary catches runtime errors and shows retry button — verify with tsc --noEmit",
+        "Loading states show skeleton or spinner for admin product list — verify by adding artificial delay",
+        "All error/loading pages use brand styling — verify visually"
+      ],
+      "passes": false
+    }
+  ]
+}
