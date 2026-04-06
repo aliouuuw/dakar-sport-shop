@@ -142,7 +142,7 @@
         "Generate PDF button downloads quote as PDF file — verify by clicking and opening file",
         "Quote detail page shows all items with product names, quantities, prices — verify visually"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Storefront",

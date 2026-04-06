@@ -1,5 +1,6 @@
+import Link from "next/link"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Add01Icon, FileDownloadIcon } from "@hugeicons/core-free-icons"
+import { Add01Icon, FileDownloadIcon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
@@ -49,6 +50,11 @@ export default function QuotesPage() {
                 <span className="text-sm font-semibold text-slate-900 whitespace-nowrap">{quote.total}</span>
                 <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-slate-600" title="Télécharger le PDF">
                   <HugeiconsIcon icon={FileDownloadIcon} size={16} />
+                </Button>
+                <Button variant="ghost" size="icon" asChild className="h-8 w-8 text-[#1E40AF] hover:text-[#1e3a8a] hover:bg-blue-50" title="Voir les détails">
+                  <Link href={`/admin/quotes/${quote.id}`}>
+                    <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
+                  </Link>
                 </Button>
               </div>
             </div>
