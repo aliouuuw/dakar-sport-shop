@@ -17,7 +17,7 @@
         "Mobile responsive layouts sketched for key pages — verify with design document",
         "Design approved by team before implementation begins — verify with sign-off"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Design",
