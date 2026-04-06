@@ -1,10 +1,14 @@
+"use client"
+
+import { useState } from "react"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Add01Icon, Calendar01Icon, DiscountTag01Icon, Edit01Icon, PercentIcon } from "@hugeicons/core-free-icons"
+import { Add01Icon, Calendar01Icon, DiscountTag01Icon, Edit01Icon, PercentIcon, ListViewIcon, GridViewIcon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 
 const promotions = [
   { title: "Promo rentrée", code: "RENTREE20", type: "Pourcentage", value: "20%", status: "Active", range: "01 Avr - 30 Avr" },
@@ -13,6 +17,8 @@ const promotions = [
 ] as const
 
 export default function PromotionsPage() {
+  const [viewMode, setViewMode] = useState<"list" | "grid">("list")
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
@@ -57,22 +63,64 @@ export default function PromotionsPage() {
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[1.35fr_0.95fr]">
-        <Card className="border-slate-200 shadow-none rounded-xl">
+        <Card className="border-slate-200 shadow-none rounded-xl h-fit">
           <CardHeader className="border-b border-slate-100 pb-4">
-            <CardTitle className="flex items-center gap-2 text-lg text-slate-900">
-              <HugeiconsIcon icon={DiscountTag01Icon} size={18} className="text-[#1E40AF]" />
-              Liste des promotions
-            </CardTitle>
-            <CardDescription>Consultez et gérez vos promotions actives, à venir et expirées.</CardDescription>
+            <div className="flex items-center justify-between">
+              <CardTitle className="flex items-center gap-2 text-lg text-slate-900">
+                <HugeiconsIcon icon={DiscountTag01Icon} size={18} className="text-[#1E40AF]" />
+                Liste des promotions
+              </CardTitle>
+              <ToggleGroup type="single" value={viewMode} onValueChange={(v) => v && setViewMode(v as "list" | "grid")} className="justify-end">
+                <ToggleGroupItem value="list" aria-label="Vue liste" className="h-8 px-2 data-[state=on]:bg-slate-100">
+                  <HugeiconsIcon icon={ListViewIcon} size={16} />
+                </ToggleGroupItem>
+                <ToggleGroupItem value="grid" aria-label="Vue grille" className="h-8 px-2 data-[state=on]:bg-slate-100">
+                  <HugeiconsIcon icon={GridViewIcon} size={16} />
+                </ToggleGroupItem>
+              </ToggleGroup>
+            </div>
+            <CardDescription className="mt-1">Consultez et gérez vos promotions actives, à venir et expirées.</CardDescription>
           </CardHeader>
           <CardContent className="p-0">
-            <div className="divide-y divide-slate-100">
-              {promotions.map((promotion) => (
-                <div key={promotion.code} className="flex items-center justify-between gap-4 px-6 py-4 hover:bg-slate-50/60 transition-colors">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium text-slate-900">{promotion.title}</span>
-                      <Badge className={`h-5 rounded-md px-2 text-[10px] font-semibold border-none ${
+            {viewMode === "list" ? (
+              <div className="divide-y divide-slate-100">
+                {promotions.map((promotion) => (
+                  <div key={promotion.code} className="flex items-center justify-between gap-4 px-6 py-4 hover:bg-slate-50/60 transition-colors">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium text-slate-900">{promotion.title}</span>
+                        <Badge className={`h-5 rounded-md px-2 text-[10px] font-semibold border-none ${
+                          promotion.status === "Active"
+                            ? "bg-green-100 text-green-700"
+                            : promotion.status === "Bientôt"
+                              ? "bg-amber-100 text-amber-700"
+                              : "bg-slate-100 text-slate-600"
+                        }`}>
+                          {promotion.status}
+                        </Badge>
+                      </div>
+                      <div className="mt-1 text-xs text-slate-500">
+                        {promotion.code} · {promotion.type} · {promotion.range}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm font-semibold text-slate-900">{promotion.value}</span>
+                      <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-[#1E40AF]">
+                        <HugeiconsIcon icon={Edit01Icon} size={16} />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-slate-50/30">
+                {promotions.map((promotion) => (
+                  <div key={promotion.code} className="group relative flex flex-col rounded-xl border border-slate-200 bg-white p-5 hover:border-[#1E40AF]/30 hover:shadow-sm transition-all">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-slate-900 line-clamp-1">{promotion.title}</span>
+                      </div>
+                      <Badge className={`h-5 rounded-md px-2 text-[10px] font-semibold border-none shrink-0 ${
                         promotion.status === "Active"
                           ? "bg-green-100 text-green-700"
                           : promotion.status === "Bientôt"
@@ -82,23 +130,25 @@ export default function PromotionsPage() {
                         {promotion.status}
                       </Badge>
                     </div>
-                    <div className="mt-1 text-xs text-slate-500">
-                      {promotion.code} · {promotion.type} · {promotion.range}
+                    <div className="text-xs text-slate-500 mb-1">Code: <span className="font-medium text-slate-700">{promotion.code}</span></div>
+                    <div className="text-xs text-slate-500 mb-4">Période: {promotion.range}</div>
+                    <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-100">
+                      <div className="flex flex-col">
+                        <span className="text-[10px] uppercase tracking-wide text-slate-400">{promotion.type}</span>
+                        <span className="font-bold text-slate-900">{promotion.value}</span>
+                      </div>
+                      <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 opacity-0 group-hover:opacity-100 hover:text-[#1E40AF] transition-opacity">
+                        <HugeiconsIcon icon={Edit01Icon} size={16} />
+                      </Button>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-semibold text-slate-900">{promotion.value}</span>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-[#1E40AF]">
-                      <HugeiconsIcon icon={Edit01Icon} size={16} />
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
 
-        <Card className="border-slate-200 shadow-none rounded-xl">
+        <Card className="border-slate-200 shadow-none rounded-xl h-fit">
           <CardHeader className="border-b border-slate-100 pb-4">
             <CardTitle className="text-lg text-slate-900">Formulaire promotion</CardTitle>
             <CardDescription>Créez ou modifiez une promotion avec son type, sa valeur, son code et ses dates.</CardDescription>

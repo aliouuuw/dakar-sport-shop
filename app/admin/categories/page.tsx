@@ -1,9 +1,13 @@
+"use client"
+
+import { useState } from "react"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Add01Icon, ArrowDown01Icon, ArrowUp01Icon, Edit01Icon, GridIcon } from "@hugeicons/core-free-icons"
+import { Add01Icon, ArrowDown01Icon, ArrowUp01Icon, Edit01Icon, GridIcon, ListViewIcon, GridViewIcon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 
 const categories = [
   { name: "Football", slug: "football", products: 32, order: 1, active: true },
@@ -13,6 +17,8 @@ const categories = [
 ] as const
 
 export default function CategoriesPage() {
+  const [viewMode, setViewMode] = useState<"list" | "grid">("list")
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
@@ -27,45 +33,87 @@ export default function CategoriesPage() {
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[1.4fr_0.9fr]">
-        <Card className="border-slate-200 shadow-none rounded-xl">
+        <Card className="border-slate-200 shadow-none rounded-xl h-fit">
           <CardHeader className="border-b border-slate-100 pb-4">
-            <CardTitle className="flex items-center gap-2 text-lg text-slate-900">
-              <HugeiconsIcon icon={GridIcon} size={18} className="text-[#1E40AF]" />
-              Liste des catégories
-            </CardTitle>
-            <CardDescription>Réordonnez les catégories pour contrôler leur ordre d'apparition sur le storefront.</CardDescription>
+            <div className="flex items-center justify-between">
+              <CardTitle className="flex items-center gap-2 text-lg text-slate-900">
+                <HugeiconsIcon icon={GridIcon} size={18} className="text-[#1E40AF]" />
+                Liste des catégories
+              </CardTitle>
+              <ToggleGroup type="single" value={viewMode} onValueChange={(v) => v && setViewMode(v as "list" | "grid")} className="justify-end">
+                <ToggleGroupItem value="list" aria-label="Vue liste" className="h-8 px-2 data-[state=on]:bg-slate-100">
+                  <HugeiconsIcon icon={ListViewIcon} size={16} />
+                </ToggleGroupItem>
+                <ToggleGroupItem value="grid" aria-label="Vue grille" className="h-8 px-2 data-[state=on]:bg-slate-100">
+                  <HugeiconsIcon icon={GridViewIcon} size={16} />
+                </ToggleGroupItem>
+              </ToggleGroup>
+            </div>
+            <CardDescription className="mt-1">Réordonnez les catégories pour contrôler leur ordre d'apparition sur le storefront.</CardDescription>
           </CardHeader>
           <CardContent className="p-0">
-            <div className="divide-y divide-slate-100">
-              {categories.map((category) => (
-                <div key={category.slug} className="flex items-center justify-between gap-4 px-6 py-4 hover:bg-slate-50/60 transition-colors">
-                  <div>
+            {viewMode === "list" ? (
+              <div className="divide-y divide-slate-100">
+                {categories.map((category) => (
+                  <div key={category.slug} className="flex items-center justify-between gap-4 px-6 py-4 hover:bg-slate-50/60 transition-colors">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium text-slate-900">{category.name}</span>
+                        <Badge variant="secondary" className="h-5 rounded-md bg-blue-100 px-1.5 text-[10px] font-semibold text-[#1E40AF] border-none">
+                          {category.products} produits
+                        </Badge>
+                      </div>
+                      <div className="mt-1 text-xs text-slate-500">/{category.slug} · Ordre {category.order}</div>
+                    </div>
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-slate-900">{category.name}</span>
-                      <Badge variant="secondary" className="h-5 rounded-md bg-blue-100 px-1.5 text-[10px] font-semibold text-[#1E40AF] border-none">
-                        {category.products} produits
+                      <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-slate-700">
+                        <HugeiconsIcon icon={ArrowUp01Icon} size={16} />
+                      </Button>
+                      <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-slate-700">
+                        <HugeiconsIcon icon={ArrowDown01Icon} size={16} />
+                      </Button>
+                      <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-[#1E40AF]">
+                        <HugeiconsIcon icon={Edit01Icon} size={16} />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-slate-50/30">
+                {categories.map((category) => (
+                  <div key={category.slug} className="group relative flex flex-col rounded-xl border border-slate-200 bg-white p-5 hover:border-[#1E40AF]/30 hover:shadow-sm transition-all">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-slate-900">{category.name}</span>
+                      </div>
+                      <Badge variant="secondary" className="h-5 rounded-md bg-blue-100 px-2 text-[10px] font-semibold text-[#1E40AF] border-none">
+                        {category.products} prods
                       </Badge>
                     </div>
-                    <div className="mt-1 text-xs text-slate-500">/{category.slug} · Ordre {category.order}</div>
+                    <div className="text-xs text-slate-500 mb-4">/{category.slug}</div>
+                    <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-100">
+                      <div className="text-xs font-medium text-slate-400">Ordre: {category.order}</div>
+                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Button variant="ghost" size="icon" className="h-7 w-7 text-slate-400 hover:text-slate-700">
+                          <HugeiconsIcon icon={ArrowUp01Icon} size={14} />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-7 w-7 text-slate-400 hover:text-slate-700">
+                          <HugeiconsIcon icon={ArrowDown01Icon} size={14} />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-7 w-7 text-slate-400 hover:text-[#1E40AF]">
+                          <HugeiconsIcon icon={Edit01Icon} size={14} />
+                        </Button>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-slate-700">
-                      <HugeiconsIcon icon={ArrowUp01Icon} size={16} />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-slate-700">
-                      <HugeiconsIcon icon={ArrowDown01Icon} size={16} />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-[#1E40AF]">
-                      <HugeiconsIcon icon={Edit01Icon} size={16} />
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
 
-        <Card className="border-slate-200 shadow-none rounded-xl">
+        <Card className="border-slate-200 shadow-none rounded-xl h-fit">
           <CardHeader className="border-b border-slate-100 pb-4">
             <CardTitle className="text-lg text-slate-900">Édition rapide</CardTitle>
             <CardDescription>Créez ou modifiez une catégorie et définissez son ordre d'affichage.</CardDescription>
