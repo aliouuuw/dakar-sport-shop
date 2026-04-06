@@ -1,5 +1,4 @@
-"use client"
-
+import Link from "next/link"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   ShoppingBag01Icon,
@@ -12,10 +11,8 @@ import {
   MoreVerticalIcon
 } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
-// MOCK DATA
 const metrics = [
   { label: "Total Produits", value: "142", icon: ShoppingBag01Icon },
   { label: "Produits Actifs", value: "128", icon: CheckmarkBadge01Icon },
@@ -32,7 +29,7 @@ const recentMessages = [
   { id: 5, name: "Cheikh Ba", subject: "Partenariat", date: "04 Avr", unread: false },
 ]
 
-export default function AdminDashboardPage() {
+export default async function AdminDashboardPage() {
   return (
     <div className="flex flex-col gap-8 pb-12">
       {/* HEADER */}
@@ -44,18 +41,21 @@ export default function AdminDashboardPage() {
           </p>
         </div>
         <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
-          <Button variant="outline" className="border-slate-200 bg-white text-slate-700 hover:bg-slate-50">
-            <HugeiconsIcon icon={PercentIcon} size={18} className="mr-2" />
-            Nouvelle promotion
+          <Button variant="outline" asChild className="border-slate-200 bg-white text-slate-700 hover:bg-slate-50">
+            <Link href="/admin/promotions">
+              <HugeiconsIcon icon={PercentIcon} size={18} className="mr-2" />
+              Nouvelle promotion
+            </Link>
           </Button>
-          <Button className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a] shadow-none">
-            <HugeiconsIcon icon={Add01Icon} size={18} className="mr-2" />
-            Ajouter un produit
+          <Button asChild className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a] shadow-none">
+            <Link href="/admin/products/new">
+              <HugeiconsIcon icon={Add01Icon} size={18} className="mr-2" />
+              Ajouter un produit
+            </Link>
           </Button>
         </div>
       </div>
 
-      {/* METRICS GRID - Flat, high-density, sharp borders */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
         {metrics.map((metric, i) => (
           <div 
@@ -83,15 +83,12 @@ export default function AdminDashboardPage() {
         ))}
       </div>
 
-      {/* SPLIT CONTENT AREA */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        
-        {/* RECENT MESSAGES (Takes 2/3 width) */}
         <div className="col-span-1 flex flex-col gap-4 lg:col-span-2">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-slate-900">Messages récents</h2>
-            <Button variant="ghost" size="sm" className="text-[#1E40AF] hover:text-[#1e3a8a] hover:bg-blue-50">
-              Voir tout <HugeiconsIcon icon={ArrowRight01Icon} size={16} className="ml-1" />
+            <Button variant="ghost" size="sm" asChild className="text-[#1E40AF] hover:text-[#1e3a8a] hover:bg-blue-50">
+              <Link href="/admin/messages">Voir tout <HugeiconsIcon icon={ArrowRight01Icon} size={16} className="ml-1" /></Link>
             </Button>
           </div>
           
@@ -129,28 +126,23 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* QUICK ACTIONS / SIDE (Takes 1/3 width) */}
         <div className="col-span-1 flex flex-col gap-4">
           <h2 className="text-lg font-semibold text-slate-900">Actions rapides</h2>
           
           <div className="flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-4">
-            <Button variant="ghost" className="w-full justify-start text-slate-700 hover:bg-slate-50 hover:text-[#1E40AF]">
-              <HugeiconsIcon icon={Add01Icon} size={18} className="mr-3 text-slate-400" />
-              Créer une annonce
+            <Button variant="ghost" asChild className="w-full justify-start text-slate-700 hover:bg-slate-50 hover:text-[#1E40AF]">
+              <Link href="/admin/announcements"><HugeiconsIcon icon={Add01Icon} size={18} className="mr-3 text-slate-400" />Créer une annonce</Link>
             </Button>
             <div className="h-px bg-slate-100 w-full" />
-            <Button variant="ghost" className="w-full justify-start text-slate-700 hover:bg-slate-50 hover:text-[#1E40AF]">
-              <HugeiconsIcon icon={ShoppingBag01Icon} size={18} className="mr-3 text-slate-400" />
-              Gérer le stock
+            <Button variant="ghost" asChild className="w-full justify-start text-slate-700 hover:bg-slate-50 hover:text-[#1E40AF]">
+              <Link href="/admin/products"><HugeiconsIcon icon={ShoppingBag01Icon} size={18} className="mr-3 text-slate-400" />Gérer les produits</Link>
             </Button>
             <div className="h-px bg-slate-100 w-full" />
-            <Button variant="ghost" className="w-full justify-start text-slate-700 hover:bg-slate-50 hover:text-[#1E40AF]">
-              <HugeiconsIcon icon={GridIcon} size={18} className="mr-3 text-slate-400" />
-              Modifier les catégories
+            <Button variant="ghost" asChild className="w-full justify-start text-slate-700 hover:bg-slate-50 hover:text-[#1E40AF]">
+              <Link href="/admin/categories"><HugeiconsIcon icon={GridIcon} size={18} className="mr-3 text-slate-400" />Modifier les catégories</Link>
             </Button>
           </div>
 
-          {/* Quick info card */}
           <div className="mt-4 rounded-xl bg-slate-900 p-5 text-white">
             <h3 className="text-sm font-medium text-slate-300">Astuce du jour</h3>
             <p className="mt-2 text-sm leading-relaxed text-slate-100">

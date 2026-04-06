@@ -61,7 +61,7 @@ export default function AnnouncementsPage() {
               <HugeiconsIcon icon={Notification01Icon} size={18} className="text-[#1E40AF]" />
               Liste des annonces
             </CardTitle>
-            <CardDescription>Vue mockée avec type, statut, et période de diffusion.</CardDescription>
+            <CardDescription>Consultez et gérez vos annonces actives, programmées et archivées.</CardDescription>
           </CardHeader>
           <CardContent className="p-0">
             <div className="divide-y divide-slate-100">
@@ -96,7 +96,7 @@ export default function AnnouncementsPage() {
         <Card className="border-slate-200 shadow-none rounded-xl">
           <CardHeader className="border-b border-slate-100 pb-4">
             <CardTitle className="text-lg text-slate-900">Éditeur d'annonce</CardTitle>
-            <CardDescription>Mock du formulaire avec type, contenu et plage de dates.</CardDescription>
+            <CardDescription>Créez ou modifiez une annonce avec son type, son contenu et sa période de diffusion.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 pt-4">
             <div>

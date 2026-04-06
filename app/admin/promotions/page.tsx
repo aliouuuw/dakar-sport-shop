@@ -61,7 +61,7 @@ export default function PromotionsPage() {
               <HugeiconsIcon icon={DiscountTag01Icon} size={18} className="text-[#1E40AF]" />
               Liste des promotions
             </CardTitle>
-            <CardDescription>Vue mockée avec statut, code promo, type de réduction et plage de dates.</CardDescription>
+            <CardDescription>Consultez et gérez vos promotions actives, à venir et expirées.</CardDescription>
           </CardHeader>
           <CardContent className="p-0">
             <div className="divide-y divide-slate-100">
@@ -99,7 +99,7 @@ export default function PromotionsPage() {
         <Card className="border-slate-200 shadow-none rounded-xl">
           <CardHeader className="border-b border-slate-100 pb-4">
             <CardTitle className="text-lg text-slate-900">Formulaire promotion</CardTitle>
-            <CardDescription>Mock d'un formulaire avec type, valeur, code et dates.</CardDescription>
+            <CardDescription>Créez ou modifiez une promotion avec son type, sa valeur, son code et ses dates.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 pt-4">
             <div>

@@ -70,7 +70,7 @@
         "Page is a Server Component (no 'use client') — verify file has no use client directive",
         "Loading states handled with Suspense boundaries — verify by checking for Suspense wrappers"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Admin-UI",
@@ -85,7 +85,7 @@
         "Delete button shows confirmation dialog then deletes — verify by deleting a product",
         "Price displayed in CFA format (e.g., 15 000 FCFA) — verify visually"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Admin-UI",

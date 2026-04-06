@@ -32,7 +32,7 @@ export default function CategoriesPage() {
               <HugeiconsIcon icon={GridIcon} size={18} className="text-[#1E40AF]" />
               Liste des catégories
             </CardTitle>
-            <CardDescription>Réordonnez les catégories avant de les publier sur le storefront.</CardDescription>
+            <CardDescription>Réordonnez les catégories pour contrôler leur ordre d'apparition sur le storefront.</CardDescription>
           </CardHeader>
           <CardContent className="p-0">
             <div className="divide-y divide-slate-100">
@@ -67,7 +67,7 @@ export default function CategoriesPage() {
         <Card className="border-slate-200 shadow-none rounded-xl">
           <CardHeader className="border-b border-slate-100 pb-4">
             <CardTitle className="text-lg text-slate-900">Édition rapide</CardTitle>
-            <CardDescription>Mock de formulaire de création / édition avec ordre de catégorie.</CardDescription>
+            <CardDescription>Créez ou modifiez une catégorie et définissez son ordre d'affichage.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 pt-4">
             <div>
