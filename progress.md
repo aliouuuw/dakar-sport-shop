@@ -54,3 +54,22 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 * **Result:** Success — `docs/design/storefront-wireframes.md` created with 5 pages, 3 user flows, responsive strategy, product card specs
 
 ---
+
+## Working on: Design system and component specs
+
+* **Status:** In Progress
+* **Started:** 2026-04-06 18:40
+* **Task:** Create detailed component specs for 12+ reusable components with all states, spacing scale, color tokens, typography scale, and interaction patterns
+* **Plan:**
+  - Create `docs/design/design-system.md`
+  - Document 12+ components: Button, Input, Select, Textarea, Card, Table, Modal/Dialog, Toast, Badge, Switch, Sidebar NavItem, DateRangePicker + composite components
+  - Each component: props/variants, states (default, hover, active, disabled, loading), Tailwind classes
+  - Spacing scale (4px grid), shadow definitions
+  - Semantic color tokens (primary, secondary, danger, success, warning)
+  - Typography scale (h1-h6, body, caption, metric)
+  - Interaction patterns (hover, focus, disabled)
+* **Files:** `docs/design/design-system.md`
+* **Verification:** File exists with 12+ components, spacing scale, color tokens, typography scale, interaction specs
+* **Result:** Success — `docs/design/design-system.md` created with 17 components, 4px spacing scale, semantic color tokens, typography scale, interaction patterns, icon catalog
+
+---

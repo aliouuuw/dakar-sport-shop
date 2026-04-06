@@ -43,7 +43,7 @@
         "Typography scale defined (h1-h6, body, caption) — verify with design document",
         "Interaction patterns documented (hover, focus, disabled states) — verify with design spec"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database",
