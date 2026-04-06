@@ -50,22 +50,28 @@ export function AdminSidebar({ unreadCount = 0, onNavigate }: AdminSidebarProps)
   }
 
   return (
-    <div className="flex h-full flex-col bg-[#1E3A5F]">
+    <div className="flex h-full flex-col bg-[#1E40AF] text-white">
       {/* Logo */}
-      <div className="flex h-16 items-center px-6 border-b border-white/8">
+      <div className="flex h-16 shrink-0 items-center px-6">
         <Link
           href="/admin"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 transition-opacity hover:opacity-90"
           onClick={onNavigate}
         >
-          <span className="text-lg font-bold text-white font-heading">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-[#1E40AF] shadow-sm">
+            <span className="font-heading text-lg font-bold leading-none tracking-tight">D</span>
+          </div>
+          <span className="font-heading text-lg font-bold tracking-tight">
             Dakar Sport
           </span>
         </Link>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
+      <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-1 scrollbar-hide">
+        <div className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-blue-200/60">
+          Menu Principal
+        </div>
         {navItems.map((item) => {
           const active = isActive(item.href)
           return (
@@ -74,20 +80,26 @@ export function AdminSidebar({ unreadCount = 0, onNavigate }: AdminSidebarProps)
               href={item.href}
               onClick={onNavigate}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
                 active
-                  ? "border-l-[3px] border-blue-400 bg-blue-500/10 text-white"
-                  : "border-l-[3px] border-transparent text-slate-300 hover:bg-white/5 hover:text-white"
+                  ? "bg-white text-[#1E40AF] shadow-sm"
+                  : "text-blue-100/80 hover:bg-white/10 hover:text-white"
               )}
             >
               <HugeiconsIcon
                 icon={item.icon}
-                size={20}
-                className={cn(active ? "text-white" : "text-slate-400")}
+                size={18}
+                className={cn(
+                  "transition-colors",
+                  active ? "text-[#1E40AF]" : "text-blue-200/80 group-hover:text-white"
+                )}
               />
               <span className="flex-1">{item.label}</span>
               {"badge" in item && item.badge && unreadCount > 0 && (
-                <Badge className="h-[18px] min-w-[18px] rounded-full bg-red-600 px-1.5 text-[10px] text-white border-none">
+                <Badge className={cn(
+                  "h-5 min-w-[20px] rounded-full px-1.5 text-[10px] font-bold border-none transition-colors",
+                  active ? "bg-[#DC2626] text-white" : "bg-[#DC2626] text-white"
+                )}>
                   {unreadCount > 99 ? "99+" : unreadCount}
                 </Badge>
               )}
@@ -97,8 +109,10 @@ export function AdminSidebar({ unreadCount = 0, onNavigate }: AdminSidebarProps)
       </nav>
 
       {/* Bottom nav */}
-      <div className="px-3 pb-2">
-        <Separator className="mb-2 bg-white/8" />
+      <div className="px-4 pb-4">
+        <div className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-blue-200/60">
+          Système
+        </div>
         {bottomNavItems.map((item) => {
           const active = isActive(item.href)
           return (
@@ -107,16 +121,19 @@ export function AdminSidebar({ unreadCount = 0, onNavigate }: AdminSidebarProps)
               href={item.href}
               onClick={onNavigate}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
                 active
-                  ? "border-l-[3px] border-blue-400 bg-blue-500/10 text-white"
-                  : "border-l-[3px] border-transparent text-slate-300 hover:bg-white/5 hover:text-white"
+                  ? "bg-white text-[#1E40AF] shadow-sm"
+                  : "text-blue-100/80 hover:bg-white/10 hover:text-white"
               )}
             >
               <HugeiconsIcon
                 icon={item.icon}
-                size={20}
-                className={cn(active ? "text-white" : "text-slate-400")}
+                size={18}
+                className={cn(
+                  "transition-colors",
+                  active ? "text-[#1E40AF]" : "text-blue-200/80 group-hover:text-white"
+                )}
               />
               <span>{item.label}</span>
             </Link>
@@ -125,20 +142,20 @@ export function AdminSidebar({ unreadCount = 0, onNavigate }: AdminSidebarProps)
       </div>
 
       {/* User section */}
-      <div className="border-t border-white/8 px-3 py-3">
-        <div className="flex items-center gap-3 px-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/20 text-sm font-medium text-blue-300">
+      <div className="border-t border-white/10 p-4">
+        <div className="flex items-center gap-3 rounded-xl bg-black/10 p-3 backdrop-blur-sm">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20 text-sm font-bold text-white shadow-inner">
             A
           </div>
           <div className="flex-1 min-w-0">
-            <p className="truncate text-sm font-medium text-white">Admin</p>
-            <p className="truncate text-xs text-slate-400">admin@dakarsport.sn</p>
+            <p className="truncate text-sm font-semibold text-white">Admin</p>
+            <p className="truncate text-xs text-blue-200/80">admin@dakarsport.sn</p>
           </div>
           <button
             onClick={() => {
               // TODO: call signOut() once auth is set up
             }}
-            className="rounded-lg p-1.5 text-slate-400 hover:bg-white/5 hover:text-white transition-colors"
+            className="rounded-lg p-2 text-blue-200/80 transition-colors hover:bg-white/20 hover:text-white"
             title="Déconnexion"
           >
             <HugeiconsIcon icon={Logout01Icon} size={18} />
