@@ -57,7 +57,7 @@
         "Logout button calls signOut and redirects to /admin/login — verify by clicking",
         "Messages link shows unread count badge — verify with unread messages in DB"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Admin-UI",

@@ -81,3 +81,26 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 * **Result:** Success — `docs/design/design-system.md` created with 17 components, 4px spacing scale, semantic color tokens, typography scale, interaction patterns, icon catalog
 
 ---
+
+## Working on: Admin layout with sidebar navigation
+
+* **Status:** In Progress
+* **Started:** 2026-04-06 20:14
+* **Task:** Create app/admin/layout.tsx with responsive sidebar layout (fixed desktop, Sheet mobile)
+* **Plan:**
+  - Install shadcn/ui components: Sheet, Badge, Button, Separator, Tooltip
+  - Create `app/admin/components/admin-sidebar.tsx` — client component with nav items, HugeIcons, active link highlight, unread badge
+  - Create `app/admin/components/admin-mobile-header.tsx` — client component with hamburger menu triggering Sheet
+  - Create `app/admin/layout.tsx` — server component wrapping sidebar + main content
+  - Create `app/admin/page.tsx` — placeholder dashboard page
+  - Sidebar: 240px fixed, deep navy (#1E3A5F) bg, 9 nav links with HugeIcons, user section at bottom
+  - Mobile: hamburger in top bar, Sheet from left
+* **Files:** `app/admin/layout.tsx`, `app/admin/components/admin-sidebar.tsx`, `app/admin/components/admin-mobile-header.tsx`, `app/admin/page.tsx`, shadcn components
+* **Verification:** `bunx tsc --noEmit` passes, visually verify at /admin
+* **Result:** Success — Admin layout created with:
+  - `app/admin/layout.tsx` — server component, fixed 240px sidebar (desktop), mobile header
+  - `app/admin/components/admin-sidebar.tsx` — 9 nav links + settings, HugeIcons, active highlight (border-l + bg), unread badge on Messages, user section with logout
+  - `app/admin/components/admin-mobile-header.tsx` — hamburger button triggers Sheet from left
+  - `app/admin/page.tsx` — placeholder dashboard
+  - shadcn/ui components installed: Sheet, Badge, Button, Separator, Tooltip
+  - Sidebar: deep navy (#1E3A5F), slate-300 text, white active, blue-400 active border, red-600 badge
