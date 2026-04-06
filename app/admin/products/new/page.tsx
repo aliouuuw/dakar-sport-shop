@@ -3,6 +3,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowLeft01Icon, SaveIcon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Switch } from "@/components/ui/switch"
 
 export default async function NewProductPage() {
   return (
@@ -120,13 +121,7 @@ export default async function NewProductPage() {
                   <p className="text-sm font-medium text-slate-700">Produit actif</p>
                   <p className="text-xs text-slate-400">Visible sur le storefront</p>
                 </div>
-                <button
-                  role="switch"
-                  aria-checked="true"
-                  className="relative inline-flex h-5 w-9 items-center rounded-full bg-[#1E40AF] transition-colors"
-                >
-                  <span className="inline-block h-4 w-4 translate-x-4 transform rounded-full bg-white shadow transition-transform" />
-                </button>
+                <Switch defaultChecked />
               </div>
               <div className="h-px bg-slate-100" />
               <div className="flex items-center justify-between">
@@ -134,13 +129,7 @@ export default async function NewProductPage() {
                   <p className="text-sm font-medium text-slate-700">Mis en avant</p>
                   <p className="text-xs text-slate-400">Affiché sur la page d'accueil</p>
                 </div>
-                <button
-                  role="switch"
-                  aria-checked="false"
-                  className="relative inline-flex h-5 w-9 items-center rounded-full bg-slate-200 transition-colors"
-                >
-                  <span className="inline-block h-4 w-4 translate-x-0.5 transform rounded-full bg-white shadow transition-transform" />
-                </button>
+                <Switch />
               </div>
             </CardContent>
           </Card>

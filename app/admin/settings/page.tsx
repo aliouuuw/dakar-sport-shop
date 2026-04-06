@@ -2,6 +2,8 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { SaveIcon, Store01Icon, Call02Icon, Share01Icon, PaintBoardIcon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 
 export default function SettingsPage() {
   return (
@@ -30,26 +32,18 @@ export default function SettingsPage() {
           <CardContent className="space-y-4 pt-6">
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Nom de la boutique</label>
-              <input
-                type="text"
-                defaultValue="Dakar Sport"
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
-              />
+              <Input defaultValue="Dakar Sport" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Slogan (Tagline)</label>
-              <input
-                type="text"
-                defaultValue="Tout pour le Sport"
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
-              />
+              <Input defaultValue="Tout pour le Sport" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Description SEO</label>
-              <textarea
+              <Textarea
                 rows={3}
                 defaultValue="Boutique d'équipements sportifs à Dakar. Spécialiste en football et clubs associatifs."
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20 resize-none"
+                className="resize-none"
               />
             </div>
           </CardContent>
@@ -67,18 +61,14 @@ export default function SettingsPage() {
           <CardContent className="space-y-4 pt-6">
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Email de contact</label>
-              <input
-                type="email"
-                defaultValue="promosportsdakar@yahoo.fr"
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
-              />
+              <Input type="email" defaultValue="promosportsdakar@yahoo.fr" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Adresse physique</label>
-              <textarea
+              <Textarea
                 rows={2}
                 defaultValue="Avenue G. Pompidou en face Restaurant Ali baba, Dakar, Senegal"
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20 resize-none"
+                className="resize-none"
               />
             </div>
             <div>
@@ -87,9 +77,9 @@ export default function SettingsPage() {
                 <Button variant="ghost" size="sm" className="h-6 px-2 text-xs text-[#1E40AF]">Ajouter</Button>
               </div>
               <div className="space-y-2">
-                <input type="text" defaultValue="+221 33 840 09 45" className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" />
-                <input type="text" defaultValue="+221 77 634 51 15" className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" />
-                <input type="text" defaultValue="+221 77 041 49 30" className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" />
+                <Input defaultValue="+221 33 840 09 45" />
+                <Input defaultValue="+221 77 634 51 15" />
+                <Input defaultValue="+221 77 041 49 30" />
               </div>
             </div>
           </CardContent>
@@ -107,27 +97,15 @@ export default function SettingsPage() {
           <CardContent className="space-y-4 pt-6">
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Facebook</label>
-              <input
-                type="url"
-                placeholder="https://facebook.com/..."
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
-              />
+              <Input type="url" placeholder="https://facebook.com/..." />
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Instagram</label>
-              <input
-                type="url"
-                placeholder="https://instagram.com/..."
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
-              />
+              <Input type="url" placeholder="https://instagram.com/..." />
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">WhatsApp (Numéro business)</label>
-              <input
-                type="text"
-                defaultValue="+221 77 634 51 15"
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
-              />
+              <Input defaultValue="+221 77 634 51 15" />
             </div>
           </CardContent>
         </Card>

@@ -3,6 +3,9 @@ import { Add01Icon, Notification01Icon, Calendar01Icon, Edit01Icon, MessageNotif
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
 
 const announcements = [
   { title: "Nouvelle collection disponible", type: "Banner", status: "Active", range: "01 Avr - 15 Avr" },
@@ -101,28 +104,33 @@ export default function AnnouncementsPage() {
           <CardContent className="space-y-4 pt-4">
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Titre</label>
-              <input className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" defaultValue="Nouvelle collection disponible" />
+              <Input defaultValue="Nouvelle collection disponible" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Type</label>
-              <select className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" defaultValue="Banner">
-                <option>Banner</option>
-                <option>Popup</option>
-                <option>Info</option>
-              </select>
+              <Select defaultValue="Banner">
+                <SelectTrigger>
+                  <SelectValue placeholder="Sélectionner le type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Banner">Banner</SelectItem>
+                  <SelectItem value="Popup">Popup</SelectItem>
+                  <SelectItem value="Info">Info</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Contenu</label>
-              <textarea className="min-h-32 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" defaultValue="Annonce promotionnelle destinée à la page d'accueil et aux visiteurs récurrents." />
+              <Textarea className="min-h-[128px] resize-none" defaultValue="Annonce promotionnelle destinée à la page d'accueil et aux visiteurs récurrents." />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="mb-1 block text-sm font-medium text-slate-700">Début</label>
-                <input type="date" className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" />
+                <Input type="date" />
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium text-slate-700">Fin</label>
-                <input type="date" className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" />
+                <Input type="date" />
               </div>
             </div>
             <Button className="w-full bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">Enregistrer l'annonce</Button>

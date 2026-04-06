@@ -1,8 +1,9 @@
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Add01Icon, ArrowDown01Icon, ArrowUp01Icon, Edit01Icon, GridIcon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
 
 const categories = [
   { name: "Football", slug: "football", products: 32, order: 1, active: true },
@@ -72,15 +73,15 @@ export default function CategoriesPage() {
           <CardContent className="space-y-4 pt-4">
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Nom</label>
-              <input className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" defaultValue="Football" />
+              <Input defaultValue="Football" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Slug</label>
-              <input className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" defaultValue="football" />
+              <Input defaultValue="football" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Ordre d'affichage</label>
-              <input type="number" className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" defaultValue={1} />
+              <Input type="number" defaultValue={1} />
             </div>
             <Button className="w-full bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">Enregistrer la catégorie</Button>
           </CardContent>

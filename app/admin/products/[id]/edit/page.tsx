@@ -4,6 +4,7 @@ import { ArrowLeft01Icon, SaveIcon, Delete01Icon } from "@hugeicons/core-free-ic
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Switch } from "@/components/ui/switch"
 
 const product = {
   id: 1,
@@ -154,17 +155,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
                   <p className="text-sm font-medium text-slate-700">Produit actif</p>
                   <p className="text-xs text-slate-400">Visible sur le storefront</p>
                 </div>
-                <button
-                  role="switch"
-                  aria-checked={product.active}
-                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
-                    product.active ? "bg-[#1E40AF]" : "bg-slate-200"
-                  }`}
-                >
-                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${
-                    product.active ? "translate-x-4" : "translate-x-0.5"
-                  }`} />
-                </button>
+                <Switch defaultChecked={product.active} />
               </div>
               <div className="h-px bg-slate-100" />
               <div className="flex items-center justify-between">
@@ -172,17 +163,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
                   <p className="text-sm font-medium text-slate-700">Mis en avant</p>
                   <p className="text-xs text-slate-400">Affiché sur la page d'accueil</p>
                 </div>
-                <button
-                  role="switch"
-                  aria-checked={product.featured}
-                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
-                    product.featured ? "bg-[#1E40AF]" : "bg-slate-200"
-                  }`}
-                >
-                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${
-                    product.featured ? "translate-x-4" : "translate-x-0.5"
-                  }`} />
-                </button>
+                <Switch defaultChecked={product.featured} />
               </div>
             </CardContent>
           </Card>

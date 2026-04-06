@@ -3,6 +3,7 @@ import { Archive01Icon, Delete01Icon, CheckmarkCircle01Icon, Mail01Icon } from "
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Textarea } from "@/components/ui/textarea"
 
 const messages = [
   { id: 1, name: "Moussa Diop", email: "moussa.d@example.com", subject: "Devis pour équipe de foot", content: "Bonjour, je voudrais un devis pour 20 maillots et 2 ballons pour notre club.", date: "Aujourd'hui, 10:30", unread: true },
@@ -88,8 +89,8 @@ export default function MessagesPage() {
             </div>
             <div className="mt-8 pt-6 border-t border-slate-100">
               <p className="text-xs font-medium text-slate-500 uppercase tracking-wide mb-3">Répondre</p>
-              <textarea 
-                className="w-full min-h-[120px] rounded-lg border border-slate-200 p-3 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20 resize-none"
+              <Textarea 
+                className="w-full min-h-[120px] resize-none"
                 placeholder="Écrivez votre réponse ici..."
               />
               <div className="mt-3 flex justify-end">

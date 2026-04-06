@@ -3,6 +3,8 @@ import { Add01Icon, Calendar01Icon, DiscountTag01Icon, Edit01Icon, PercentIcon }
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 const promotions = [
   { title: "Promo rentrée", code: "RENTREE20", type: "Pourcentage", value: "20%", status: "Active", range: "01 Avr - 30 Avr" },
@@ -104,33 +106,38 @@ export default function PromotionsPage() {
           <CardContent className="space-y-4 pt-4">
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Titre</label>
-              <input className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" defaultValue="Promo rentrée" />
+              <Input defaultValue="Promo rentrée" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-slate-700">Code promo</label>
-              <input className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" defaultValue="RENTREE20" />
+              <Input defaultValue="RENTREE20" />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="mb-1 block text-sm font-medium text-slate-700">Type</label>
-                <select className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" defaultValue="Pourcentage">
-                  <option>Pourcentage</option>
-                  <option>Fixe</option>
-                </select>
+                <Select defaultValue="Pourcentage">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Sélectionner le type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Pourcentage">Pourcentage</SelectItem>
+                    <SelectItem value="Fixe">Fixe</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium text-slate-700">Valeur</label>
-                <input className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" defaultValue="20" />
+                <Input defaultValue="20" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="mb-1 block text-sm font-medium text-slate-700">Début</label>
-                <input type="date" className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" />
+                <Input type="date" />
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium text-slate-700">Fin</label>
-                <input type="date" className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" />
+                <Input type="date" />
               </div>
             </div>
             <Button className="w-full bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">Enregistrer la promotion</Button>
