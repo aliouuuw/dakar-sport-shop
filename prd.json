@@ -127,7 +127,7 @@
         "Selecting media in picker closes modal and populates URL field — verify by selecting",
         "MediaPicker works in product, category, and announcement forms — verify by using in each"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Admin-UI",
