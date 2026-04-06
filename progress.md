@@ -21,7 +21,15 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
-## Working on: Admin UI wireframes and component library
+## [Decision] Reorganize backlog to prioritize UI implementation first
+
+* **Date:** 2026-04-06 18:42
+* **Decision:** Reorder `prd.json` backlog to focus on UI implementation (Admin-UI + Storefront groups) immediately after Design tasks.
+* **Reason:** User wants to build the user interfaces first, leveraging the design system specs we just created, before diving into backend/database setup. This allows for a more iterative, front-end-first development approach.
+* **New order:** Design (completed) → Admin-UI (6 tasks) → Storefront (6 tasks) → Database (6 tasks) → Auth (5 tasks) → Admin-API (7 tasks) → Infrastructure (6 tasks)
+* **Next steps:** Run `/ralph-batch` on Admin-UI tasks to start building the admin interface.
+
+---
 
 * **Status:** In Progress
 * **Started:** 2026-04-06 18:36

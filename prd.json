@@ -46,6 +46,187 @@
       "passes": true
     },
     {
+      "group": "Admin-UI",
+      "feature": "Admin layout with sidebar navigation",
+      "description": "Create app/admin/layout.tsx with a responsive sidebar layout. Sidebar includes: logo/brand, nav links (Tableau de bord, Produits, Catégories, Promotions, Annonces, Messages, Paramètres), user info with logout button, collapsible on mobile. Use shadcn/ui Sheet for mobile, fixed sidebar for desktop. Brand colors: blue (#1E40AF) sidebar background, white text. Show unread message count badge on Messages link.",
+      "acceptance_criteria": [
+        "app/admin/layout.tsx renders sidebar + main content area — verify by visiting /admin",
+        "Sidebar shows all 7 nav links with Lucide icons — verify visually",
+        "Active link is highlighted — verify by navigating between pages",
+        "Mobile: sidebar collapses into hamburger menu using Sheet — verify at mobile viewport",
+        "Logout button calls signOut and redirects to /admin/login — verify by clicking",
+        "Messages link shows unread count badge — verify with unread messages in DB"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-UI",
+      "feature": "Admin dashboard page",
+      "description": "Create app/admin/page.tsx (dashboard) showing key metrics cards: total products, active products, total categories, unread messages, active promotions. Include a recent messages list (last 5) and quick action buttons (Ajouter un produit, Nouvelle promotion). Use shadcn/ui Card components. Data fetched via Server Components calling server actions directly.",
+      "acceptance_criteria": [
+        "Dashboard shows 5 metric cards with correct counts from DB — verify by comparing with DB data",
+        "Recent messages section shows last 5 messages with sender name, subject, date — verify visually",
+        "Quick action buttons link to /admin/products/new and /admin/promotions/new — verify navigation",
+        "Page is a Server Component (no 'use client') — verify file has no use client directive",
+        "Loading states handled with Suspense boundaries — verify by checking for Suspense wrappers"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-UI",
+      "feature": "Products management pages (list, create, edit)",
+      "description": "Create app/admin/products/page.tsx with a data table listing all products (name, category, price, stock, active status, actions). Add search/filter by category and active status. Create app/admin/products/new/page.tsx and app/admin/products/[id]/edit/page.tsx with forms using shadcn/ui (Input, Select, Textarea, Switch, Button). Form fields: name, description, price (CFA), compareAtPrice, category, images (URL inputs), featured, active. Use server actions for mutations with optimistic UI or revalidation.",
+      "acceptance_criteria": [
+        "Products list page shows all products in a table with sortable columns — verify by visiting /admin/products",
+        "Search filters products by name — verify by typing in search",
+        "Category filter dropdown filters products — verify by selecting a category",
+        "Create form validates all fields and creates product — verify by submitting valid data",
+        "Edit form pre-fills existing product data — verify by clicking edit on a product",
+        "Delete button shows confirmation dialog then deletes — verify by deleting a product",
+        "Price displayed in CFA format (e.g., 15 000 FCFA) — verify visually"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-UI",
+      "feature": "Categories, promotions, announcements management pages",
+      "description": "Create CRUD pages for categories (app/admin/categories/), promotions (app/admin/promotions/), and announcements (app/admin/announcements/). Each has a list page with table/grid and create/edit forms. Categories: drag-to-reorder or order input. Promotions: discount type toggle (percentage/fixed), date range picker, promo code field. Announcements: type selector (banner/popup/info), rich text body, date range, active toggle. All forms use shadcn/ui components and validate with Zod.",
+      "acceptance_criteria": [
+        "Categories page lists categories with reorder capability — verify by reordering",
+        "Promotions page shows active/expired status based on dates — verify visually",
+        "Announcement form has type selector with 3 options — verify by creating each type",
+        "Date range picker works for promotions and announcements — verify by selecting dates",
+        "All forms show French validation errors — verify by submitting empty forms",
+        "Successful mutations show French toast notifications — verify by creating/updating"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-UI",
+      "feature": "Messages inbox and site settings pages",
+      "description": "Create app/admin/messages/page.tsx as an inbox-style interface: list view with unread indicators, click to expand message detail, mark as read, archive, delete actions. Badge shows unread count. Create app/admin/settings/page.tsx for site settings: grouped form sections (Informations générales, Contact, Réseaux sociaux, Apparence). Each section editable inline with save button. Use optimistic updates for settings.",
+      "acceptance_criteria": [
+        "Messages page shows inbox list with unread bold styling — verify visually",
+        "Clicking a message shows full content and marks as read — verify by clicking unread message",
+        "Archive and delete actions work with confirmation — verify by archiving/deleting",
+        "Settings page shows grouped sections with current values — verify by visiting /admin/settings",
+        "Updating a setting saves immediately with success toast — verify by changing a value",
+        "Phone numbers displayed as editable list (add/remove) — verify by adding a phone number"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-UI",
+      "feature": "Media library page and MediaPicker component",
+      "description": "Create app/admin/media/page.tsx with grid view of all uploaded media (thumbnail, filename, alt, size, upload date), search by filename/alt, delete action with confirmation. Create components/MediaPicker.tsx (client component) with modal that lists media, allows selection, and returns selected media URL to parent form. Use shadcn/ui Dialog, Input, Button. Integrate MediaPicker into product/category create/edit forms to replace raw URL inputs.",
+      "acceptance_criteria": [
+        "Media page shows grid of uploaded images with thumbnails — verify by visiting /admin/media",
+        "Search filters media by filename or alt text — verify by typing in search",
+        "Delete action shows confirmation and removes media — verify by deleting",
+        "MediaPicker modal opens when clicking 'Select image' in product form — verify visually",
+        "Selecting media in picker closes modal and populates URL field — verify by selecting",
+        "MediaPicker works in product, category, and announcement forms — verify by using in each"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-UI",
+      "feature": "Activity log page and club quote management pipeline",
+      "description": "Create app/admin/activity/page.tsx showing filterable timeline of all changes: user, action, entity type, timestamp, metadata. Filter by action, entity type, date range. Create app/admin/quotes/page.tsx with list of quote requests (club name, contact, status, total, date), status badges (Nouveau/En cours/Envoyé/Accepté/Refusé), click to view details, action buttons (Voir PDF, Changer statut, Supprimer). Create app/admin/quotes/[id]/page.tsx showing full quote with items list, status selector, and 'Générer PDF' button.",
+      "acceptance_criteria": [
+        "Activity log page shows timeline with all logged actions — verify by visiting /admin/activity",
+        "Filter by action type (create, update, delete) — verify by filtering",
+        "Filter by entity type (product, category, etc.) — verify by filtering",
+        "Quotes list shows all quotes with status badges — verify by visiting /admin/quotes",
+        "Status selector changes quote status and logs activity — verify by changing status",
+        "Generate PDF button downloads quote as PDF file — verify by clicking and opening file",
+        "Quote detail page shows all items with product names, quantities, prices — verify visually"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Storefront",
+      "feature": "Store layout with header and footer",
+      "description": "Create app/(store)/layout.tsx with a responsive header (logo, nav links: Accueil, Produits, Promotions, Contact, search icon, mobile hamburger menu) and footer (contact info, social links, copyright, quick links). Fetch site settings from DB for dynamic contact info. Brand colors: blue header, red accents, white background. Plus Jakarta Sans font. Mobile-first responsive design.",
+      "acceptance_criteria": [
+        "app/(store)/layout.tsx renders header + main + footer — verify by visiting /",
+        "Header shows logo, 4 nav links, and mobile menu — verify at desktop and mobile viewports",
+        "Footer displays phone numbers, address, email from site settings — verify matches seeded data",
+        "Mobile hamburger menu opens full nav with Sheet component — verify at mobile viewport",
+        "Active nav link highlighted with brand color — verify by navigating"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Storefront",
+      "feature": "Homepage with hero, featured products, and announcements",
+      "description": "Create app/(store)/page.tsx with: hero section (large banner with tagline 'Tout pour le Sport', CTA button 'Voir nos produits'), active announcements banner, featured products grid (8 products marked as featured), categories showcase (grid of category cards with images), and a trust/info section (phones, location, opening hours). All data from DB via Server Components.",
+      "acceptance_criteria": [
+        "Hero section shows tagline and CTA linking to /produits — verify visually",
+        "Active announcements display as banner at top of page — verify with active announcement in DB",
+        "Featured products grid shows up to 8 products with image, name, price in CFA — verify visually",
+        "Categories section shows all categories as clickable cards — verify navigation to /produits?category=slug",
+        "Page is Server Component with no 'use client' at top level — verify file contents"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Storefront",
+      "feature": "Products listing page with filters",
+      "description": "Create app/(store)/produits/page.tsx with product grid, sidebar filters (category, price range), sort options (prix croissant, décroissant, nouveautés), and search. Use URL search params for filter state (SSR-friendly). Show active product count. Each product card: image, name, price, compare-at-price strikethrough, category badge, 'Voir détails' button. Pagination or infinite scroll.",
+      "acceptance_criteria": [
+        "Product grid shows all active products — verify by visiting /produits",
+        "Category filter updates URL and filters products — verify by selecting a category",
+        "Sort by price ascending/descending works — verify by changing sort",
+        "Search filters by product name — verify by searching",
+        "Product cards show price in CFA format with strikethrough for compare-at-price — verify visually",
+        "Pagination works with page numbers — verify by navigating pages"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Storefront",
+      "feature": "Product detail page",
+      "description": "Create app/(store)/produits/[slug]/page.tsx showing full product details: image gallery (main image + thumbnails), product name, price, compare-at-price, description, category breadcrumb, stock status, WhatsApp order button (links to wa.me with pre-filled message), related products from same category. Generate metadata for SEO (title, description, OG image).",
+      "acceptance_criteria": [
+        "Product page shows all product details — verify by visiting /produits/[slug]",
+        "Image gallery shows main image with clickable thumbnails — verify with product that has multiple images",
+        "WhatsApp button links to wa.me/22177634511 with product name in message — verify link href",
+        "Related products section shows 4 products from same category — verify visually",
+        "SEO metadata generated (title, description, og:image) — verify with view-source or meta inspector",
+        "404 page shown for non-existent slug — verify with random slug"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Storefront",
+      "feature": "Contact page with message form",
+      "description": "Create app/(store)/contact/page.tsx with: contact form (name, email, phone, subject, message) submitting to createMessage server action, contact info section (address, phones, email from site settings), embedded Google Maps iframe for Avenue G. Pompidou Dakar. Form validates with Zod, shows success/error messages in French. Rate limiting consideration for spam prevention.",
+      "acceptance_criteria": [
+        "Contact page shows form and contact info side by side — verify by visiting /contact",
+        "Form validates required fields and email format — verify by submitting empty form",
+        "Successful submission creates message in DB and shows success toast in French — verify by submitting and checking DB",
+        "Contact info displays all phone numbers, address, email from site settings — verify matches seed data",
+        "Google Maps embed shows correct location — verify visually",
+        "Form resets after successful submission — verify by submitting and checking form state"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Storefront",
+      "feature": "WhatsApp commerce flow: share cards, lead tracking, variant selector",
+      "description": "Enhance product detail page with: variant selector (size/color dropdowns), WhatsApp share card (OG preview with product image, price, variant info), lead tracking (log click on WhatsApp button to leads table). Create WhatsApp share link that pre-fills message with product name, price, variant, and product URL. Add app/(store)/leads/page.tsx (admin-only) showing which products generate most WhatsApp interest. Track: productId, variantId, timestamp, source (product page, share card, etc.).",
+      "acceptance_criteria": [
+        "Product detail page shows variant selector (size, color dropdowns) — verify visually",
+        "Selecting variant updates price display and WhatsApp message preview — verify by selecting",
+        "WhatsApp button generates link with product name, price, variant in message — verify link href",
+        "Clicking WhatsApp button logs lead to DB — verify by clicking and checking DB",
+        "Admin can view /admin/leads showing top products by WhatsApp clicks — verify by visiting",
+        "Lead list shows product name, variant, timestamp, and click count — verify visually"
+      ],
+      "passes": false
+    },
+    {
       "group": "Database",
       "feature": "Drizzle ORM setup and database connection",
       "description": "Install drizzle-orm, drizzle-kit, and postgres driver. Configure NeonDB connection with environment variables. Create drizzle.config.ts and lib/db/index.ts with connection pool. Add .env.example with DATABASE_URL placeholder.",
@@ -103,6 +284,19 @@
         "bun run db:generate creates migration files in drizzle/ — verify folder exists after running",
         "bun run db:push applies schema to database — verify by connecting and listing tables",
         "bun run db:seed populates data — verify by querying"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Database",
+      "feature": "Product variants, media library, and activity log schemas",
+      "description": "Extend schema with: productVariants (id, productId, sku, size, color, price override, stock, active), media (id, url, alt, filename, mimeType, size, width, height, createdAt), activityLog (id, userId, action, entityType, entityId, metadata JSON, createdAt). Add FK relations from variants to products. Index on productId for variants, on userId/createdAt for activity log.",
+      "acceptance_criteria": [
+        "lib/db/schema/variants.ts exports productVariants table with sku uniqueness — verify with tsc --noEmit",
+        "lib/db/schema/media.ts exports media table with all fields — verify with tsc --noEmit",
+        "lib/db/schema/activity-log.ts exports activityLog table with JSON metadata — verify with tsc --noEmit",
+        "All relations defined and FK constraints in place — verify with bunx drizzle-kit generate",
+        "Migration generated successfully — verify by running bunx drizzle-kit generate"
       ],
       "passes": false
     },
@@ -233,140 +427,44 @@
       "passes": false
     },
     {
-      "group": "Admin-UI",
-      "feature": "Admin layout with sidebar navigation",
-      "description": "Create app/admin/layout.tsx with a responsive sidebar layout. Sidebar includes: logo/brand, nav links (Tableau de bord, Produits, Catégories, Promotions, Annonces, Messages, Paramètres), user info with logout button, collapsible on mobile. Use shadcn/ui Sheet for mobile, fixed sidebar for desktop. Brand colors: blue (#1E40AF) sidebar background, white text. Show unread message count badge on Messages link.",
+      "group": "Admin-API",
+      "feature": "Product variants CRUD and media library server actions",
+      "description": "Create lib/actions/variants.ts with: getVariants(productId), createVariant(data), updateVariant(id, data), deleteVariant(id). Create lib/actions/media.ts with: getMedia(filters?), uploadMedia(file), deleteMedia(id), getMediaById(id). All mutations require admin role. Variants validate SKU uniqueness, price > 0, stock >= 0. Media stores file metadata and generates URL. Both use Zod validation.",
       "acceptance_criteria": [
-        "app/admin/layout.tsx renders sidebar + main content area — verify by visiting /admin",
-        "Sidebar shows all 7 nav links with Lucide icons — verify visually",
-        "Active link is highlighted — verify by navigating between pages",
-        "Mobile: sidebar collapses into hamburger menu using Sheet — verify at mobile viewport",
-        "Logout button calls signOut and redirects to /admin/login — verify by clicking",
-        "Messages link shows unread count badge — verify with unread messages in DB"
+        "getVariants(productId) returns all variants for a product sorted by size — verify by calling",
+        "createVariant() validates SKU uniqueness and price > 0 — verify with invalid data",
+        "getMedia() returns paginated media with search by filename/alt — verify by calling",
+        "uploadMedia() stores file and metadata, returns media object with URL — verify by uploading",
+        "deleteMedia() removes file and DB record — verify by deleting and checking filesystem",
+        "All mutations require admin role — verify by calling without admin session"
       ],
       "passes": false
     },
     {
-      "group": "Admin-UI",
-      "feature": "Admin dashboard page",
-      "description": "Create app/admin/page.tsx (dashboard) showing key metrics cards: total products, active products, total categories, unread messages, active promotions. Include a recent messages list (last 5) and quick action buttons (Ajouter un produit, Nouvelle promotion). Use shadcn/ui Card components. Data fetched via Server Components calling server actions directly.",
+      "group": "Admin-API",
+      "feature": "Activity log auto-logging and club quote request CRUD",
+      "description": "Create lib/actions/activity-log.ts with: logActivity(userId, action, entityType, entityId, metadata). Wrap all product/category/promo/announcement mutations to auto-log changes. Create lib/actions/quotes.ts with: getQuotes(filters?), createQuote(data), updateQuoteStatus(id, status), deleteQuote(id), generateQuotePdf(id). Quote fields: clubName, contactName, email, phone, items (JSON array of {productId, quantity}), status (new/pending/sent/accepted/rejected), totalPrice, createdAt, updatedAt.",
       "acceptance_criteria": [
-        "Dashboard shows 5 metric cards with correct counts from DB — verify by comparing with DB data",
-        "Recent messages section shows last 5 messages with sender name, subject, date — verify visually",
-        "Quick action buttons link to /admin/products/new and /admin/promotions/new — verify navigation",
-        "Page is a Server Component (no 'use client') — verify file has no use client directive",
-        "Loading states handled with Suspense boundaries — verify by checking for Suspense wrappers"
+        "logActivity() inserts record with all fields — verify by calling and querying DB",
+        "Product creation auto-logs with action='create', entityType='product' — verify by creating product and checking activity log",
+        "getQuotes() returns paginated quotes sorted by createdAt desc — verify by calling",
+        "createQuote() validates club name, email, items array — verify with invalid data",
+        "generateQuotePdf(id) returns PDF with product list, quantities, unit prices, total in CFA — verify by generating and opening PDF",
+        "updateQuoteStatus() changes status and logs activity — verify by updating and checking log"
       ],
       "passes": false
     },
     {
-      "group": "Admin-UI",
-      "feature": "Products management pages (list, create, edit)",
-      "description": "Create app/admin/products/page.tsx with a data table listing all products (name, category, price, stock, active status, actions). Add search/filter by category and active status. Create app/admin/products/new/page.tsx and app/admin/products/[id]/edit/page.tsx with forms using shadcn/ui (Input, Select, Textarea, Switch, Button). Form fields: name, description, price (CFA), compareAtPrice, category, images (URL inputs), featured, active. Use server actions for mutations with optimistic UI or revalidation.",
+      "group": "Admin-API",
+      "feature": "Email notifications for contact form, quotes, and leads",
+      "description": "Integrate email service (Resend or SendGrid). Create lib/email.ts with: sendContactNotification(message), sendQuoteNotification(quote), sendLeadNotification(lead). Create email templates (HTML) for each. Wrap contact form submission, quote creation, and WhatsApp lead tracking to send emails to admin. Add ADMIN_EMAIL to .env.example. Test email sending in development.",
       "acceptance_criteria": [
-        "Products list page shows all products in a table with sortable columns — verify by visiting /admin/products",
-        "Search filters products by name — verify by typing in search",
-        "Category filter dropdown filters products — verify by selecting a category",
-        "Create form validates all fields and creates product — verify by submitting valid data",
-        "Edit form pre-fills existing product data — verify by clicking edit on a product",
-        "Delete button shows confirmation dialog then deletes — verify by deleting a product",
-        "Price displayed in CFA format (e.g., 15 000 FCFA) — verify visually"
-      ],
-      "passes": false
-    },
-    {
-      "group": "Admin-UI",
-      "feature": "Categories, promotions, announcements management pages",
-      "description": "Create CRUD pages for categories (app/admin/categories/), promotions (app/admin/promotions/), and announcements (app/admin/announcements/). Each has a list page with table/grid and create/edit forms. Categories: drag-to-reorder or order input. Promotions: discount type toggle (percentage/fixed), date range picker, promo code field. Announcements: type selector (banner/popup/info), rich text body, date range, active toggle. All forms use shadcn/ui components and validate with Zod.",
-      "acceptance_criteria": [
-        "Categories page lists categories with reorder capability — verify by reordering",
-        "Promotions page shows active/expired status based on dates — verify visually",
-        "Announcement form has type selector with 3 options — verify by creating each type",
-        "Date range picker works for promotions and announcements — verify by selecting dates",
-        "All forms show French validation errors — verify by submitting empty forms",
-        "Successful mutations show French toast notifications — verify by creating/updating"
-      ],
-      "passes": false
-    },
-    {
-      "group": "Admin-UI",
-      "feature": "Messages inbox and site settings pages",
-      "description": "Create app/admin/messages/page.tsx as an inbox-style interface: list view with unread indicators, click to expand message detail, mark as read, archive, delete actions. Badge shows unread count. Create app/admin/settings/page.tsx for site settings: grouped form sections (Informations générales, Contact, Réseaux sociaux, Apparence). Each section editable inline with save button. Use optimistic updates for settings.",
-      "acceptance_criteria": [
-        "Messages page shows inbox list with unread bold styling — verify visually",
-        "Clicking a message shows full content and marks as read — verify by clicking unread message",
-        "Archive and delete actions work with confirmation — verify by archiving/deleting",
-        "Settings page shows grouped sections with current values — verify by visiting /admin/settings",
-        "Updating a setting saves immediately with success toast — verify by changing a value",
-        "Phone numbers displayed as editable list (add/remove) — verify by adding a phone number"
-      ],
-      "passes": false
-    },
-    {
-      "group": "Storefront",
-      "feature": "Store layout with header and footer",
-      "description": "Create app/(store)/layout.tsx with a responsive header (logo, nav links: Accueil, Produits, Promotions, Contact, search icon, mobile hamburger menu) and footer (contact info, social links, copyright, quick links). Fetch site settings from DB for dynamic contact info. Brand colors: blue header, red accents, white background. Plus Jakarta Sans font. Mobile-first responsive design.",
-      "acceptance_criteria": [
-        "app/(store)/layout.tsx renders header + main + footer — verify by visiting /",
-        "Header shows logo, 4 nav links, and mobile menu — verify at desktop and mobile viewports",
-        "Footer displays phone numbers, address, email from site settings — verify matches seeded data",
-        "Mobile hamburger menu opens full nav with Sheet component — verify at mobile viewport",
-        "Active nav link highlighted with brand color — verify by navigating"
-      ],
-      "passes": false
-    },
-    {
-      "group": "Storefront",
-      "feature": "Homepage with hero, featured products, and announcements",
-      "description": "Create app/(store)/page.tsx with: hero section (large banner with tagline 'Tout pour le Sport', CTA button 'Voir nos produits'), active announcements banner, featured products grid (8 products marked as featured), categories showcase (grid of category cards with images), and a trust/info section (phones, location, opening hours). All data from DB via Server Components.",
-      "acceptance_criteria": [
-        "Hero section shows tagline and CTA linking to /produits — verify visually",
-        "Active announcements display as banner at top of page — verify with active announcement in DB",
-        "Featured products grid shows up to 8 products with image, name, price in CFA — verify visually",
-        "Categories section shows all categories as clickable cards — verify navigation to /produits?category=slug",
-        "Page is Server Component with no 'use client' at top level — verify file contents"
-      ],
-      "passes": false
-    },
-    {
-      "group": "Storefront",
-      "feature": "Products listing page with filters",
-      "description": "Create app/(store)/produits/page.tsx with product grid, sidebar filters (category, price range), sort options (prix croissant, décroissant, nouveautés), and search. Use URL search params for filter state (SSR-friendly). Show active product count. Each product card: image, name, price, compare-at-price strikethrough, category badge, 'Voir détails' button. Pagination or infinite scroll.",
-      "acceptance_criteria": [
-        "Product grid shows all active products — verify by visiting /produits",
-        "Category filter updates URL and filters products — verify by selecting a category",
-        "Sort by price ascending/descending works — verify by changing sort",
-        "Search filters by product name — verify by searching",
-        "Product cards show price in CFA format with strikethrough for compare-at-price — verify visually",
-        "Pagination works with page numbers — verify by navigating pages"
-      ],
-      "passes": false
-    },
-    {
-      "group": "Storefront",
-      "feature": "Product detail page",
-      "description": "Create app/(store)/produits/[slug]/page.tsx showing full product details: image gallery (main image + thumbnails), product name, price, compare-at-price, description, category breadcrumb, stock status, WhatsApp order button (links to wa.me with pre-filled message), related products from same category. Generate metadata for SEO (title, description, OG image).",
-      "acceptance_criteria": [
-        "Product page shows all product details — verify by visiting /produits/[slug]",
-        "Image gallery shows main image with clickable thumbnails — verify with product that has multiple images",
-        "WhatsApp button links to wa.me/22177634511 with product name in message — verify link href",
-        "Related products section shows 4 products from same category — verify visually",
-        "SEO metadata generated (title, description, og:image) — verify with view-source or meta inspector",
-        "404 page shown for non-existent slug — verify with random slug"
-      ],
-      "passes": false
-    },
-    {
-      "group": "Storefront",
-      "feature": "Contact page with message form",
-      "description": "Create app/(store)/contact/page.tsx with: contact form (name, email, phone, subject, message) submitting to createMessage server action, contact info section (address, phones, email from site settings), embedded Google Maps iframe for Avenue G. Pompidou Dakar. Form validates with Zod, shows success/error messages in French. Rate limiting consideration for spam prevention.",
-      "acceptance_criteria": [
-        "Contact page shows form and contact info side by side — verify by visiting /contact",
-        "Form validates required fields and email format — verify by submitting empty form",
-        "Successful submission creates message in DB and shows success toast in French — verify by submitting and checking DB",
-        "Contact info displays all phone numbers, address, email from site settings — verify matches seed data",
-        "Google Maps embed shows correct location — verify visually",
-        "Form resets after successful submission — verify by submitting and checking form state"
+        "Email service configured in lib/email.ts with API key from env — verify with tsc --noEmit",
+        "sendContactNotification() sends email with message details to admin — verify by submitting contact form and checking inbox",
+        "sendQuoteNotification() sends email with quote summary (club, items, total) — verify by creating quote",
+        "sendLeadNotification() sends email when WhatsApp button clicked — verify by clicking and checking inbox",
+        "Email templates are HTML formatted with brand colors — verify by inspecting email",
+        ".env.example includes ADMIN_EMAIL and email service API key — verify file contents"
       ],
       "passes": false
     },
@@ -434,90 +532,6 @@
       "passes": false
     },
     {
-      "group": "Database",
-      "feature": "Product variants, media library, and activity log schemas",
-      "description": "Extend schema with: productVariants (id, productId, sku, size, color, price override, stock, active), media (id, url, alt, filename, mimeType, size, width, height, createdAt), activityLog (id, userId, action, entityType, entityId, metadata JSON, createdAt). Add FK relations from variants to products. Index on productId for variants, on userId/createdAt for activity log.",
-      "acceptance_criteria": [
-        "lib/db/schema/variants.ts exports productVariants table with sku uniqueness — verify with tsc --noEmit",
-        "lib/db/schema/media.ts exports media table with all fields — verify with tsc --noEmit",
-        "lib/db/schema/activity-log.ts exports activityLog table with JSON metadata — verify with tsc --noEmit",
-        "All relations defined and FK constraints in place — verify with bunx drizzle-kit generate",
-        "Migration generated successfully — verify by running bunx drizzle-kit generate"
-      ],
-      "passes": false
-    },
-    {
-      "group": "Admin-API",
-      "feature": "Product variants CRUD and media library server actions",
-      "description": "Create lib/actions/variants.ts with: getVariants(productId), createVariant(data), updateVariant(id, data), deleteVariant(id). Create lib/actions/media.ts with: getMedia(filters?), uploadMedia(file), deleteMedia(id), getMediaById(id). All mutations require admin role. Variants validate SKU uniqueness, price > 0, stock >= 0. Media stores file metadata and generates URL. Both use Zod validation.",
-      "acceptance_criteria": [
-        "getVariants(productId) returns all variants for a product sorted by size — verify by calling",
-        "createVariant() validates SKU uniqueness and price > 0 — verify with invalid data",
-        "getMedia() returns paginated media with search by filename/alt — verify by calling",
-        "uploadMedia() stores file and metadata, returns media object with URL — verify by uploading",
-        "deleteMedia() removes file and DB record — verify by deleting and checking filesystem",
-        "All mutations require admin role — verify by calling without admin session"
-      ],
-      "passes": false
-    },
-    {
-      "group": "Admin-API",
-      "feature": "Activity log auto-logging and club quote request CRUD",
-      "description": "Create lib/actions/activity-log.ts with: logActivity(userId, action, entityType, entityId, metadata). Wrap all product/category/promo/announcement mutations to auto-log changes. Create lib/actions/quotes.ts with: getQuotes(filters?), createQuote(data), updateQuoteStatus(id, status), deleteQuote(id), generateQuotePdf(id). Quote fields: clubName, contactName, email, phone, items (JSON array of {productId, quantity}), status (new/pending/sent/accepted/rejected), totalPrice, createdAt, updatedAt.",
-      "acceptance_criteria": [
-        "logActivity() inserts record with all fields — verify by calling and querying DB",
-        "Product creation auto-logs with action='create', entityType='product' — verify by creating product and checking activity log",
-        "getQuotes() returns paginated quotes sorted by createdAt desc — verify by calling",
-        "createQuote() validates club name, email, items array — verify with invalid data",
-        "generateQuotePdf(id) returns PDF with product list, quantities, unit prices, total in CFA — verify by generating and opening PDF",
-        "updateQuoteStatus() changes status and logs activity — verify by updating and checking log"
-      ],
-      "passes": false
-    },
-    {
-      "group": "Admin-UI",
-      "feature": "Media library page and MediaPicker component",
-      "description": "Create app/admin/media/page.tsx with grid view of all uploaded media (thumbnail, filename, alt, size, upload date), search by filename/alt, delete action with confirmation. Create components/MediaPicker.tsx (client component) with modal that lists media, allows selection, and returns selected media URL to parent form. Use shadcn/ui Dialog, Input, Button. Integrate MediaPicker into product/category create/edit forms to replace raw URL inputs.",
-      "acceptance_criteria": [
-        "Media page shows grid of uploaded images with thumbnails — verify by visiting /admin/media",
-        "Search filters media by filename or alt text — verify by typing in search",
-        "Delete action shows confirmation and removes media — verify by deleting",
-        "MediaPicker modal opens when clicking 'Select image' in product form — verify visually",
-        "Selecting media in picker closes modal and populates URL field — verify by selecting",
-        "MediaPicker works in product, category, and announcement forms — verify by using in each"
-      ],
-      "passes": false
-    },
-    {
-      "group": "Admin-UI",
-      "feature": "Activity log page and club quote management pipeline",
-      "description": "Create app/admin/activity/page.tsx showing filterable timeline of all changes: user, action, entity type, timestamp, metadata. Filter by action, entity type, date range. Create app/admin/quotes/page.tsx with list of quote requests (club name, contact, status, total, date), status badges (Nouveau/En cours/Envoyé/Accepté/Refusé), click to view details, action buttons (Voir PDF, Changer statut, Supprimer). Create app/admin/quotes/[id]/page.tsx showing full quote with items list, status selector, and 'Générer PDF' button.",
-      "acceptance_criteria": [
-        "Activity log page shows timeline with all logged actions — verify by visiting /admin/activity",
-        "Filter by action type (create, update, delete) — verify by filtering",
-        "Filter by entity type (product, category, etc.) — verify by filtering",
-        "Quotes list shows all quotes with status badges — verify by visiting /admin/quotes",
-        "Status selector changes quote status and logs activity — verify by changing status",
-        "Generate PDF button downloads quote as PDF file — verify by clicking and opening file",
-        "Quote detail page shows all items with product names, quantities, prices — verify visually"
-      ],
-      "passes": false
-    },
-    {
-      "group": "Storefront",
-      "feature": "WhatsApp commerce flow: share cards, lead tracking, variant selector",
-      "description": "Enhance product detail page with: variant selector (size/color dropdowns), WhatsApp share card (OG preview with product image, price, variant info), lead tracking (log click on WhatsApp button to leads table). Create WhatsApp share link that pre-fills message with product name, price, variant, and product URL. Add app/(store)/leads/page.tsx (admin-only) showing which products generate most WhatsApp interest. Track: productId, variantId, timestamp, source (product page, share card, etc.).",
-      "acceptance_criteria": [
-        "Product detail page shows variant selector (size, color dropdowns) — verify visually",
-        "Selecting variant updates price display and WhatsApp message preview — verify by selecting",
-        "WhatsApp button generates link with product name, price, variant in message — verify link href",
-        "Clicking WhatsApp button logs lead to DB — verify by clicking and checking DB",
-        "Admin can view /admin/leads showing top products by WhatsApp clicks — verify by visiting",
-        "Lead list shows product name, variant, timestamp, and click count — verify visually"
-      ],
-      "passes": false
-    },
-    {
       "group": "Infrastructure",
       "feature": "CSV/PDF export utilities and product duplication action",
       "description": "Create lib/export.ts with: exportToCsv(columns, rows) returning CSV string, exportToPdf(title, columns, rows) returning PDF buffer. Create lib/actions/products.ts enhancement: duplicateProduct(id) that clones product with all variants and images, appends '(copie)' to name. Add 'Dupliquer' button to product list and detail pages. Add 'Exporter' button to product list, messages list, quotes list that downloads CSV. Use pdfkit for PDF generation.",
@@ -529,20 +543,6 @@
         "Product list has 'Exporter' button that downloads all products as CSV — verify by clicking",
         "Messages list has 'Exporter' button that downloads as CSV — verify by clicking",
         "Product detail page has 'Dupliquer' button that creates copy and redirects — verify by clicking"
-      ],
-      "passes": false
-    },
-    {
-      "group": "Admin-API",
-      "feature": "Email notifications for contact form, quotes, and leads",
-      "description": "Integrate email service (Resend or SendGrid). Create lib/email.ts with: sendContactNotification(message), sendQuoteNotification(quote), sendLeadNotification(lead). Create email templates (HTML) for each. Wrap contact form submission, quote creation, and WhatsApp lead tracking to send emails to admin. Add ADMIN_EMAIL to .env.example. Test email sending in development.",
-      "acceptance_criteria": [
-        "Email service configured in lib/email.ts with API key from env — verify with tsc --noEmit",
-        "sendContactNotification() sends email with message details to admin — verify by submitting contact form and checking inbox",
-        "sendQuoteNotification() sends email with quote summary (club, items, total) — verify by creating quote",
-        "sendLeadNotification() sends email when WhatsApp button clicked — verify by clicking and checking inbox",
-        "Email templates are HTML formatted with brand colors — verify by inspecting email",
-        ".env.example includes ADMIN_EMAIL and email service API key — verify file contents"
       ],
       "passes": false
     },
