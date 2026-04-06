@@ -99,7 +99,7 @@
         "All forms show French validation errors — verify by submitting empty forms",
         "Successful mutations show French toast notifications — verify by creating/updating"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Admin-UI",

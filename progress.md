@@ -104,3 +104,23 @@ This file tracks all implementation cycles, decisions, and learnings during deve
   - `app/admin/page.tsx` — placeholder dashboard
   - shadcn/ui components installed: Sheet, Badge, Button, Separator, Tooltip
   - Sidebar: deep navy (#1E3A5F), slate-300 text, white active, blue-400 active border, red-600 badge
+
+---
+
+## Working on: Categories, promotions, and announcements management pages
+
+* **Status:** In Progress
+* **Started:** 2026-04-06 20:37
+* **Task:** Upgrade `app/admin/categories/page.tsx`, `app/admin/promotions/page.tsx`, and `app/admin/announcements/page.tsx` from simple mocks into denser CRUD-style UI mockups
+* **Plan:**
+  - Keep the pages mocked, but add stronger layout structure and form/table sections aligned with the PRD acceptance criteria
+  - Use existing shadcn/ui components already installed where helpful
+  - Model categories with reorder controls, promotions with status/date display, and announcements with type selector/body/date-range sections
+  - Preserve the current route structure and avoid unrelated refactors
+  - Verify with `bunx tsc --noEmit`
+* **Files:** `app/admin/categories/page.tsx`, `app/admin/promotions/page.tsx`, `app/admin/announcements/page.tsx`
+* **Verification:** TypeScript compiles cleanly and the three routes render without errors
+* **Result:** Success — the three admin management pages were upgraded into richer mocked CRUD-style screens with:
+  - Categories: reorder controls, category counts, and quick edit form panel
+  - Promotions: status summary cards, promotion list, and form mock with type/date fields
+  - Announcements: announcement summary cards, status badges, and editor mock with type/content/date fields
