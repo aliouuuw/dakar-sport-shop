@@ -7,6 +7,45 @@
   },
   "backlog": [
     {
+      "group": "Design",
+      "feature": "Admin UI wireframes and component library",
+      "description": "Design wireframes for admin dashboard, product/category/promo/announcement/quote management pages, messages inbox, settings page. Create a Figma file or design document showing: layout structure, sidebar navigation, form layouts, data tables, modals, color palette (blue #1E40AF, red #DC2626), typography (Plus Jakarta Sans). Document component patterns for reusability across pages.",
+      "acceptance_criteria": [
+        "Wireframes created for all 8 admin pages (dashboard, products, categories, promotions, announcements, messages, quotes, settings) — verify with design document",
+        "Component library documented: buttons, inputs, cards, tables, modals, badges, alerts — verify with design spec",
+        "Color palette and typography defined — verify with design tokens",
+        "Mobile responsive layouts sketched for key pages — verify with design document",
+        "Design approved by team before implementation begins — verify with sign-off"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Design",
+      "feature": "Storefront UI wireframes and user flows",
+      "description": "Design wireframes for storefront: homepage (hero, announcements, featured products, categories, trust section), products listing (filters, grid, pagination), product detail (gallery, variants, WhatsApp CTA, related products), contact page (form, map, info). Create user flows: browsing → product detail → WhatsApp order, contact form submission. Document mobile-first responsive design.",
+      "acceptance_criteria": [
+        "Wireframes created for all 5 storefront pages (home, products list, product detail, contact, 404) — verify with design document",
+        "User flows documented: product discovery, WhatsApp order flow, contact submission — verify with flow diagrams",
+        "Mobile-first responsive layouts designed — verify with design document",
+        "Hero section, product cards, and CTA buttons designed with brand colors — verify visually",
+        "Design approved by team before implementation begins — verify with sign-off"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Design",
+      "feature": "Design system and component specs",
+      "description": "Create detailed design specifications for reusable components: Button (variants: primary, secondary, danger), Input (text, email, number, select), Card, Table, Modal, Toast, Badge, Sidebar nav item. Include states (default, hover, active, disabled, loading). Create a living style guide document with all components, spacing scale (4px grid), shadow definitions, and interaction patterns.",
+      "acceptance_criteria": [
+        "Component specs created for 12+ components with all states — verify with design document",
+        "Spacing scale (4px, 8px, 12px, 16px, 24px, 32px) defined — verify with design tokens",
+        "Color palette with semantic tokens (primary, secondary, danger, success, warning) — verify with design system",
+        "Typography scale defined (h1-h6, body, caption) — verify with design document",
+        "Interaction patterns documented (hover, focus, disabled states) — verify with design spec"
+      ],
+      "passes": false
+    },
+    {
       "group": "Database",
       "feature": "Drizzle ORM setup and database connection",
       "description": "Install drizzle-orm, drizzle-kit, and postgres driver. Configure NeonDB connection with environment variables. Create drizzle.config.ts and lib/db/index.ts with connection pool. Add .env.example with DATABASE_URL placeholder.",
@@ -391,6 +430,148 @@
         "Error boundary catches runtime errors and shows retry button — verify with tsc --noEmit",
         "Loading states show skeleton or spinner for admin product list — verify by adding artificial delay",
         "All error/loading pages use brand styling — verify visually"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Database",
+      "feature": "Product variants, media library, and activity log schemas",
+      "description": "Extend schema with: productVariants (id, productId, sku, size, color, price override, stock, active), media (id, url, alt, filename, mimeType, size, width, height, createdAt), activityLog (id, userId, action, entityType, entityId, metadata JSON, createdAt). Add FK relations from variants to products. Index on productId for variants, on userId/createdAt for activity log.",
+      "acceptance_criteria": [
+        "lib/db/schema/variants.ts exports productVariants table with sku uniqueness — verify with tsc --noEmit",
+        "lib/db/schema/media.ts exports media table with all fields — verify with tsc --noEmit",
+        "lib/db/schema/activity-log.ts exports activityLog table with JSON metadata — verify with tsc --noEmit",
+        "All relations defined and FK constraints in place — verify with bunx drizzle-kit generate",
+        "Migration generated successfully — verify by running bunx drizzle-kit generate"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-API",
+      "feature": "Product variants CRUD and media library server actions",
+      "description": "Create lib/actions/variants.ts with: getVariants(productId), createVariant(data), updateVariant(id, data), deleteVariant(id). Create lib/actions/media.ts with: getMedia(filters?), uploadMedia(file), deleteMedia(id), getMediaById(id). All mutations require admin role. Variants validate SKU uniqueness, price > 0, stock >= 0. Media stores file metadata and generates URL. Both use Zod validation.",
+      "acceptance_criteria": [
+        "getVariants(productId) returns all variants for a product sorted by size — verify by calling",
+        "createVariant() validates SKU uniqueness and price > 0 — verify with invalid data",
+        "getMedia() returns paginated media with search by filename/alt — verify by calling",
+        "uploadMedia() stores file and metadata, returns media object with URL — verify by uploading",
+        "deleteMedia() removes file and DB record — verify by deleting and checking filesystem",
+        "All mutations require admin role — verify by calling without admin session"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-API",
+      "feature": "Activity log auto-logging and club quote request CRUD",
+      "description": "Create lib/actions/activity-log.ts with: logActivity(userId, action, entityType, entityId, metadata). Wrap all product/category/promo/announcement mutations to auto-log changes. Create lib/actions/quotes.ts with: getQuotes(filters?), createQuote(data), updateQuoteStatus(id, status), deleteQuote(id), generateQuotePdf(id). Quote fields: clubName, contactName, email, phone, items (JSON array of {productId, quantity}), status (new/pending/sent/accepted/rejected), totalPrice, createdAt, updatedAt.",
+      "acceptance_criteria": [
+        "logActivity() inserts record with all fields — verify by calling and querying DB",
+        "Product creation auto-logs with action='create', entityType='product' — verify by creating product and checking activity log",
+        "getQuotes() returns paginated quotes sorted by createdAt desc — verify by calling",
+        "createQuote() validates club name, email, items array — verify with invalid data",
+        "generateQuotePdf(id) returns PDF with product list, quantities, unit prices, total in CFA — verify by generating and opening PDF",
+        "updateQuoteStatus() changes status and logs activity — verify by updating and checking log"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-UI",
+      "feature": "Media library page and MediaPicker component",
+      "description": "Create app/admin/media/page.tsx with grid view of all uploaded media (thumbnail, filename, alt, size, upload date), search by filename/alt, delete action with confirmation. Create components/MediaPicker.tsx (client component) with modal that lists media, allows selection, and returns selected media URL to parent form. Use shadcn/ui Dialog, Input, Button. Integrate MediaPicker into product/category create/edit forms to replace raw URL inputs.",
+      "acceptance_criteria": [
+        "Media page shows grid of uploaded images with thumbnails — verify by visiting /admin/media",
+        "Search filters media by filename or alt text — verify by typing in search",
+        "Delete action shows confirmation and removes media — verify by deleting",
+        "MediaPicker modal opens when clicking 'Select image' in product form — verify visually",
+        "Selecting media in picker closes modal and populates URL field — verify by selecting",
+        "MediaPicker works in product, category, and announcement forms — verify by using in each"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-UI",
+      "feature": "Activity log page and club quote management pipeline",
+      "description": "Create app/admin/activity/page.tsx showing filterable timeline of all changes: user, action, entity type, timestamp, metadata. Filter by action, entity type, date range. Create app/admin/quotes/page.tsx with list of quote requests (club name, contact, status, total, date), status badges (Nouveau/En cours/Envoyé/Accepté/Refusé), click to view details, action buttons (Voir PDF, Changer statut, Supprimer). Create app/admin/quotes/[id]/page.tsx showing full quote with items list, status selector, and 'Générer PDF' button.",
+      "acceptance_criteria": [
+        "Activity log page shows timeline with all logged actions — verify by visiting /admin/activity",
+        "Filter by action type (create, update, delete) — verify by filtering",
+        "Filter by entity type (product, category, etc.) — verify by filtering",
+        "Quotes list shows all quotes with status badges — verify by visiting /admin/quotes",
+        "Status selector changes quote status and logs activity — verify by changing status",
+        "Generate PDF button downloads quote as PDF file — verify by clicking and opening file",
+        "Quote detail page shows all items with product names, quantities, prices — verify visually"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Storefront",
+      "feature": "WhatsApp commerce flow: share cards, lead tracking, variant selector",
+      "description": "Enhance product detail page with: variant selector (size/color dropdowns), WhatsApp share card (OG preview with product image, price, variant info), lead tracking (log click on WhatsApp button to leads table). Create WhatsApp share link that pre-fills message with product name, price, variant, and product URL. Add app/(store)/leads/page.tsx (admin-only) showing which products generate most WhatsApp interest. Track: productId, variantId, timestamp, source (product page, share card, etc.).",
+      "acceptance_criteria": [
+        "Product detail page shows variant selector (size, color dropdowns) — verify visually",
+        "Selecting variant updates price display and WhatsApp message preview — verify by selecting",
+        "WhatsApp button generates link with product name, price, variant in message — verify link href",
+        "Clicking WhatsApp button logs lead to DB — verify by clicking and checking DB",
+        "Admin can view /admin/leads showing top products by WhatsApp clicks — verify by visiting",
+        "Lead list shows product name, variant, timestamp, and click count — verify visually"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Infrastructure",
+      "feature": "CSV/PDF export utilities and product duplication action",
+      "description": "Create lib/export.ts with: exportToCsv(columns, rows) returning CSV string, exportToPdf(title, columns, rows) returning PDF buffer. Create lib/actions/products.ts enhancement: duplicateProduct(id) that clones product with all variants and images, appends '(copie)' to name. Add 'Dupliquer' button to product list and detail pages. Add 'Exporter' button to product list, messages list, quotes list that downloads CSV. Use pdfkit for PDF generation.",
+      "acceptance_criteria": [
+        "exportToCsv() generates valid CSV with headers and rows — verify by exporting and opening in Excel",
+        "exportToPdf() generates valid PDF with title, table, formatted prices — verify by exporting and opening",
+        "duplicateProduct() creates new product with same name + '(copie)', all variants, all images — verify by duplicating",
+        "Duplicate product has different ID and slug — verify in DB",
+        "Product list has 'Exporter' button that downloads all products as CSV — verify by clicking",
+        "Messages list has 'Exporter' button that downloads as CSV — verify by clicking",
+        "Product detail page has 'Dupliquer' button that creates copy and redirects — verify by clicking"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Admin-API",
+      "feature": "Email notifications for contact form, quotes, and leads",
+      "description": "Integrate email service (Resend or SendGrid). Create lib/email.ts with: sendContactNotification(message), sendQuoteNotification(quote), sendLeadNotification(lead). Create email templates (HTML) for each. Wrap contact form submission, quote creation, and WhatsApp lead tracking to send emails to admin. Add ADMIN_EMAIL to .env.example. Test email sending in development.",
+      "acceptance_criteria": [
+        "Email service configured in lib/email.ts with API key from env — verify with tsc --noEmit",
+        "sendContactNotification() sends email with message details to admin — verify by submitting contact form and checking inbox",
+        "sendQuoteNotification() sends email with quote summary (club, items, total) — verify by creating quote",
+        "sendLeadNotification() sends email when WhatsApp button clicked — verify by clicking and checking inbox",
+        "Email templates are HTML formatted with brand colors — verify by inspecting email",
+        ".env.example includes ADMIN_EMAIL and email service API key — verify file contents"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Infrastructure",
+      "feature": "Rate limiting and CAPTCHA on contact/quote endpoints",
+      "description": "Install rate-limit middleware (e.g., Ratelimit from Upstash or simple in-memory). Add rate limiting to: POST /api/contact (5 per hour per IP), POST /api/quotes (3 per hour per IP). Optionally add hCaptcha or reCAPTCHA v3 to contact form (silent, no user interaction). Create lib/rate-limit.ts with reusable middleware. Add CAPTCHA_SECRET to .env.example if using.",
+      "acceptance_criteria": [
+        "Rate limiting middleware installed and configured — verify with tsc --noEmit",
+        "Contact endpoint returns 429 after 5 requests per hour from same IP — verify by making requests",
+        "Quote endpoint returns 429 after 3 requests per hour from same IP — verify by making requests",
+        "CAPTCHA (optional) integrated into contact form — verify by inspecting form HTML",
+        "Rate limit headers (X-RateLimit-Remaining) returned in response — verify with curl",
+        ".env.example includes rate limit config and CAPTCHA_SECRET if used — verify file contents"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Infrastructure",
+      "feature": "Structured data (JSON-LD) and analytics setup",
+      "description": "Add JSON-LD structured data to pages: Organization schema (name, logo, contact, address) in root layout, Product schema on product detail pages (name, price, image, description, availability), BreadcrumbList on category/product pages. Integrate Vercel Analytics (or Plausible) for traffic tracking. Add event tracking: product view, WhatsApp click, quote request, contact form submit. Create lib/analytics.ts with trackEvent(name, data) helper.",
+      "acceptance_criteria": [
+        "Organization schema in app/layout.tsx with Dakar Sport info — verify with schema.org validator",
+        "Product schema on product detail pages with all required fields — verify with schema.org validator",
+        "BreadcrumbList schema on category and product pages — verify with schema.org validator",
+        "Vercel Analytics or Plausible script loaded in layout — verify by checking Network tab",
+        "trackEvent() helper logs events to analytics service — verify with tsc --noEmit",
+        "Product view, WhatsApp click, quote request tracked — verify by checking analytics dashboard",
+        "Analytics dashboard shows traffic, top products, conversion funnel — verify by visiting dashboard"
       ],
       "passes": false
     }

@@ -6,6 +6,6 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 * **Status:** Success
 * **Started:** 2026-04-06 17:59
-* **Note:** Created prd.json with 30 tasks across 6 groups (Database, Auth, Admin-API, Admin-UI, Storefront, Infrastructure). Tech stack: Next.js 16, Drizzle ORM, NeonDB, better-auth, shadcn/ui. Ready to begin implementation cycles.
+* **Note:** Created prd.json with 42 tasks. Reorganized to prioritize Design first (3 tasks: admin wireframes, storefront wireframes, design system), then implementation. Tech stack: Next.js 16, Drizzle ORM, NeonDB, better-auth, shadcn/ui. Includes 6 high-impact features: product variants, media library, activity log, club quote pipeline, WhatsApp commerce flow, CSV/PDF export + product duplication. Ready to begin with UX/UI design.
 
 ---
