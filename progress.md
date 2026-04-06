@@ -124,3 +124,18 @@ This file tracks all implementation cycles, decisions, and learnings during deve
   - Categories: reorder controls, category counts, and quick edit form panel
   - Promotions: status summary cards, promotion list, and form mock with type/date fields
   - Announcements: announcement summary cards, status badges, and editor mock with type/content/date fields
+
+---
+
+## Working on: Admin UI Finalization Batch (Messages, Settings, Media, Activity, Quotes)
+
+* **Status:** Success
+* **Started:** 2026-04-06 20:56
+* **Task:** Execute `/ralph-batch` to complete the remaining 3 Admin-UI tasks.
+* **Plan:**
+  - Iteration 1: Upgrade Messages inbox (split-pane list + detail view) and Settings page (grouped form sections for General, Contact, Social, Appearance).
+  - Iteration 2: Upgrade Media library (grid view with image preview, search) and build reusable `MediaPicker` component.
+  - Iteration 3: Upgrade Activity log (timeline + filters) and Quotes pipeline (list view + detail view with items table, status selector, and PDF action).
+* **Files:** `app/admin/messages/page.tsx`, `app/admin/settings/page.tsx`, `app/admin/media/page.tsx`, `components/media-picker.tsx`, `app/admin/activity/page.tsx`, `app/admin/quotes/page.tsx`, `app/admin/quotes/[id]/page.tsx`
+* **Verification:** `bunx tsc --noEmit` passed on all files.
+* **Result:** Success — All remaining Admin-UI tasks are now fully mocked with high-fidelity, production-ready layouts that match the design specifications. The entire `Admin-UI` PRD group is complete.
