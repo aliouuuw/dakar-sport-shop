@@ -1,6 +1,10 @@
+"use client"
+
+import { useState } from "react"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Add01Icon, Search01Icon, Delete01Icon, Image01Icon } from "@hugeicons/core-free-icons"
+import { Add01Icon, Search01Icon, Delete01Icon, Image01Icon, ListViewIcon, GridViewIcon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 
 const mediaFiles = [
   { id: 1, filename: "ballon-foot-pro-1.jpg", alt: "Ballon de foot professionnel face", size: "245 KB", date: "04 Avr 2026", url: "https://images.unsplash.com/photo-1614632537423-1e6c2e7e0aab?w=400&q=80" },
@@ -14,6 +18,8 @@ const mediaFiles = [
 ]
 
 export default function MediaPage() {
+  const [viewMode, setViewMode] = useState<"list" | "grid">("grid")
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
@@ -37,47 +43,107 @@ export default function MediaPage() {
               className="flex-1 bg-transparent text-sm outline-none placeholder:text-slate-400"
             />
           </div>
-          <span className="text-sm text-slate-500">{mediaFiles.length} fichiers</span>
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-slate-500">{mediaFiles.length} fichiers</span>
+            <div className="h-6 w-px bg-slate-200" />
+            <ToggleGroup type="single" value={viewMode} onValueChange={(v) => v && setViewMode(v as "list" | "grid")}>
+              <ToggleGroupItem value="list" aria-label="Vue liste" className="h-9 px-2.5 data-[state=on]:bg-slate-100">
+                <HugeiconsIcon icon={ListViewIcon} size={18} />
+              </ToggleGroupItem>
+              <ToggleGroupItem value="grid" aria-label="Vue grille" className="h-9 px-2.5 data-[state=on]:bg-slate-100">
+                <HugeiconsIcon icon={GridViewIcon} size={18} />
+              </ToggleGroupItem>
+            </ToggleGroup>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
-          {mediaFiles.map((file) => (
-            <div key={file.id} className="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-slate-50 transition-all hover:border-[#1E40AF]/30 hover:shadow-sm">
-              {/* Image preview */}
-              <div className="relative aspect-square w-full overflow-hidden bg-slate-100">
-                {/* Using a standard img tag for mock purposes to avoid Next.js Image config requirements */}
-                <img 
-                  src={file.url} 
-                  alt={file.alt}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
+        {viewMode === "grid" ? (
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
+            {mediaFiles.map((file) => (
+              <div key={file.id} className="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-slate-50 transition-all hover:border-[#1E40AF]/30 hover:shadow-sm">
+                {/* Image preview */}
+                <div className="relative aspect-square w-full overflow-hidden bg-slate-100">
+                  {/* Using a standard img tag for mock purposes to avoid Next.js Image config requirements */}
+                  <img 
+                    src={file.url} 
+                    alt={file.alt}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  
+                  {/* Hover overlay actions */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-slate-900/40 opacity-0 backdrop-blur-[1px] transition-opacity group-hover:opacity-100">
+                    <div className="flex gap-2">
+                      <Button variant="secondary" size="icon" className="h-8 w-8 rounded-full bg-white text-slate-700 hover:bg-slate-100 hover:text-[#1E40AF]">
+                        <HugeiconsIcon icon={Image01Icon} size={16} />
+                      </Button>
+                      <Button variant="secondary" size="icon" className="h-8 w-8 rounded-full bg-white text-slate-700 hover:bg-red-50 hover:text-red-600">
+                        <HugeiconsIcon icon={Delete01Icon} size={16} />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
                 
-                {/* Hover overlay actions */}
-                <div className="absolute inset-0 flex items-center justify-center bg-slate-900/40 opacity-0 backdrop-blur-[1px] transition-opacity group-hover:opacity-100">
-                  <div className="flex gap-2">
-                    <Button variant="secondary" size="icon" className="h-8 w-8 rounded-full bg-white text-slate-700 hover:bg-slate-100 hover:text-[#1E40AF]">
-                      <HugeiconsIcon icon={Image01Icon} size={16} />
-                    </Button>
-                    <Button variant="secondary" size="icon" className="h-8 w-8 rounded-full bg-white text-slate-700 hover:bg-red-50 hover:text-red-600">
-                      <HugeiconsIcon icon={Delete01Icon} size={16} />
-                    </Button>
+                {/* File details */}
+                <div className="flex flex-col p-3">
+                  <span className="truncate text-xs font-medium text-slate-900" title={file.filename}>
+                    {file.filename}
+                  </span>
+                  <div className="mt-1 flex items-center justify-between text-[10px] text-slate-500">
+                    <span>{file.size}</span>
+                    <span>{file.date}</span>
                   </div>
                 </div>
               </div>
-              
-              {/* File details */}
-              <div className="flex flex-col p-3">
-                <span className="truncate text-xs font-medium text-slate-900" title={file.filename}>
-                  {file.filename}
-                </span>
-                <div className="mt-1 flex items-center justify-between text-[10px] text-slate-500">
-                  <span>{file.size}</span>
-                  <span>{file.date}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-lg border border-slate-200 overflow-hidden">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-slate-200 bg-slate-50 text-left">
+                  <th className="p-3 font-medium text-slate-500">Aperçu</th>
+                  <th className="p-3 font-medium text-slate-500">Nom du fichier</th>
+                  <th className="p-3 font-medium text-slate-500">Taille</th>
+                  <th className="p-3 font-medium text-slate-500">Date d'ajout</th>
+                  <th className="p-3 font-medium text-slate-500 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {mediaFiles.map((file) => (
+                  <tr key={file.id} className="hover:bg-slate-50/50 transition-colors">
+                    <td className="p-3">
+                      <div className="h-12 w-12 rounded-lg overflow-hidden bg-slate-100 border border-slate-200">
+                        <img 
+                          src={file.url} 
+                          alt={file.alt}
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                    </td>
+                    <td className="p-3">
+                      <div className="flex flex-col">
+                        <span className="font-medium text-slate-900">{file.filename}</span>
+                        <span className="text-xs text-slate-500 line-clamp-1 max-w-xs" title={file.alt}>{file.alt}</span>
+                      </div>
+                    </td>
+                    <td className="p-3 text-slate-600">{file.size}</td>
+                    <td className="p-3 text-slate-600">{file.date}</td>
+                    <td className="p-3 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-[#1E40AF] hover:bg-blue-50">
+                          <HugeiconsIcon icon={Image01Icon} size={16} />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-red-600 hover:bg-red-50">
+                          <HugeiconsIcon icon={Delete01Icon} size={16} />
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   )

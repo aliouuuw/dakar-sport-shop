@@ -3,6 +3,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { Clock01Icon, FilterIcon, Calendar01Icon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 
 export default function ActivityPage() {
   const activities = [
@@ -28,59 +29,71 @@ export default function ActivityPage() {
         </div>
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
-        {/* Filters */}
-        <div className="flex flex-col gap-3 border-b border-slate-100 p-4 sm:flex-row sm:items-center">
-          <div className="flex items-center gap-2">
-            <HugeiconsIcon icon={FilterIcon} size={16} className="text-slate-400" />
-            <select className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20">
-              <option value="">Toutes les actions</option>
-              <option>Création</option>
-              <option>Modification</option>
-              <option>Suppression</option>
-            </select>
-            <select className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20">
-              <option value="">Toutes les entités</option>
-              <option>Produits</option>
-              <option>Catégories</option>
-              <option>Promotions</option>
-              <option>Devis</option>
-            </select>
+      <Card className="border-slate-200 shadow-none rounded-xl">
+        <CardHeader className="border-b border-slate-100 pb-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <CardTitle className="text-lg text-slate-900 flex items-center gap-2">
+              <HugeiconsIcon icon={Clock01Icon} size={18} className="text-[#1E40AF]" />
+              Dernières actions
+            </CardTitle>
+            
+            {/* Filters */}
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="flex items-center gap-2">
+                <HugeiconsIcon icon={FilterIcon} size={16} className="text-slate-400 hidden sm:block" />
+                <select className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20">
+                  <option value="">Toutes les actions</option>
+                  <option>Création</option>
+                  <option>Modification</option>
+                  <option>Suppression</option>
+                </select>
+                <select className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20">
+                  <option value="">Toutes les entités</option>
+                  <option>Produits</option>
+                  <option>Catégories</option>
+                  <option>Promotions</option>
+                  <option>Devis</option>
+                </select>
+              </div>
+              <div className="hidden sm:block h-6 w-px bg-slate-200" />
+              <div className="flex items-center gap-2">
+                <HugeiconsIcon icon={Calendar01Icon} size={16} className="text-slate-400 hidden sm:block" />
+                <input type="date" className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" />
+                <span className="text-slate-400 text-sm">à</span>
+                <input type="date" className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" />
+              </div>
+            </div>
           </div>
-          <div className="flex items-center gap-2 sm:ml-auto">
-            <HugeiconsIcon icon={Calendar01Icon} size={16} className="text-slate-400" />
-            <input type="date" className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" />
-            <span className="text-slate-400 text-sm">à</span>
-            <input type="date" className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20" />
-          </div>
-        </div>
+        </CardHeader>
 
         {/* Timeline */}
-        <div className="divide-y divide-slate-100">
-          {activities.map((activity) => (
-            <div key={activity.id} className="flex items-center gap-4 p-4 hover:bg-slate-50/50 transition-colors">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100">
-                <HugeiconsIcon icon={Clock01Icon} size={18} className="text-slate-600" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <Badge className={`h-5 rounded-md px-2 text-[10px] font-semibold border-none ${actionColors[activity.action]}`}>
-                    {activity.action}
-                  </Badge>
-                  <span className="text-sm font-medium text-slate-900">{activity.entity}</span>
-                  <span className="text-xs text-slate-400">({activity.type})</span>
+        <CardContent className="p-0">
+          <div className="divide-y divide-slate-100">
+            {activities.map((activity) => (
+              <div key={activity.id} className="flex items-center gap-4 p-4 hover:bg-slate-50/50 transition-colors">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-50 border border-slate-100">
+                  <HugeiconsIcon icon={Clock01Icon} size={18} className="text-slate-500" />
                 </div>
-                <div className="mt-1 flex items-center gap-2 text-xs text-slate-500">
-                  <span>Par <span className="font-medium text-slate-700">{activity.user}</span></span>
-                  <span>•</span>
-                  <span>{activity.time}</span>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <Badge className={`h-5 rounded-md px-2 text-[10px] font-semibold border-none shadow-sm ${actionColors[activity.action]}`}>
+                      {activity.action}
+                    </Badge>
+                    <span className="text-sm font-medium text-slate-900">{activity.entity}</span>
+                    <span className="text-xs text-slate-500 hidden sm:inline-block">({activity.type})</span>
+                  </div>
+                  <div className="mt-1 flex items-center gap-2 text-xs text-slate-500">
+                    <span>Par <span className="font-medium text-slate-700">{activity.user}</span></span>
+                    <span>•</span>
+                    <span>{activity.time}</span>
+                  </div>
                 </div>
+                <Button variant="ghost" size="sm" className="text-[#1E40AF] hover:text-[#1e3a8a] hover:bg-blue-50">Détails</Button>
               </div>
-              <Button variant="ghost" size="sm" className="text-[#1E40AF]">Détails</Button>
-            </div>
-          ))}
-        </div>
-      </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
