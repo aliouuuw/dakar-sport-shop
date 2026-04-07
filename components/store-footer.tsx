@@ -270,8 +270,8 @@ export default function StoreFooter() {
         {/* Bottom Bar */}
         <div className="mt-10 border-t border-slate-800 pt-6">
           <p className="text-center text-xs text-slate-500">
-            &copy; {new Date().getFullYear()} Dakar Sport &middot; Tout pour le
-            Sport &middot; Tous droits reserves
+            &copy; {new Date().getFullYear()} {""} {""} Dakar Sport &middot; Tout pour le
+            Sport &middot; Tous droits réservés
           </p>
         </div>
       </div>
