@@ -188,7 +188,7 @@ export default function StoreHeader() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200/50 shadow-sm">
       {/* Announcement Bar */}
       <div className="bg-red-600 text-white text-center py-2 text-sm font-medium">
         🏷️ Livraison gratuite à Dakar pour toute commande de plus de 50 000 FCFA
@@ -207,8 +207,8 @@ export default function StoreHeader() {
               <SheetContent side="left" className="w-72 p-0">
                 <SheetHeader className="border-b border-slate-200 p-4">
                   <SheetTitle className="flex items-center gap-2">
-                    <StoreIcon className="text-blue-800" />
-                    <span className="text-blue-800 font-extrabold text-lg">DAKAR SPORT</span>
+                    <StoreIcon className="text-slate-900" />
+                    <span className="text-slate-900 font-black text-lg tracking-tighter uppercase">DAKAR SPORT</span>
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col py-4">
@@ -218,10 +218,10 @@ export default function StoreHeader() {
                       href={item.href}
                       onClick={() => setMobileNavOpen(false)}
                       className={cn(
-                        "px-4 py-3 text-sm font-medium transition-colors hover:bg-blue-50 hover:text-blue-800",
+                        "px-6 py-4 text-base font-bold uppercase tracking-wider transition-colors hover:bg-slate-50 hover:text-slate-900",
                         pathname === item.href
-                          ? "bg-blue-50 text-blue-800 border-r-2 border-blue-800"
-                          : "text-slate-700"
+                          ? "bg-slate-900 text-white hover:bg-slate-800 hover:text-white"
+                          : "text-slate-600"
                       )}
                     >
                       {item.label}
@@ -274,35 +274,34 @@ export default function StoreHeader() {
               </SheetContent>
             </Sheet>
             <Link href="/" className="flex items-center gap-2">
-              <StoreIcon className="text-blue-800 h-7 w-7" />
-              <span className="text-blue-800 font-extrabold text-lg tracking-tight">DAKAR SPORT</span>
+              <StoreIcon className="text-slate-900 h-7 w-7" />
+              <span className="text-slate-900 font-black text-lg tracking-tighter uppercase">DAKAR SPORT</span>
             </Link>
           </div>
 
           {/* Desktop Logo */}
-          <Link href="/" className="hidden lg:flex items-center gap-2 shrink-0">
-            <StoreIcon className="text-blue-800" />
+          <Link href="/" className="hidden lg:flex items-center gap-3 shrink-0">
+            <div className="bg-slate-900 p-2 rounded-lg">
+              <StoreIcon className="text-white h-6 w-6" />
+            </div>
             <div className="flex flex-col">
-              <span className="text-blue-800 font-extrabold text-lg tracking-tight leading-none">
+              <span className="text-slate-900 font-black text-xl tracking-tighter uppercase leading-none">
                 DAKAR SPORT
-              </span>
-              <span className="text-xs text-slate-500 font-medium leading-none mt-0.5">
-                Tout pour le Sport
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-2">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-4 py-2 text-sm font-medium rounded-md transition-colors",
+                  "px-5 py-2.5 text-sm font-bold uppercase tracking-wider rounded-full transition-all",
                   pathname === item.href
-                    ? "text-blue-800 bg-blue-50 font-bold"
-                    : "text-slate-700 hover:text-blue-800 hover:bg-slate-50"
+                    ? "bg-slate-900 text-white"
+                    : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"
                 )}
               >
                 {item.label}

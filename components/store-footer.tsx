@@ -148,22 +148,24 @@ function StoreIcon({ className }: { className?: string }) {
 
 export default function StoreFooter() {
   return (
-    <footer className="bg-slate-900 text-slate-400">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+    <footer className="bg-slate-950 text-slate-400 py-20 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand Column */}
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-2">
-              <StoreIcon className="text-white h-7 w-7" />
-              <div>
-                <span className="text-white font-extrabold text-lg tracking-tight block leading-none">
-                  DAKAR SPORT
-                </span>
-                <span className="text-xs text-slate-400 font-medium leading-none">
-                  Tout pour le Sport depuis Dakar
-                </span>
+          <div className="col-span-1 lg:col-span-2">
+            <Link href="/" className="inline-flex items-center gap-3 mb-6">
+              <div className="bg-white p-2 rounded-lg">
+                <StoreIcon className="text-slate-900 h-6 w-6" />
               </div>
-            </div>
+              <span className="text-white font-black text-2xl tracking-tighter uppercase leading-none">
+                DAKAR SPORT
+              </span>
+            </Link>
+            <p className="text-sm max-w-sm mb-8 leading-relaxed font-medium text-slate-400">
+              L'équipementier sportif n°1 au Sénégal. Nous équipons les athlètes, 
+              les clubs et les passionnés avec les meilleures marques mondiales.
+            </p>
             <p className="text-sm leading-relaxed">
               Votre boutique d{"'"}equipements sportifs a Dakar. Qualite et
               professionnalisme au service du sport senegalais.
@@ -267,13 +269,16 @@ export default function StoreFooter() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-10 border-t border-slate-800 pt-6">
-          <p className="text-center text-xs text-slate-500">
-            &copy; {new Date().getFullYear()} {""} {""} Dakar Sport &middot; Tout pour le
-            Sport &middot; Tous droits réservés
-          </p>
-        </div>
+          {/* Bottom Bar */}
+          <div className="mt-20 border-t border-slate-800/50 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-xs text-slate-500 font-medium">
+              &copy; {new Date().getFullYear()} DAKAR SPORT. TOUS DROITS RÉSERVÉS.
+            </p>
+            <div className="flex items-center gap-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+              <Link href="/politique-de-confidentialite" className="hover:text-white transition-colors">Confidentialité</Link>
+              <Link href="/cgv" className="hover:text-white transition-colors">CGV</Link>
+            </div>
+          </div>
       </div>
     </footer>
   );

@@ -372,17 +372,17 @@ export default async function ProductDetailPage({
           <div className="flex flex-col gap-8">
             {/* Header */}
             <div>
-              <div className="flex items-start justify-between gap-4 mb-4">
+              <div className="flex flex-col-reverse sm:flex-row sm:items-start justify-between gap-4 mb-4">
                 <div>
-                  <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter text-slate-900 uppercase leading-[0.9]">
                     {product.name}
                   </h1>
-                  <p className="mt-2 text-sm text-slate-500 uppercase tracking-wider font-semibold">
+                  <p className="mt-4 text-sm text-[#1E40AF] uppercase tracking-[0.2em] font-black">
                     {product.category}
                   </p>
                 </div>
                 {product.isNew && (
-                  <Badge className="bg-blue-600 hover:bg-blue-700 text-white shrink-0">
+                  <Badge className="bg-[#1E40AF] text-white border-none text-xs font-black uppercase tracking-wider px-3 py-1.5 shrink-0 self-start">
                     Nouveau
                   </Badge>
                 )}
@@ -441,40 +441,36 @@ export default async function ProductDetailPage({
 
             {/* Description */}
             <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-3">Description</h2>
-              <p className="text-slate-600 leading-relaxed">{product.description}</p>
+              <h2 className="text-sm font-black text-slate-900 uppercase tracking-[0.1em] mb-4">Description</h2>
+              <p className="text-slate-600 text-lg leading-relaxed font-medium">{product.description}</p>
             </div>
 
             {/* Info Cards */}
-            <div className="grid grid-cols-2 gap-3 pt-4">
-              <Card className="border-slate-200">
-                <CardContent className="p-4 text-center">
-                  <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
-                    Livraison
-                  </p>
-                  <p className="text-sm font-semibold text-slate-900">
-                    Gratuite à Dakar
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-slate-200">
-                <CardContent className="p-4 text-center">
-                  <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
-                    Garantie
-                  </p>
-                  <p className="text-sm font-semibold text-slate-900">
-                    12 mois
-                  </p>
-                </CardContent>
-              </Card>
+            <div className="grid grid-cols-2 gap-4 pt-6 border-t border-slate-100">
+              <div className="bg-slate-50 rounded-2xl p-5 text-center flex flex-col items-center justify-center">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">
+                  Livraison
+                </p>
+                <p className="text-sm font-bold text-slate-900">
+                  Gratuite à Dakar
+                </p>
+              </div>
+              <div className="bg-slate-50 rounded-2xl p-5 text-center flex flex-col items-center justify-center">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">
+                  Garantie
+                </p>
+                <p className="text-sm font-bold text-slate-900">
+                  12 mois inclus
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
-          <div className="mt-20 border-t border-slate-200 pt-16">
-            <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 mb-8">
+          <div className="mt-24 border-t border-slate-200 pt-16">
+            <h2 className="text-3xl font-black tracking-tighter text-slate-900 uppercase mb-8">
               Produits similaires
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

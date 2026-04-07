@@ -425,3 +425,18 @@ All admin UI tasks are complete. Ready to begin storefront implementation.
 * **Files:** `app/(store)/produits/page.tsx` (modify), `app/(store)/promotions/page.tsx` (modify)
 * **Verification:** `bunx tsc --noEmit`
 * **Result:** Success — The entire storefront now shares a cohesive, high-end sportswear brand aesthetic.
+
+---
+
+## Working on: Header & Footer Redesign
+
+* **Status:** Completed
+* **Started:** 2026-04-07 17:19
+* **Task:** Extend the premium brand aesthetic to the global layout components (Header and Footer).
+* **Plan & Execution:**
+  - **Header:** Replaced the white background with a frosted glass effect (`bg-white/95 backdrop-blur-xl`). Changed the logo to a bold black box with white text. Replaced the subtle navigation links with pill-shaped hover states and bold uppercase typography.
+  - **Footer:** Changed the background to a deep slate (`bg-slate-950`) with a subtle gradient overlay. Upgraded the typography to match the rest of the site (bold, uppercase tracking). Added a sleek bottom bar with legal links.
+  - **Routing Fix:** Moved `app/(store)/page.tsx` back to `app/page.tsx` and wrapped it in `<StoreHeader>` and `<StoreFooter>` to ensure it renders correctly at the root `/` URL while maintaining the layout.
+* **Files:** `components/store-header.tsx` (modify), `components/store-footer.tsx` (modify), `app/page.tsx` (modify)
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — The global layout now perfectly frames the redesigned premium storefront content.
