@@ -552,6 +552,32 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Messages management server actions
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:44
+* **Task:** Create lib/actions/messages.ts with getMessages(), markAsRead(), archiveMessage(), deleteMessage(), getUnreadCount().
+* **Plan:**
+  - `getMessages(filters?)` — paginated, filter by read/unread, sorted by createdAt desc
+  - `getMessageById(id)` — single lookup
+  - `markAsRead(id)` — sets read = true
+  - `archiveMessage(id)` — sets archivedAt timestamp
+  - `deleteMessage(id)` — hard delete (admin only)
+  - `getUnreadCount()` — returns count of unread messages
+  - Public `createMessage()` — for contact form (no admin required)
+  - All mutations except createMessage guarded by requireAdmin()
+* **Files:** `lib/actions/messages.ts`
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Messages management server actions created:
+  - `lib/actions/messages.ts` with `getMessages()`, `getMessageById()`, `getUnreadCount()`, `createMessage()`, `markAsRead()`, `markAsUnread()`, `archiveMessage()`, `unarchiveMessage()`, `deleteMessage()`
+  - `getMessages()` filters by read status and archived state (excludes archived by default)
+  - `createMessage()` is public — no admin required (used by contact form)
+  - `getUnreadCount()` returns count for admin badge indicator
+  - All admin mutations guarded by `requireAdmin()`
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:

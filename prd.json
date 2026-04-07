@@ -424,7 +424,7 @@
         "getUnreadCount() returns accurate count — verify by counting unread messages",
         "deleteMessage() removes message permanently — verify by deleting"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Admin-API",
