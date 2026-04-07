@@ -142,15 +142,17 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
-## Working on: Admin UI Refinement & Grid Views
+## Working on: Admin UI Radical Restructure (Bolder + Delight)
 
 * **Status:** Success
-* **Started:** 2026-04-06 21:20
-* **Task:** Polish admin UX/UI applying UI skills (arrange, normalize, polish) and add Table/Grid view toggles to all list pages.
+* **Started:** 2026-04-06 21:50
+* **Task:** Implement a new layout paradigm across all admin pages using `bolder`, `arrange`, and `delight` skills.
 * **Plan:**
-  - Enhance layout and sidebar for better consistency and visual hierarchy.
-  - Implement a List/Grid `ToggleGroup` on Products, Categories, Promotions, Announcements, Media, and Quotes pages.
-  - Polish the Dashboard with standardized `Card` components and an "Astuce du jour" section.
-  - Polish the Activity page for a cleaner timeline view.
-* **Files:** `app/admin/layout.tsx`, `app/admin/components/admin-sidebar.tsx`, `app/admin/page.tsx`, `app/admin/products/page.tsx`, `app/admin/categories/page.tsx`, `app/admin/promotions/page.tsx`, `app/admin/announcements/page.tsx`, `app/admin/quotes/page.tsx`, `app/admin/media/page.tsx`, `app/admin/activity/page.tsx`
-* **Result:** Success — Admin interfaces are thoroughly polished. All list-based pages now correctly support toggling between list and grid views with consistent empty/loading states and refined typography.
+  - Redesign Dashboard into an asymmetric Bento grid with massive typography for key metrics.
+  - Widen the overall canvas in `layout.tsx` for better breathing room.
+  - Refactor `AdminPageHeader` for dramatic scale (`text-5xl font-extrabold`).
+  - Convert all side-by-side "List + Form" pages (Categories, Promotions, Announcements) into full-width lists with slide-over drawer forms (`Sheet` component).
+  - Add staggered fade-in animations and micro-interactions on hover across tables and grid cards.
+* **Files:** `app/admin/layout.tsx`, `app/admin/page.tsx`, `app/admin/components/admin-page-header.tsx`, `app/admin/categories/page.tsx`, `app/admin/promotions/page.tsx`, `app/admin/announcements/page.tsx`, `app/admin/quotes/page.tsx`, `app/admin/products/page.tsx`, `app/admin/media/page.tsx`
+* **Result:** Success — The admin interface has been transformed. It no longer feels like a generic SaaS dashboard. It uses high-contrast asymmetric layouts, full-width data tables, and contextual slide-over drawers for editing, creating a much more focused and delightful user experience.
+
