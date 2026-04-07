@@ -4,3 +4,6 @@ export * from "./products";
 export * from "./promotions";
 export * from "./announcements";
 export * from "./messages";
+export * from "./variants";
+export * from "./media";
+export * from "./activity-log";

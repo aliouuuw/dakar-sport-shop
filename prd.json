@@ -298,7 +298,7 @@
         "All relations defined and FK constraints in place — verify with bunx drizzle-kit generate",
         "Migration generated successfully — verify by running bunx drizzle-kit generate"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Auth",

@@ -15,6 +15,13 @@
       "when": 1775585435309,
       "tag": "0001_red_fabian_cortez",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1775585935121,
+      "tag": "0002_fast_freak",
+      "breakpoints": true
     }
   ]
 }

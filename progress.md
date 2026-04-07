@@ -339,6 +339,28 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Product variants, media library, and activity log schemas
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:16
+* **Task:** Extend schema with productVariants, media, and activityLog tables. Add FK relations and indexes.
+* **Plan:**
+  - Create `lib/db/schema/variants.ts` — id, productId (FK), sku (unique), size, color, priceOverride, stock, active
+  - Create `lib/db/schema/media.ts` — id, url, alt, filename, mimeType, size, width, height, createdAt
+  - Create `lib/db/schema/activity-log.ts` — id, userId, action, entityType, entityId, metadata JSON, createdAt
+  - Update `lib/db/schema/index.ts` to re-export all new schemas
+  - Verify with `bunx tsc --noEmit` and `bunx drizzle-kit generate`
+* **Files:** `lib/db/schema/variants.ts`, `lib/db/schema/media.ts`, `lib/db/schema/activity-log.ts`, `lib/db/schema/index.ts`
+* **Verification:** TypeScript compiles, drizzle-kit generates valid migration SQL
+* **Result:** Success — Extended schema with 3 new tables:
+  - `lib/db/schema/variants.ts` — productVariants with sku uniqueness, productId FK (cascade delete), index on productId
+  - `lib/db/schema/media.ts` — media library with url, alt, filename, mimeType, size, width, height
+  - `lib/db/schema/activity-log.ts` — activityLog with userId, action, entityType, entityId, metadata JSON, indexes on userId + createdAt
+  - `lib/db/schema/index.ts` updated to export all 9 schemas
+  - Migration generated: `drizzle/0002_fast_freak.sql` with 3 new tables + 3 indexes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:
