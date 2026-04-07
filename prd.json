@@ -558,7 +558,7 @@
         "Rate limit headers (X-RateLimit-Remaining) returned in response — verify with curl",
         ".env.example includes rate limit config and CAPTCHA_SECRET if used — verify file contents"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Infrastructure",
