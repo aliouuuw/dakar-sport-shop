@@ -213,6 +213,20 @@ export async function toggleProductActive(id: number): Promise<ActionResult<{ ac
   return { success: true, data: { active: row.active } };
 }
 
+export async function getProductCountByCategory(): Promise<Record<number, number>> {
+  const rows = await db
+    .select({ categoryId: products.categoryId, count: sql<number>`count(*)::int` })
+    .from(products)
+    .groupBy(products.categoryId);
+  
+  return rows.reduce((acc, row) => {
+    if (row.categoryId !== null) {
+      acc[row.categoryId] = row.count;
+    }
+    return acc;
+  }, {} as Record<number, number>);
+}
+
 export async function duplicateProduct(id: number): Promise<ActionResult<typeof products.$inferSelect>> {
   try {
     await requireAdmin();

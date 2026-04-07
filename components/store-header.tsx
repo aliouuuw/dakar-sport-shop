@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import type { StoreSettings } from "@/lib/store-settings";
 
 const navItems = [
   { href: "/", label: "Accueil" },
@@ -22,20 +23,10 @@ const navItems = [
   { href: "/contact", label: "Contact" },
 ];
 
-const siteSettings = {
-  phones: [
-    { label: "Fixe", number: "+221 33 840 09 45" },
-    { label: "Mobile", number: "+221 77 634 51 15" },
-    { label: "WhatsApp", number: "+221 77 041 49 30" },
-  ],
-  email: "promosportsdakar@yahoo.fr",
-  address: "Avenue G. Pompidou, Dakar",
-  socials: {
-    facebook: "https://facebook.com/dakarsport",
-    instagram: "https://instagram.com/dakarsport",
-    whatsapp: "https://wa.me/221776345115",
-  },
-};
+interface StoreHeaderProps {
+  settings?: StoreSettings;
+  announcement?: string | null;
+}
 
 function SearchIcon({ className }: { className?: string }) {
   return (
@@ -182,7 +173,23 @@ function SearchDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (op
   );
 }
 
-export default function StoreHeader() {
+const defaultSettings: StoreSettings = {
+  siteName: "Dakar Sport",
+  tagline: "Tout pour le Sport",
+  phones: [
+    { label: "Fixe", number: "+221 33 840 09 45" },
+    { label: "Mobile", number: "+221 77 634 51 15" },
+    { label: "WhatsApp", number: "+221 77 041 49 30" },
+  ],
+  email: "promosportsdakar@yahoo.fr",
+  address: "Avenue G. Pompidou, Dakar",
+  whatsapp: "221770414930",
+  facebook: "https://facebook.com/dakarsport",
+  instagram: "https://instagram.com/dakarsport",
+  openingHours: "Lun-Sam: 8h-20h",
+};
+
+export default function StoreHeader({ settings = defaultSettings, announcement }: StoreHeaderProps) {
   const pathname = usePathname();
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -190,9 +197,11 @@ export default function StoreHeader() {
   return (
     <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200/50 shadow-sm">
       {/* Announcement Bar */}
-      <div className="bg-red-600 text-white text-center py-2 text-sm font-medium">
-        🏷️ Livraison gratuite à Dakar pour toute commande de plus de 50 000 FCFA
-      </div>
+      {announcement && (
+        <div className="bg-red-600 text-white text-center py-2 text-sm font-medium">
+          {announcement}
+        </div>
+      )}
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
@@ -208,7 +217,7 @@ export default function StoreHeader() {
                 <SheetHeader className="border-b border-slate-200 p-4">
                   <SheetTitle className="flex items-center gap-2">
                     <StoreIcon className="text-slate-900" />
-                    <span className="text-slate-900 font-black text-lg tracking-tighter uppercase">DAKAR SPORT</span>
+                    <span className="text-slate-900 font-black text-lg tracking-tighter uppercase">{settings.siteName}</span>
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col py-4">
@@ -232,7 +241,7 @@ export default function StoreHeader() {
                       Contactez-nous
                     </p>
                     <div className="space-y-2">
-                      {siteSettings.phones.map((phone) => (
+                      {settings.phones.map((phone: { label: string; number: string }) => (
                         <a
                           key={phone.label}
                           href={`tel:${phone.number.replace(/\s/g, "")}`}
@@ -244,30 +253,36 @@ export default function StoreHeader() {
                       ))}
                     </div>
                     <div className="mt-4 flex gap-3">
-                      <a
-                        href={siteSettings.socials.facebook}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-slate-400 hover:text-blue-600 transition-colors"
-                      >
-                        <FacebookIcon className="h-5 w-5" />
-                      </a>
-                      <a
-                        href={siteSettings.socials.instagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-slate-400 hover:text-pink-600 transition-colors"
-                      >
-                        <InstagramIcon className="h-5 w-5" />
-                      </a>
-                      <a
-                        href={siteSettings.socials.whatsapp}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-slate-400 hover:text-green-600 transition-colors"
-                      >
-                        <WhatsAppIcon className="h-5 w-5" />
-                      </a>
+                      {settings.facebook && (
+                        <a
+                          href={settings.facebook}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-slate-400 hover:text-blue-600 transition-colors"
+                        >
+                          <FacebookIcon className="h-5 w-5" />
+                        </a>
+                      )}
+                      {settings.instagram && (
+                        <a
+                          href={settings.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-slate-400 hover:text-pink-600 transition-colors"
+                        >
+                          <InstagramIcon className="h-5 w-5" />
+                        </a>
+                      )}
+                      {settings.whatsapp && (
+                        <a
+                          href={`https://wa.me/${settings.whatsapp}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-slate-400 hover:text-green-600 transition-colors"
+                        >
+                          <WhatsAppIcon className="h-5 w-5" />
+                        </a>
+                      )}
                     </div>
                   </div>
                 </nav>
@@ -275,7 +290,7 @@ export default function StoreHeader() {
             </Sheet>
             <Link href="/" className="flex items-center gap-2">
               <StoreIcon className="text-slate-900 h-7 w-7" />
-              <span className="text-slate-900 font-black text-lg tracking-tighter uppercase">DAKAR SPORT</span>
+              <span className="text-slate-900 font-black text-lg tracking-tighter uppercase">{settings.siteName}</span>
             </Link>
           </div>
 
@@ -286,7 +301,7 @@ export default function StoreHeader() {
             </div>
             <div className="flex flex-col">
               <span className="text-slate-900 font-black text-xl tracking-tighter uppercase leading-none">
-                DAKAR SPORT
+                {settings.siteName}
               </span>
             </div>
           </Link>
@@ -320,15 +335,17 @@ export default function StoreHeader() {
             >
               <SearchIcon className="text-slate-600" />
             </Button>
-            <a
-              href={siteSettings.socials.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-green-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-green-600 transition-colors h-10"
-            >
-              <WhatsAppIcon className="h-4 w-4" />
-              WhatsApp
-            </a>
+            {settings.whatsapp && (
+              <a
+                href={`https://wa.me/${settings.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-green-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-green-600 transition-colors h-10"
+              >
+                <WhatsAppIcon className="h-4 w-4" />
+                WhatsApp
+              </a>
+            )}
           </div>
         </div>
       </div>

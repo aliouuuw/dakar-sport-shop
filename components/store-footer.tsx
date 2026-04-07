@@ -1,19 +1,9 @@
 import Link from "next/link";
+import type { StoreSettings } from "@/lib/store-settings";
 
-const siteSettings = {
-  phones: [
-    "+221 33 840 09 45",
-    "+221 77 634 51 15",
-    "+221 77 041 49 30",
-  ],
-  email: "promosportsdakar@yahoo.fr",
-  address: "Avenue G. Pompidou, en face Restaurant Ali baba, Dakar",
-  socials: {
-    facebook: "https://facebook.com/dakarsport",
-    instagram: "https://instagram.com/dakarsport",
-    whatsapp: "https://wa.me/221776345115",
-  },
-};
+interface StoreFooterProps {
+  settings?: StoreSettings;
+}
 
 const navLinks = [
   { href: "/", label: "Accueil" },
@@ -146,7 +136,23 @@ function StoreIcon({ className }: { className?: string }) {
   );
 }
 
-export default function StoreFooter() {
+const defaultSettings: StoreSettings = {
+  siteName: "Dakar Sport",
+  tagline: "Tout pour le Sport",
+  phones: [
+    { label: "Fixe", number: "+221 33 840 09 45" },
+    { label: "Mobile", number: "+221 77 634 51 15" },
+    { label: "WhatsApp", number: "+221 77 041 49 30" },
+  ],
+  email: "promosportsdakar@yahoo.fr",
+  address: "Avenue G. Pompidou, en face Restaurant Ali baba, Dakar",
+  whatsapp: "221770414930",
+  facebook: "https://facebook.com/dakarsport",
+  instagram: "https://instagram.com/dakarsport",
+  openingHours: "Lun-Sam: 8h-20h",
+};
+
+export default function StoreFooter({ settings = defaultSettings }: StoreFooterProps) {
   return (
     <footer className="bg-slate-950 text-slate-400 py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
@@ -159,45 +165,46 @@ export default function StoreFooter() {
                 <StoreIcon className="text-slate-900 h-6 w-6" />
               </div>
               <span className="text-white font-black text-2xl tracking-tighter uppercase leading-none">
-                DAKAR SPORT
+                {settings.siteName}
               </span>
             </Link>
             <p className="text-sm max-w-sm mb-8 leading-relaxed font-medium text-slate-400">
-              L'équipementier sportif n°1 au Sénégal. Nous équipons les athlètes, 
-              les clubs et les passionnés avec les meilleures marques mondiales.
-            </p>
-            <p className="text-sm leading-relaxed">
-              Votre boutique d{"'"}equipements sportifs a Dakar. Qualite et
-              professionnalisme au service du sport senegalais.
+              {settings.tagline || "L'équipementier sportif n°1 au Sénégal."}
             </p>
             <div className="flex gap-3">
-              <a
-                href={siteSettings.socials.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-slate-400 hover:text-white transition-colors p-1"
-                aria-label="Facebook"
-              >
-                <FacebookIcon />
-              </a>
-              <a
-                href={siteSettings.socials.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-slate-400 hover:text-white transition-colors p-1"
-                aria-label="Instagram"
-              >
-                <InstagramIcon />
-              </a>
-              <a
-                href={siteSettings.socials.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-slate-400 hover:text-white transition-colors p-1"
-                aria-label="WhatsApp"
-              >
-                <WhatsAppIcon />
-              </a>
+              {settings.facebook && (
+                <a
+                  href={settings.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-400 hover:text-white transition-colors p-1"
+                  aria-label="Facebook"
+                >
+                  <FacebookIcon />
+                </a>
+              )}
+              {settings.instagram && (
+                <a
+                  href={settings.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-400 hover:text-white transition-colors p-1"
+                  aria-label="Instagram"
+                >
+                  <InstagramIcon />
+                </a>
+              )}
+              {settings.whatsapp && (
+                <a
+                  href={`https://wa.me/${settings.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-400 hover:text-white transition-colors p-1"
+                  aria-label="WhatsApp"
+                >
+                  <WhatsAppIcon />
+                </a>
+              )}
             </div>
           </div>
 
@@ -231,14 +238,14 @@ export default function StoreFooter() {
                   Telephones
                 </h4>
                 <ul className="space-y-1.5">
-                  {siteSettings.phones.map((phone) => (
-                    <li key={phone}>
+                  {settings.phones.map((phone) => (
+                    <li key={phone.number}>
                       <a
-                        href={`tel:${phone.replace(/\s/g, "")}`}
+                        href={`tel:${phone.number.replace(/\s/g, "")}`}
                         className="flex items-center gap-2 text-sm hover:text-white transition-colors"
                       >
                         <PhoneIcon className="shrink-0" />
-                        {phone}
+                        {phone.number}
                       </a>
                     </li>
                   ))}
@@ -249,11 +256,11 @@ export default function StoreFooter() {
                   Email
                 </h4>
                 <a
-                  href={`mailto:${siteSettings.email}`}
+                  href={`mailto:${settings.email}`}
                   className="flex items-center gap-2 text-sm hover:text-white transition-colors"
                 >
                   <MailIcon className="shrink-0" />
-                  {siteSettings.email}
+                  {settings.email}
                 </a>
               </div>
               <div>
@@ -262,7 +269,7 @@ export default function StoreFooter() {
                 </h4>
                 <div className="flex items-start gap-2 text-sm">
                   <MapPinIcon className="shrink-0 mt-0.5" />
-                  <span>{siteSettings.address}</span>
+                  <span>{settings.address}</span>
                 </div>
               </div>
             </div>
@@ -272,7 +279,7 @@ export default function StoreFooter() {
           {/* Bottom Bar */}
           <div className="mt-20 border-t border-slate-800/50 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-xs text-slate-500 font-medium">
-              &copy; {new Date().getFullYear()} DAKAR SPORT. TOUS DROITS RÉSERVÉS.
+              &copy; {new Date().getFullYear()} {settings.siteName}. TOUS DROITS RÉSERVÉS.
             </p>
             <div className="flex items-center gap-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
               <Link href="/politique-de-confidentialite" className="hover:text-white transition-colors">Confidentialité</Link>
