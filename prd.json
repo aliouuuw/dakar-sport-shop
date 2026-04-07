@@ -397,7 +397,7 @@
         "toggleProductActive() flips the active boolean — verify by toggling and re-reading",
         "deleteProduct() removes product from DB — verify by deleting and confirming removal"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Admin-API",

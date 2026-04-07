@@ -503,6 +503,32 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Products CRUD server actions
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:35
+* **Task:** Create lib/actions/products.ts with full CRUD + filters. Auto-slug, Zod validation, CFA price validation, JSON image array.
+* **Plan:**
+  - `getProducts(filters?)` — paginated, with category join, filter by category/active/featured
+  - `getProductBySlug(slug)` — single with category
+  - `createProduct(data)` — auto-slug, Zod validation (price > 0, valid categoryId)
+  - `updateProduct(id, data)` — partial update support
+  - `deleteProduct(id)` — hard delete
+  - `toggleProductActive(id)` — flip active boolean
+  - All mutations guarded by `requireAdmin()`
+* **Files:** `lib/actions/products.ts`
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Products CRUD server actions created:
+  - `lib/actions/products.ts` with `getProducts()`, `getProductBySlug()`, `getProductById()`, `createProduct()`, `updateProduct()`, `deleteProduct()`, `toggleProductActive()`
+  - `getProducts()` does LEFT JOIN with categories, supports filters (categoryId, active, featured, limit, offset)
+  - Zod schema validates price > 0, images as URL array, valid categoryId
+  - `updateProduct()` supports partial updates, slug uniqueness check excludes self
+  - `toggleProductActive()` flips active boolean atomically
+  - All mutations guarded by `requireAdmin()`
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:
