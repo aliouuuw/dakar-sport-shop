@@ -438,7 +438,7 @@
         "deleteMedia() removes file and DB record — verify by deleting and checking filesystem",
         "All mutations require admin role — verify by calling without admin session"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Admin-API",

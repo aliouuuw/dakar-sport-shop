@@ -578,6 +578,27 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Product variants CRUD and media library server actions
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:45
+* **Task:** Create lib/actions/variants.ts and lib/actions/media.ts with full CRUD. SKU uniqueness, price validation, media metadata storage.
+* **Plan:**
+  - `lib/actions/variants.ts`: getVariants(productId), createVariant(), updateVariant(), deleteVariant() — validate SKU uniqueness, price > 0, stock >= 0
+  - `lib/actions/media.ts`: getMedia(), getMediaById(), createMediaRecord(), deleteMedia() — store file metadata and URL
+  - All mutations guarded by requireAdmin()
+* **Files:** `lib/actions/variants.ts`, `lib/actions/media.ts`
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Variants and media server actions created:
+  - `lib/actions/variants.ts` — `getVariants()`, `getVariantById()`, `createVariant()`, `updateVariant()`, `deleteVariant()`
+  - SKU uniqueness enforced on create and update
+  - `lib/actions/media.ts` — `getMedia()`, `getMediaById()`, `createMediaRecord()`, `deleteMedia()`
+  - `getMedia()` supports search by filename/alt with `like` filter
+  - All mutations guarded by `requireAdmin()`
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:
