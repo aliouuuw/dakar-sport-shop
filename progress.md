@@ -688,6 +688,37 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Error handling, loading states, and not-found pages
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 19:02
+* **Task:** Create global and scoped 404/error pages, loading states for key routes. All in French with brand styling.
+* **Plan:**
+  - `app/not-found.tsx` — global 404 with link to homepage
+  - `app/(store)/not-found.tsx` — store 404 with store navigation
+  - `app/admin/not-found.tsx` — admin 404 with dashboard link
+  - `app/error.tsx` — global error boundary with retry
+  - `app/admin/error.tsx` — admin error boundary
+  - `app/admin/products/loading.tsx` — skeleton loader
+  - `app/admin/messages/loading.tsx` — skeleton loader
+  - `app/(store)/produits/loading.tsx` — skeleton grid
+  - Verify with `bunx tsc --noEmit`
+* **Files:** Multiple not-found/error/loading files
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Error handling and 404 pages created:
+  - `app/not-found.tsx` — global 404 with homepage link
+  - `app/(store)/not-found.tsx` — store 404 with links to homepage and /produits
+  - `app/admin/not-found.tsx` — admin-styled 404 with dashboard link
+  - `app/error.tsx` — global error boundary with retry + home buttons
+  - `app/admin/error.tsx` — admin error boundary with digest code display
+  - `app/admin/products/loading.tsx` — skeleton with header + table rows
+  - `app/admin/messages/loading.tsx` — skeleton message list
+  - `app/(store)/produits/loading.tsx` — skeleton product grid (12 cards)
+  - All in French with brand styling
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:

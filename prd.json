@@ -529,7 +529,7 @@
         "Loading states show skeleton or spinner for admin product list — verify by adding artificial delay",
         "All error/loading pages use brand styling — verify visually"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Infrastructure",
