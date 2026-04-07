@@ -8,6 +8,13 @@
       "when": 1775585332799,
       "tag": "0000_sleepy_moira_mactaggert",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1775585435309,
+      "tag": "0001_red_fabian_cortez",
+      "breakpoints": true
     }
   ]
 }

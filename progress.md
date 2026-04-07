@@ -265,6 +265,29 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Schema (promotions, announcements, messages)
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:06
+* **Task:** Create Drizzle schema files for promotions, announcements, and messages tables with proper types, enums, and indexes.
+* **Plan:**
+  - Create `lib/db/schema/promotions.ts` — id, title, description, discountType (enum), discountValue, code, active, date range
+  - Create `lib/db/schema/announcements.ts` — id, title, body, type (enum: banner/popup/info), active, date range, order
+  - Create `lib/db/schema/messages.ts` — id, name, email, phone, subject, body, read, archivedAt, createdAt
+  - Update `lib/db/schema/index.ts` to re-export new schemas
+  - Verify with `bunx tsc --noEmit` and `bunx drizzle-kit generate`
+* **Files:** `lib/db/schema/promotions.ts`, `lib/db/schema/announcements.ts`, `lib/db/schema/messages.ts`, `lib/db/schema/index.ts`
+* **Verification:** TypeScript compiles, drizzle-kit generates valid migration SQL
+* **Result:** Success — Promotions, announcements, and messages schema created with:
+  - `lib/db/schema/promotions.ts` — id, title, description, discountType enum (percentage/fixed), discountValue, code, active, date range, timestamps
+  - `lib/db/schema/announcements.ts` — id, title, body, type enum (banner/popup/info), active, date range, order, timestamps
+  - `lib/db/schema/messages.ts` — id, name, email, phone, subject, body, read boolean, archivedAt, createdAt
+  - `lib/db/schema/index.ts` updated to re-export all 6 schemas
+  - TypeScript compilation passes
+  - Migration generated: `drizzle/0001_red_fabian_cortez.sql` with 3 new tables + 2 enums
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:
