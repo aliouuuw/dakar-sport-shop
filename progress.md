@@ -369,3 +369,20 @@ All admin UI tasks are complete. Ready to begin storefront implementation.
   - FAQ section with 4 common questions
   - Brand colors, rounded-3xl cards, HugeIcons throughout
   - Form data logged to console (DB integration deferred)
+
+---
+
+## Working on: WhatsApp commerce flow (Variant Selector & Leads)
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 16:40
+* **Task:** Enhance product detail page with variant selector (size/color), update WhatsApp button logic to include variants, and create admin leads page.
+* **Plan:**
+  - Create a client component `components/product-variants.tsx` for the product detail page.
+  - It will handle selecting size and color, and recalculating the price if a variant has a price override.
+  - Update the WhatsApp order button to read the selected variant and include it in the pre-filled message.
+  - Remove the placeholder "Add to cart" button (since the flow is purely WhatsApp-based for this MVP, or change it to a "Add to WhatsApp Cart" if multi-item is desired, but PRD specifies single-item variant tracking).
+  - Create `app/admin/leads/page.tsx` to show a mocked list of WhatsApp leads (who clicked what product/variant and when).
+  - Use HugeIcons, brand colors, and match admin design conventions.
+* **Files:** `components/product-variants.tsx` (new), `app/(store)/produits/[slug]/page.tsx` (modify), `app/admin/leads/page.tsx` (new)
+* **Verification:** `bunx tsc --noEmit`

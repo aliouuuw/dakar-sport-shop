@@ -15,6 +15,7 @@ import {
   Clock01Icon,
   Settings01Icon,
   Logout01Icon,
+  UserMultiple02Icon,
 } from "@hugeicons/core-free-icons"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
@@ -31,6 +32,7 @@ const navItems = [
   { href: "/admin/categories", label: "Catégories", icon: GridIcon },
   { href: "/admin/promotions", label: "Promotions", icon: PercentIcon },
   { href: "/admin/announcements", label: "Annonces", icon: Megaphone01Icon },
+  { href: "/admin/leads", label: "Leads WhatsApp", icon: UserMultiple02Icon },
   { href: "/admin/messages", label: "Messages", icon: Mail01Icon, badge: true },
   { href: "/admin/quotes", label: "Devis", icon: Invoice01Icon },
   { href: "/admin/media", label: "Médias", icon: Image01Icon },

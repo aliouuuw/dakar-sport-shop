@@ -224,7 +224,7 @@
         "Admin can view /admin/leads showing top products by WhatsApp clicks — verify by visiting",
         "Lead list shows product name, variant, timestamp, and click count — verify visually"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database",

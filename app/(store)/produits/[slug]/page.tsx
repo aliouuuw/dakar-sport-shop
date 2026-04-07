@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ProductGallery } from "@/components/product-gallery";
 import { ProductCard } from "@/components/product-card";
+import { ProductVariants } from "@/components/product-variants";
 
 // Mock data — same as products listing
 const ALL_PRODUCTS = [
@@ -319,17 +320,19 @@ export default async function ProductDetailPage({
 
   const relatedProducts = getRelatedProducts(product.categorySlug, product.id);
 
-  const formatPrice = (amount: number) => {
-    return new Intl.NumberFormat("fr-SN", {
-      style: "currency",
-      currency: "XOF",
-      maximumFractionDigits: 0,
-    }).format(amount);
-  };
-
-  const whatsappMessage = encodeURIComponent(
-    `Bonjour, je suis intéressé par: ${product.name}\nPrix: ${formatPrice(product.price)}\nLien: ${process.env.NEXT_PUBLIC_APP_URL || "https://dakarsport.sn"}/produits/${slug}`
-  );
+  // Mock variants for the selected product
+  const mockSizes = [
+    { id: "s", name: "S" },
+    { id: "m", name: "M" },
+    { id: "l", name: "L" },
+    { id: "xl", name: "XL" },
+  ];
+  
+  const mockColors = [
+    { id: "noir", name: "Noir" },
+    { id: "blanc", name: "Blanc" },
+    { id: "rouge", name: "Rouge", priceOffset: 2000 },
+  ];
 
   return (
     <div className="bg-white">
@@ -405,24 +408,17 @@ export default async function ProductDetailPage({
               </div>
             </div>
 
-            {/* Price */}
-            <div className="border-y border-slate-200 py-6">
-              <div className="flex items-baseline gap-4">
-                <span className="text-5xl font-black tracking-tight text-slate-900">
-                  {formatPrice(product.price)}
-                </span>
-                {product.compareAtPrice && product.compareAtPrice > product.price && (
-                  <span className="text-2xl text-slate-400 line-through">
-                    {formatPrice(product.compareAtPrice)}
-                  </span>
-                )}
-              </div>
-              {product.compareAtPrice && product.compareAtPrice > product.price && (
-                <p className="mt-2 text-sm font-semibold text-red-600">
-                  Économisez {formatPrice(product.compareAtPrice - product.price)}
-                </p>
-              )}
-            </div>
+            {/* Price & Variants (Replaces static price and CTA buttons) */}
+            <ProductVariants 
+              product={{
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                slug: product.slug,
+              }}
+              sizes={product.category === "Football" || product.category === "Basketball" ? mockSizes : undefined}
+              colors={product.category === "Running" ? mockColors : undefined}
+            />
 
             {/* Stock Status */}
             <div className="flex items-center gap-3">
@@ -447,31 +443,6 @@ export default async function ProductDetailPage({
             <div>
               <h2 className="text-lg font-bold text-slate-900 mb-3">Description</h2>
               <p className="text-slate-600 leading-relaxed">{product.description}</p>
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button
-                asChild
-                size="lg"
-                className="bg-green-500 hover:bg-green-600 text-white h-14 px-8 text-lg font-bold rounded-xl flex-1"
-              >
-                <a
-                  href={`https://wa.me/22177634511?text=${whatsappMessage}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <HugeiconsIcon icon={WhatsappIcon} size={20} className="mr-2" />
-                  Commander via WhatsApp
-                </a>
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="h-14 px-8 text-lg font-bold rounded-xl border-slate-200"
-              >
-                Ajouter au panier
-              </Button>
             </div>
 
             {/* Info Cards */}
