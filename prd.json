@@ -333,7 +333,7 @@
         "lib/auth-server.ts exports getSession() for server-side session access — verify with tsc --noEmit",
         "Session includes user.id, user.email, user.name, user.role — verify with tsc --noEmit"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Auth",
@@ -345,7 +345,7 @@
         "middleware.ts redirects non-admin users from /admin/* to / — verify by accessing /admin with user role",
         "lib/auth-server.ts exports requireAdmin() that throws if not admin — verify with tsc --noEmit"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Auth",

@@ -404,6 +404,30 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Admin role and route protection middleware
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:30
+* **Task:** Create middleware.ts protecting /admin/* routes. Redirect unauthenticated to /admin/login, redirect non-admin to /.
+* **Plan:**
+  - Create `middleware.ts` at project root — intercepts /admin/* requests
+  - Use `auth.api.getSession()` to check session from request headers
+  - Redirect to `/admin/login` if no session, redirect to `/` if role !== 'admin'
+  - Skip middleware for `/admin/login` itself to avoid redirect loops
+  - `requireAdmin()` already implemented in `lib/auth-server.ts`
+  - Verify with `bunx tsc --noEmit`
+* **Files:** `middleware.ts`
+* **Verification:** TypeScript compiles cleanly
+* **Result:** Success — Admin route protection middleware created:
+  - `middleware.ts` intercepts all `/admin/*` requests
+  - Skips `/admin/login` to avoid redirect loops
+  - Redirects to `/admin/login?callbackUrl=...` if no session
+  - Redirects to `/` if session exists but role !== 'admin'
+  - `requireAdmin()` already in `lib/auth-server.ts` for Server Actions
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:
