@@ -466,7 +466,7 @@
         "Email templates are HTML formatted with brand colors — verify by inspecting email",
         ".env.example includes ADMIN_EMAIL and email service API key — verify file contents"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Infrastructure",

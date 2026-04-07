@@ -624,6 +624,29 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Email notifications for contact form, quotes, and leads
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:50
+* **Task:** Install Resend, create lib/email.ts with HTML templates for contact, quote, and lead notifications.
+* **Plan:**
+  - Install `resend` package
+  - Create `lib/email.ts` with sendContactNotification(), sendQuoteNotification(), sendLeadNotification()
+  - HTML templates with brand colors (blue #1E40AF, red #DC2626)
+  - Add RESEND_API_KEY and ADMIN_EMAIL to .env.example
+  - Verify with `bunx tsc --noEmit`
+* **Files:** `lib/email.ts`
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Email notifications configured:
+  - `resend@6.10.0` installed
+  - `lib/email.ts` with `sendContactNotification()`, `sendQuoteNotification()`, `sendLeadNotification()`
+  - HTML templates with brand colors, table-based layout, CFA formatting via Intl.NumberFormat
+  - Graceful no-op when `RESEND_API_KEY` is not set (safe for development)
+  - `.env.example` updated with RESEND_API_KEY, FROM_EMAIL, ADMIN_EMAIL
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:
