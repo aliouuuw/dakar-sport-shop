@@ -428,6 +428,31 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Admin login page
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:32
+* **Task:** Create app/admin/login/page.tsx with email/password login form. Brand colors, French error messages, redirect on success.
+* **Plan:**
+  - Use shadcn/ui Card, Input, Button, Label components
+  - Client component with `useTransition` + `authClient.signIn.email()`
+  - French error messages (Email ou mot de passe incorrect)
+  - Loading spinner during auth
+  - Redirect to `/admin` (or callbackUrl) on success
+  - Style with brand blue (#1E40AF) and white
+* **Files:** `app/admin/login/page.tsx`
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Admin login page created:
+  - `app/admin/login/page.tsx` — client component with email/password form
+  - Uses shadcn/ui Card, Input, Button, Label
+  - French error messages ('Email ou mot de passe incorrect')
+  - Inline SVG loading spinner during `useTransition`
+  - Redirects to `/admin` or `?callbackUrl` on success
+  - Brand blue (#1E40AF / `bg-blue-800`) styling
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:

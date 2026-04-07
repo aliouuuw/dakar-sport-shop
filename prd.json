@@ -358,7 +358,7 @@
         "Loading spinner shown during authentication — verify visually",
         "Page uses brand colors and Plus Jakarta Sans font — verify visually"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Admin-API",
