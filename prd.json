@@ -452,7 +452,7 @@
         "generateQuotePdf(id) returns PDF with product list, quantities, unit prices, total in CFA — verify by generating and opening PDF",
         "updateQuoteStatus() changes status and logs activity — verify by updating and checking log"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Admin-API",

@@ -7,3 +7,4 @@ export * from "./messages";
 export * from "./variants";
 export * from "./media";
 export * from "./activity-log";
+export * from "./quotes";

@@ -599,6 +599,31 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Activity log auto-logging and club quote request CRUD
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:46
+* **Task:** Create lib/actions/activity-log.ts and lib/actions/quotes.ts. Add quotes schema to DB.
+* **Plan:**
+  - Add `lib/db/schema/quotes.ts` — clubName, contactName, email, phone, items JSON, status enum, totalPrice
+  - Create `lib/actions/activity-log.ts` with `logActivity()`
+  - Create `lib/actions/quotes.ts` with getQuotes(), createQuote(), updateQuoteStatus(), deleteQuote()
+  - Update schema index.ts to export quotes
+  - Run drizzle-kit generate for migration
+  - Verify with `bunx tsc --noEmit`
+* **Files:** `lib/db/schema/quotes.ts`, `lib/actions/activity-log.ts`, `lib/actions/quotes.ts`
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Activity log and quotes CRUD created:
+  - `lib/db/schema/quotes.ts` — quotes table with quoteStatusEnum (new/pending/sent/accepted/rejected), QuoteItem JSON type, totalPrice auto-calculated
+  - `lib/actions/activity-log.ts` — `logActivity()`, `getActivityLog()`, `getActivityLogByEntity()`
+  - `lib/actions/quotes.ts` — `getQuotes()`, `getQuoteById()`, `createQuote()`, `updateQuoteStatus()`, `deleteQuote()`
+  - `createQuote()` is public (no admin required), auto-calculates totalPrice from items
+  - `updateQuoteStatus()` and `deleteQuote()` auto-log to activity log
+  - Migration generated: `drizzle/0003_clever_ravenous.sql` with quotes table + quoteStatus enum
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:
