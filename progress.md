@@ -288,6 +288,30 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Database migration and push scripts
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:07
+* **Task:** Add package.json scripts for db:generate, db:migrate, db:push, db:seed, db:studio. Verify the full migration flow works end-to-end.
+* **Plan:**
+  - Add `db:generate` script — runs `drizzle-kit generate`
+  - Add `db:migrate` script — runs `drizzle-kit migrate`
+  - Add `db:push` script — runs `drizzle-kit push`
+  - Add `db:seed` script — runs `bun run lib/db/seed.ts` (will be created in next task)
+  - Add `db:studio` script — runs `drizzle-kit studio`
+  - Verify with `cat package.json` and test `bun run db:generate`
+* **Files:** `package.json`
+* **Verification:** Scripts exist in package.json, `bun run db:generate` works
+* **Result:** Success — Database management scripts added to package.json:
+  - `db:generate` — generates migration files from schema changes
+  - `db:migrate` — applies migrations to database
+  - `db:push` — pushes schema directly to database (dev mode)
+  - `db:seed` — runs seed script (to be created in next task)
+  - `db:studio` — opens Drizzle Studio for database inspection
+  - All scripts verified working with `bun run db:generate`
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:

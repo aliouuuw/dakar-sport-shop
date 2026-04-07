@@ -261,7 +261,7 @@
         "lib/db/schema/messages.ts exports messages table with read boolean and archive support — verify with tsc --noEmit",
         "All relations defined properly — verify with bunx drizzle-kit generate"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database",
