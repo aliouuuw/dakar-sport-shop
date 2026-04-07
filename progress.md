@@ -31,6 +31,8 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Admin UI wireframes (lightweight)
+
 * **Status:** Success
 * **Started:** 2026-04-06 18:36
 * **Task:** Create lightweight design document for all 8 admin pages + component library patterns
@@ -48,7 +50,7 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ## Working on: Storefront UI wireframes and user flows
 
-* **Status:** In Progress
+* **Status:** Success
 * **Started:** 2026-04-06 18:38
 * **Task:** Create wireframes for 5 storefront pages + user flow diagrams
 * **Plan:**
@@ -65,7 +67,7 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ## Working on: Design system and component specs
 
-* **Status:** In Progress
+* **Status:** Success
 * **Started:** 2026-04-06 18:40
 * **Task:** Create detailed component specs for 12+ reusable components with all states, spacing scale, color tokens, typography scale, and interaction patterns
 * **Plan:**
@@ -84,7 +86,7 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ## Working on: Admin layout with sidebar navigation
 
-* **Status:** In Progress
+* **Status:** Success
 * **Started:** 2026-04-06 20:14
 * **Task:** Create app/admin/layout.tsx with responsive sidebar layout (fixed desktop, Sheet mobile)
 * **Plan:**
@@ -109,7 +111,7 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ## Working on: Categories, promotions, and announcements management pages
 
-* **Status:** In Progress
+* **Status:** Success
 * **Started:** 2026-04-06 20:37
 * **Task:** Upgrade `app/admin/categories/page.tsx`, `app/admin/promotions/page.tsx`, and `app/admin/announcements/page.tsx` from simple mocks into denser CRUD-style UI mockups
 * **Plan:**
@@ -171,4 +173,58 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 * **Files:** `app/admin/activity/page.tsx`, `app/admin/settings/page.tsx`
 * **Result:** Success — The final two admin pages now perfectly match the aggressive, high-contrast, animated aesthetic established in the rest of the backoffice. The Admin UI is now complete and visually cohesive.
 
+---
 
+## Working on: Admin UI Refinements — Phase 1 & 2 (Toast, Delete Actions, Shared Forms, Inbox, Settings, Quotes)
+
+* **Status:** Success
+* **Started:** 2026-04-07 03:05
+* **Task:** Review all admin routes and components, identify refinements, and implement improvements before moving to storefront tasks.
+* **Plan:**
+  - Install and configure Sonner toast notifications globally
+  - Add delete confirmation dialogs to all CRUD pages (products, categories, promotions, announcements, media, quotes)
+  - Extract shared form components to eliminate duplication (CategoryForm, PromotionForm, AnnouncementForm)
+  - Add empty states for all list/grid views
+  - Add loading states on all form submissions and mutations
+  - Fix logout button in sidebar
+  - Rebuild Messages page as full inbox with read/archive/delete actions, filter tabs, reply
+  - Rebuild Settings page with 4 grouped sections and inline save per section
+  - Rebuild Quotes page with inline status change dropdown, PDF generation button, delete dialog
+* **Files Modified/Created:**
+  - `app/layout.tsx` — Added Sonner `<Toaster>` with top-right positioning, rich colors, close button
+  - `app/admin/products/page.tsx` — Delete confirmation dialog, hover-reveal edit+delete, toast on delete, loading spinner
+  - `app/admin/categories/page.tsx` — Extracted `CategoryForm` shared component, delete with product-count guard (blocks if products exist), empty state, toasts for create/update/delete
+  - `app/admin/promotions/page.tsx` — Extracted `PromotionForm` shared component, delete confirmation, empty state, toasts
+  - `app/admin/announcements/page.tsx` — Extracted `AnnouncementForm` shared component, delete confirmation, empty state, toasts
+  - `app/admin/media/page.tsx` — Delete actions on hover (grid + list views), working search/filter by filename and alt text, empty states, confirmation dialogs
+  - `app/admin/messages/page.tsx` — Complete inbox rebuild: 3-column layout (inbox list + message detail + reply), filter tabs (Tous / Non lus / Archives), auto mark-as-read, bulk "mark all read", reply textarea with send button, archive and delete with confirmation dialogs
+  - `app/admin/settings/page.tsx` — 4 grouped sections (Informations generales, Contact et Adresse, Reseaux sociaux, Apparence), each with its own "Enregistrer" button, dynamic phone list with add/remove, loading spinners, toast confirmations
+  - `app/admin/quotes/page.tsx` — Inline status change dropdown (Nouveau / En cours / Envoye / Accepte / Refuse), PDF generation button (placeholder toast), delete confirmation dialog, empty state, grid + list views
+  - `app/admin/components/admin-sidebar.tsx` — Fixed logout button (redirects to /admin/login)
+  - `components/ui/dialog.tsx` — Installed shadcn Dialog component
+* **Dependencies Added:**
+  - `sonner` — Toast notification library
+* **Design Patterns Applied:**
+  - Consistent `DeleteDialogState` interface across all pages
+  - Shared form components (CategoryForm, PromotionForm, AnnouncementForm) eliminate duplication
+  - Empty states with icon containers, titles, and descriptions
+  - `useTransition` + `toast` pattern for all mutations
+  - Hover-reveal actions with smooth transitions
+  - Brand colors (#1E40AF blue, #DC2626 red) used consistently
+* **Verification:** `bun run build` passes — all 15 admin routes compile successfully
+* **Result:** Success — All 8 admin pages now have consistent delete actions, toast notifications, loading states, empty states, and shared form components. Messages inbox is a full-featured split-pane inbox. Settings has inline save per section. Quotes has inline status management.
+
+---
+
+## Next: Storefront UI Tasks
+
+The following Storefront tasks remain in the PRD backlog:
+
+1. **Store layout with header and footer** — `app/(store)/layout.tsx` with responsive header (logo, nav, search, mobile hamburger) and footer (contact info, social links, copyright)
+2. **Homepage with hero, featured products, and announcements** — `app/(store)/page.tsx` with hero banner, active announcements, featured products grid, categories showcase, trust section
+3. **Products listing page with filters** — `app/(store)/produits/page.tsx` with product grid, sidebar filters (category, price), sort options, search, pagination
+4. **Product detail page** — `app/(store)/produits/[slug]/page.tsx` with image gallery, product details, WhatsApp order button, related products, SEO metadata
+5. **Contact page with message form** — `app/(store)/contact/page.tsx` with contact form, contact info, Google Maps embed, Zod validation, French success/error messages
+6. **WhatsApp commerce flow** — Variant selector, WhatsApp share card, lead tracking, admin leads page
+
+All admin UI tasks are complete. Ready to begin storefront implementation.
