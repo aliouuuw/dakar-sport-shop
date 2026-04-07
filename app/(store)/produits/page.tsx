@@ -3,6 +3,8 @@ import { ProductCard } from "@/components/product-card";
 import { ProductFilters, ProductPagination } from "@/components/product-filters";
 import { MobileFilters } from "@/components/mobile-filters";
 
+import { ScrollReveal } from "@/components/scroll-reveal";
+
 // Mock data — will be replaced by DB queries
 const ALL_PRODUCTS = [
   {
@@ -255,18 +257,20 @@ export default async function ProduitsPage({
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* Page Header */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
-            Nos Produits
-          </h1>
-          <p className="mt-3 text-lg text-slate-600">
-            Découvrez notre gamme complète d&apos;équipements sportifs de qualité.
-          </p>
+      <div className="bg-slate-900 text-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+          <ScrollReveal direction="down">
+            <h1 className="text-5xl lg:text-7xl font-black tracking-tighter uppercase">
+              Nos <span className="text-[#1E40AF]">Produits</span>
+            </h1>
+            <p className="mt-4 text-xl text-slate-400 max-w-2xl font-medium">
+              Découvrez notre gamme complète d'équipements sportifs de qualité.
+            </p>
+          </ScrollReveal>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col lg:flex-row gap-10">
           {/* Mobile Filters (Hidden on Desktop) */}
           <Suspense fallback={null}>
@@ -295,27 +299,30 @@ export default async function ProduitsPage({
             {paginated.length > 0 ? (
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {paginated.map((product) => (
-                    <ProductCard
-                      key={product.id}
-                      id={product.id}
-                      name={product.name}
-                      slug={product.slug}
-                      price={product.price}
-                      compareAtPrice={product.compareAtPrice}
-                      category={product.category}
-                      image={product.image}
-                      isNew={product.isNew}
-                    />
+                  {paginated.map((product, idx) => (
+                    <ScrollReveal key={product.id} delay={(idx % 6) * 100} direction="up" className="h-full">
+                      <ProductCard
+                        id={product.id}
+                        name={product.name}
+                        slug={product.slug}
+                        price={product.price}
+                        compareAtPrice={product.compareAtPrice}
+                        category={product.category}
+                        image={product.image}
+                        isNew={product.isNew}
+                      />
+                    </ScrollReveal>
                   ))}
                 </div>
 
-                <Suspense fallback={null}>
-                  <ProductPagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                  />
-                </Suspense>
+                <div className="mt-12">
+                  <Suspense fallback={null}>
+                    <ProductPagination
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                    />
+                  </Suspense>
+                </div>
               </>
             ) : (
               <div className="flex flex-col items-center justify-center py-24 text-center">

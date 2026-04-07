@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { DiscountTag01Icon, Time01Icon } from "@hugeicons/core-free-icons";
 import { ProductCard } from "@/components/product-card";
+import { ScrollReveal } from "@/components/scroll-reveal";
 
 // Mock data for promotions
 const MOCK_PROMOTIONS = [
@@ -101,49 +102,54 @@ export default function PromotionsPage() {
   return (
     <div className="bg-slate-50 min-h-screen pb-24">
       {/* Header */}
-      <div className="bg-[#DC2626] text-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <div className="inline-flex items-center justify-center p-4 bg-white/20 rounded-full mb-6 backdrop-blur-sm">
-            <HugeiconsIcon icon={DiscountTag01Icon} size={48} className="text-white" />
-          </div>
-          <h1 className="text-5xl font-black tracking-tight sm:text-6xl mb-4">
-            Nos Promotions
-          </h1>
-          <p className="max-w-2xl mx-auto text-xl text-red-100 font-medium">
-            Équipez-vous avec les meilleures marques à prix réduits. Offres valables dans la limite des stocks disponibles.
-          </p>
+      <div className="bg-slate-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-10" />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-20">
+          <ScrollReveal direction="down">
+            <div className="inline-flex items-center justify-center p-3 bg-[#DC2626] rounded-xl mb-6 shadow-lg shadow-red-900/50">
+              <HugeiconsIcon icon={DiscountTag01Icon} size={32} className="text-white" />
+            </div>
+            <h1 className="text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-4">
+              Nos <span className="text-[#DC2626]">Promotions</span>
+            </h1>
+            <p className="max-w-2xl text-xl text-slate-300 font-medium">
+              Équipez-vous avec les meilleures marques à prix réduits. Offres valables dans la limite des stocks disponibles.
+            </p>
+          </ScrollReveal>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
-        <div className="flex flex-col gap-12">
-          {MOCK_PROMOTIONS.map((promo) => (
-            <div key={promo.id} className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 relative z-30">
+        <div className="flex flex-col gap-16">
+          {MOCK_PROMOTIONS.map((promo, idx) => (
+            <div key={promo.id} className="bg-white rounded-[2rem] border border-slate-200 shadow-xl shadow-slate-200/50 overflow-hidden flex flex-col">
               {/* Promo Banner */}
-              <div className="bg-slate-900 text-white p-6 sm:p-8 flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
-                <div className="flex-1">
-                  <div className="flex flex-wrap items-center gap-3 mb-3">
-                    <span className="bg-[#DC2626] text-white px-3 py-1 rounded-full text-sm font-bold uppercase tracking-wider">
+              <div className="bg-slate-900 text-white p-8 sm:p-10 flex flex-col lg:flex-row gap-8 justify-between items-start lg:items-center relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-96 h-96 bg-[#DC2626]/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                
+                <div className="flex-1 relative z-10">
+                  <div className="flex flex-wrap items-center gap-3 mb-4">
+                    <span className="bg-[#DC2626] text-white px-4 py-1.5 rounded-lg text-sm font-black uppercase tracking-wider">
                       {promo.discountType === "percentage" ? `-${promo.discountValue}%` : `-${promo.discountValue / 1000}k FCFA`}
                     </span>
-                    <span className="flex items-center text-slate-300 text-sm font-medium">
-                      <HugeiconsIcon icon={Time01Icon} size={16} className="mr-1.5" />
+                    <span className="flex items-center text-slate-300 text-sm font-bold tracking-wide uppercase">
+                      <HugeiconsIcon icon={Time01Icon} size={18} className="mr-2 text-amber-400" />
                       Finit le {formatDate(promo.endsAt)}
                     </span>
                   </div>
-                  <h2 className="text-3xl font-extrabold tracking-tight mb-2">
+                  <h2 className="text-4xl sm:text-5xl font-black tracking-tighter uppercase mb-3 text-white">
                     {promo.title}
                   </h2>
-                  <p className="text-slate-300 text-lg leading-relaxed max-w-3xl">
+                  <p className="text-slate-300 text-lg leading-relaxed max-w-3xl font-medium">
                     {promo.description}
                   </p>
                 </div>
                 {promo.code && (
-                  <div className="shrink-0 bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 text-center min-w-[200px]">
-                    <span className="block text-xs uppercase tracking-widest text-slate-400 font-bold mb-1">
+                  <div className="shrink-0 bg-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/10 text-center min-w-[240px] relative z-10">
+                    <span className="block text-xs uppercase tracking-[0.2em] text-slate-400 font-black mb-2">
                       Code Promo
                     </span>
-                    <span className="block text-2xl font-black font-mono tracking-wider text-amber-400">
+                    <span className="block text-3xl font-black font-mono tracking-wider text-amber-400">
                       {promo.code}
                     </span>
                   </div>
@@ -151,19 +157,20 @@ export default function PromotionsPage() {
               </div>
 
               {/* Promo Products */}
-              <div className="p-6 sm:p-8 bg-slate-50/50">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {promo.products.map((product) => (
-                    <ProductCard
-                      key={product.id}
-                      id={product.id}
-                      name={product.name}
-                      slug={product.slug}
-                      price={product.price}
-                      compareAtPrice={product.compareAtPrice}
-                      category={product.category}
-                      image={product.image}
-                    />
+              <div className="p-8 sm:p-10 bg-white">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {promo.products.map((product, pIdx) => (
+                    <ScrollReveal key={product.id} delay={(pIdx % 3) * 100} direction="up" className="h-full">
+                      <ProductCard
+                        id={product.id}
+                        name={product.name}
+                        slug={product.slug}
+                        price={product.price}
+                        compareAtPrice={product.compareAtPrice}
+                        category={product.category}
+                        image={product.image}
+                      />
+                    </ScrollReveal>
                   ))}
                 </div>
               </div>

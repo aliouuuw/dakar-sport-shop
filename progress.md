@@ -411,3 +411,17 @@ All admin UI tasks are complete. Ready to begin storefront implementation.
 * **Files:** `app/(store)/page.tsx` (modify), `components/product-card.tsx` (modify), `components/marquee.tsx` (new)
 * **Verification:** `bunx tsc --noEmit`
 * **Result:** Success — Landing page now features a highly premium, aggressive, and dynamic aesthetic typical of top-tier sportswear brands.
+
+---
+
+## Working on: Redesign Products & Promotions Pages
+
+* **Status:** Completed
+* **Started:** 2026-04-07 17:13
+* **Task:** Extend the new premium aesthetic to the Products Listing and Promotions pages.
+* **Plan & Execution:**
+  - **Products Page:** Replaced the plain white header with a dark, aggressive header matching the hero aesthetic. Added `ScrollReveal` animations to all product cards in the grid.
+  - **Promotions Page:** Redesigned the header to use a dark gradient with a pulsing red highlight. Upgraded the promo banners to look like high-end premium cards with glassmorphism effects and animated product grids.
+* **Files:** `app/(store)/produits/page.tsx` (modify), `app/(store)/promotions/page.tsx` (modify)
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — The entire storefront now shares a cohesive, high-end sportswear brand aesthetic.
