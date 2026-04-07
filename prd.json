@@ -182,7 +182,7 @@
         "Product cards show price in CFA format with strikethrough for compare-at-price — verify visually",
         "Pagination works with page numbers — verify by navigating pages"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Storefront",

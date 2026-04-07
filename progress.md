@@ -275,6 +275,31 @@ All admin UI tasks are complete. Ready to begin storefront implementation.
   - Use `shadcn/ui` components (Card, Button, Badge) and brand colors (blue #1E40AF, red #DC2626).
 * **Files:** `app/(store)/page.tsx`, `components/product-card.tsx` (new)
 * **Verification:** `bunx tsc --noEmit`
-* **Result:** Success - Added lucide-react dependency, created reusable `ProductCard` component, and implemented a high-quality responsive homepage layout with mocked data.
+* **Result:** Success — Created reusable `ProductCard` component and implemented responsive homepage with hero, featured products grid, categories showcase, and trust section. Fixed to use HugeIcons (not lucide-react) per tech stack.
 
 ---
+
+## Working on: Products listing page with filters
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 16:19
+* **Task:** Create `app/(store)/produits/page.tsx` with product grid, sidebar filters, sort, search, pagination. All SSR-friendly via URL search params.
+* **Plan:**
+  - Create `app/(store)/produits/page.tsx` as a Server Component with mocked product data (reuse same mock pattern as homepage).
+  - Implement sidebar filters: category checkboxes, price range.
+  - Implement sort options: prix croissant, décroissant, nouveautés.
+  - Implement search via URL `?q=` param (connected to header search dialog).
+  - Show active product count above grid.
+  - Reuse existing `ProductCard` component for the grid.
+  - Add pagination with page numbers via `?page=` URL param.
+  - Create a client component `components/product-filters.tsx` for interactive filter/sort controls (URL-driven via `useRouter` + `useSearchParams`).
+  - Use HugeIcons for all icons, match admin design conventions (rounded-3xl cards, font-extrabold headings, brand colors).
+* **Files:** `app/(store)/produits/page.tsx` (new), `components/product-filters.tsx` (new)
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Created products listing page with:
+  - Server Component page at `/produits` with 16 mocked products
+  - Client-side `ProductFilters` component: search input, sort select, category filter buttons with counts, active filter badges with clear
+  - `ProductPagination` component with page numbers, prev/next
+  - All URL-driven via search params (SSR-friendly): `?category=`, `?sort=`, `?q=`, `?page=`
+  - Empty state for no results
+  - HugeIcons throughout, brand colors, rounded-xl controls matching admin conventions
