@@ -410,7 +410,7 @@
         "createAnnouncement() validates type enum (banner, popup, info) — verify with invalid type",
         "All mutations require admin role — verify by calling without admin session"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Admin-API",

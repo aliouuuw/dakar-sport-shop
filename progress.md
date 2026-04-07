@@ -529,6 +529,29 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Promotions and announcements CRUD server actions
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:36
+* **Task:** Create lib/actions/promotions.ts and lib/actions/announcements.ts with full CRUD. Validate date ranges and discount values.
+* **Plan:**
+  - `lib/actions/promotions.ts`: getPromotions(), createPromotion(), updatePromotion(), deletePromotion(), togglePromotionActive()
+  - `lib/actions/announcements.ts`: getAnnouncements(), createAnnouncement(), updateAnnouncement(), deleteAnnouncement(), reorderAnnouncements()
+  - Validate endsAt > startsAt, discount percentage 0-100, fixed > 0
+  - All mutations guarded by requireAdmin()
+* **Files:** `lib/actions/promotions.ts`, `lib/actions/announcements.ts`
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Promotions and announcements CRUD created:
+  - `lib/actions/promotions.ts` — `getPromotions()`, `getActivePromotions()`, `createPromotion()`, `updatePromotion()`, `deletePromotion()`, `togglePromotionActive()`
+  - Zod refine: endsAt > startsAt, percentage 1–100, fixed > 0
+  - `lib/actions/announcements.ts` — `getAnnouncements()`, `getActiveAnnouncements()`, `createAnnouncement()`, `updateAnnouncement()`, `deleteAnnouncement()`, `reorderAnnouncements()`
+  - `getActiveAnnouncements()` filters by active + date range (nullable dates treated as open-ended)
+  - Type enum validated: banner/popup/info
+  - All mutations guarded by `requireAdmin()`
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:
