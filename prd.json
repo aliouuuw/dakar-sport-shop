@@ -310,7 +310,7 @@
         "Auth schema tables (users, sessions, accounts) created in database — verify with bunx drizzle-kit push",
         ".env.example includes BETTER_AUTH_SECRET and BETTER_AUTH_URL — verify file contents"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Auth",

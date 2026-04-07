@@ -361,6 +361,29 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: better-auth installation and configuration
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:17
+* **Task:** Install better-auth, configure with Drizzle adapter, email+password provider. Create lib/auth.ts. Update .env.example.
+* **Plan:**
+  - Install `better-auth` package
+  - Create `lib/auth.ts` with auth instance using Drizzle adapter + email/password provider
+  - Add `BETTER_AUTH_SECRET` and `BETTER_AUTH_URL` to `.env.example`
+  - Verify with `bunx tsc --noEmit`
+* **Files:** `lib/auth.ts`, `.env.example`
+* **Verification:** TypeScript compiles cleanly
+* **Result:** Success — better-auth configured with:
+  - `better-auth@1.6.0` installed
+  - `lib/auth.ts` exports `auth` instance with Drizzle adapter (pg provider) + emailAndPassword enabled
+  - `user.additionalFields.role` added with default `'user'` for admin role support
+  - Session cookie cache enabled (7-day TTL)
+  - `.env.example` updated with `BETTER_AUTH_SECRET` and `BETTER_AUTH_URL`
+  - Fixed pre-existing `ZodError.errors` → `.issues` bug in `contact-form.tsx`
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:

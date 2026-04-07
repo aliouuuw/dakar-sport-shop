@@ -54,7 +54,7 @@ export function ContactForm() {
     const result = contactSchema.safeParse(formData);
     if (!result.success) {
       const fieldErrors: Partial<ContactFormData> = {};
-      result.error.errors.forEach((error) => {
+      result.error.issues.forEach((error) => {
         const path = error.path[0] as keyof ContactFormData;
         fieldErrors[path] = error.message as any;
       });
