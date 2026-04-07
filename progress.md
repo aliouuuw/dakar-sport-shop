@@ -241,6 +241,30 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Core schema (site settings, categories, products)
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:05
+* **Task:** Create Drizzle schema files for siteSettings, categories, and products tables with proper types, indexes, and relations.
+* **Plan:**
+  - Create `lib/db/schema/site-settings.ts` — key/value store with type field
+  - Create `lib/db/schema/categories.ts` — id, name, slug (unique), image, description, order
+  - Create `lib/db/schema/products.ts` — full product schema with categoryId FK, images JSON array, featured/active flags, timestamps
+  - Update `lib/db/schema/index.ts` to re-export all schemas
+  - Verify with `bunx tsc --noEmit` and `bunx drizzle-kit generate`
+* **Files:** `lib/db/schema/site-settings.ts`, `lib/db/schema/categories.ts`, `lib/db/schema/products.ts`, `lib/db/schema/index.ts`
+* **Verification:** TypeScript compiles, drizzle-kit generates valid migration SQL
+* **Result:** Success — Core schema created with:
+  - `lib/db/schema/site-settings.ts` — key/value store with type field (string, json, etc.)
+  - `lib/db/schema/categories.ts` — id, name, slug (unique), image, description, order, timestamps
+  - `lib/db/schema/products.ts` — full product schema with categoryId FK, images JSON array, price fields, featured/active flags, stock, timestamps
+  - Relations defined: products → category, categories → products (one-to-many)
+  - `lib/db/schema/index.ts` re-exports all schemas
+  - TypeScript compilation passes
+  - Migration generated: `drizzle/0000_sleepy_moira_mactaggert.sql` with 3 tables
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:

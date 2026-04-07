@@ -236,7 +236,7 @@
         "drizzle.config.ts points to lib/db/schema/ — verify with bunx drizzle-kit generate",
         ".env.example contains DATABASE_URL — verify file exists"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database",
@@ -249,7 +249,7 @@
         "lib/db/schema/index.ts re-exports all schemas — verify with tsc --noEmit",
         "bunx drizzle-kit generate produces valid migration SQL"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database",
