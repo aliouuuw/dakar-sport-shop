@@ -3,15 +3,16 @@
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Add01Icon, Calendar01Icon, DiscountTag01Icon, Edit01Icon, Delete01Icon, PercentIcon } from "@hugeicons/core-free-icons"
+import { Add01Icon, Notification01Icon, Calendar01Icon, Edit01Icon, Delete01Icon, MessageNotification01Icon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { AdminPageHeader } from "../components/admin-page-header"
-import { AdminMetricCard } from "../components/admin-metric-card"
-import { AdminViewToggle } from "../components/admin-view-toggle"
-import { AdminStatusBadge, StatusTone } from "../components/admin-status-badge"
+import { Textarea } from "@/components/ui/textarea"
+import { AdminPageHeader } from "@/app/admin/components/admin-page-header"
+import { AdminMetricCard } from "@/app/admin/components/admin-metric-card"
+import { AdminViewToggle } from "@/app/admin/components/admin-view-toggle"
+import { AdminStatusBadge, StatusTone } from "@/app/admin/components/admin-status-badge"
 import {
   Sheet,
   SheetContent,
@@ -30,70 +31,68 @@ import {
 } from "@/components/ui/dialog"
 import { toast } from "sonner"
 
-interface Promotion {
+interface Announcement {
   id: number
   title: string
-  code: string
-  type: "Pourcentage" | "Fixe"
-  value: string
-  status: "Active" | "Bientot" | "Expiree"
+  type: "Banner" | "Popup" | "Info"
+  status: "Active" | "Programmee" | "Archivee"
   range: string
+  content: string
 }
 
-const mockPromotions: Promotion[] = [
-  { id: 1, title: "Promo rentree", code: "RENTREE20", type: "Pourcentage", value: "20%", status: "Active", range: "01 Avr - 30 Avr" },
-  { id: 2, title: "Offre ballons", code: "BALLON5", type: "Fixe", value: "5 000 FCFA", status: "Bientot", range: "10 Avr - 20 Avr" },
-  { id: 3, title: "Club partenaire", code: "CLUB10", type: "Pourcentage", value: "10%", status: "Expiree", range: "01 Mar - 31 Mar" },
+const mockAnnouncements: Announcement[] = [
+  { id: 1, title: "Nouvelle collection disponible", type: "Banner", status: "Active", range: "01 Avr - 15 Avr", content: "Decouvrez notre nouvelle collection ete 2026." },
+  { id: 2, title: "Livraison speciale Ramadan", type: "Popup", status: "Programmee", range: "08 Avr - 12 Avr", content: "Livraison gratuite pendant le Ramadan a partir de 25 000 FCFA d'achats." },
+  { id: 3, title: "Horaires d'ouverture mis a jour", type: "Info", status: "Archivee", range: "01 Mar - 31 Mar", content: "Nos boutiques ferment a 18h pendant le mois de Mars." },
 ]
 
 const statusToneMap: Record<string, StatusTone> = {
   "Active": "success",
-  "Bientot": "warning",
-  "Expiree": "neutral"
+  "Programmee": "warning",
+  "Archivee": "neutral"
 }
 
 interface DeleteDialogState {
   open: boolean
-  promotionId: number | null
-  promotionName: string
+  announcementId: number | null
+  announcementName: string
 }
 
-function PromotionForm({ promotion, onSubmit, isPending }: { promotion?: Promotion; onSubmit: () => void; isPending: boolean }) {
+function AnnouncementForm({ announcement, onSubmit, isPending }: { announcement?: Announcement; onSubmit: () => void; isPending: boolean }) {
   return (
     <div className="grid flex-1 auto-rows-min gap-6 px-4">
       <div className="space-y-2">
-        <label className="text-sm font-bold uppercase tracking-wider text-slate-700">Titre</label>
-        <Input placeholder="Ex: Promo rentree" defaultValue={promotion?.title} className="h-12 bg-slate-50 border-slate-200 focus-visible:ring-[#1E40AF]" />
+        <label className="text-sm font-bold uppercase tracking-wider text-slate-700">Titre de l'annonce</label>
+        <Input placeholder="Ex: Livraison offerte" defaultValue={announcement?.title} className="h-12 bg-slate-50 border-slate-200 focus-visible:ring-[#1E40AF]" />
       </div>
       <div className="space-y-2">
-        <label className="text-sm font-bold uppercase tracking-wider text-slate-700">Code promo</label>
-        <Input placeholder="Ex: RENTREE20" defaultValue={promotion?.code} className="h-12 bg-slate-50 border-slate-200 focus-visible:ring-[#1E40AF]" />
+        <label className="text-sm font-bold uppercase tracking-wider text-slate-700">Type d'affichage</label>
+        <Select defaultValue={announcement?.type ?? "Banner"}>
+          <SelectTrigger className="h-12 bg-slate-50 border-slate-200 focus:ring-[#1E40AF]">
+            <SelectValue placeholder="Selectionner le type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Banner">Banner (Bandeau haut)</SelectItem>
+            <SelectItem value="Popup">Popup (Modale centrale)</SelectItem>
+            <SelectItem value="Info">Info (Discret)</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-bold uppercase tracking-wider text-slate-700">Contenu du message</label>
+        <Textarea
+          className="min-h-[128px] resize-none bg-slate-50 border-slate-200 focus-visible:ring-[#1E40AF] p-4"
+          placeholder="Saisissez le texte visible par les clients..."
+          defaultValue={announcement?.content}
+        />
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <label className="text-sm font-bold uppercase tracking-wider text-slate-700">Type</label>
-          <Select defaultValue={promotion?.type ?? "Pourcentage"}>
-            <SelectTrigger className="h-12 bg-slate-50 border-slate-200 focus:ring-[#1E40AF]">
-              <SelectValue placeholder="Selectionner" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Pourcentage">Pourcentage</SelectItem>
-              <SelectItem value="Fixe">Fixe</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="space-y-2">
-          <label className="text-sm font-bold uppercase tracking-wider text-slate-700">Valeur</label>
-          <Input placeholder="Ex: 20" defaultValue={promotion?.value.replace(/[^0-9]/g, "")} className="h-12 bg-slate-50 border-slate-200 focus-visible:ring-[#1E40AF]" />
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <label className="text-sm font-bold uppercase tracking-wider text-slate-700">Debut</label>
+          <label className="text-sm font-bold uppercase tracking-wider text-slate-700">Date de debut</label>
           <Input type="date" className="h-12 bg-slate-50 border-slate-200 focus-visible:ring-[#1E40AF]" />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-bold uppercase tracking-wider text-slate-700">Fin</label>
+          <label className="text-sm font-bold uppercase tracking-wider text-slate-700">Date de fin</label>
           <Input type="date" className="h-12 bg-slate-50 border-slate-200 focus-visible:ring-[#1E40AF]" />
         </div>
       </div>
@@ -111,103 +110,100 @@ function PromotionForm({ promotion, onSubmit, isPending }: { promotion?: Promoti
             </svg>
             Enregistrement...
           </>
-        ) : promotion ? (
+        ) : announcement ? (
           "Enregistrer les modifications"
         ) : (
-          "Enregistrer la promotion"
+          "Publier l'annonce"
         )}
       </Button>
     </div>
   )
 }
 
-export default function PromotionsPage() {
-  const [promotions, setPromotions] = useState<Promotion[]>(mockPromotions)
+export default function AnnouncementsPage() {
+  const [announcements, setAnnouncements] = useState<Announcement[]>(mockAnnouncements)
   const [viewMode, setViewMode] = useState<"list" | "grid">("list")
   const [deleteDialog, setDeleteDialog] = useState<DeleteDialogState>({
     open: false,
-    promotionId: null,
-    promotionName: "",
+    announcementId: null,
+    announcementName: "",
   })
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
 
   const handleDeleteClick = (id: number, name: string) => {
-    setDeleteDialog({ open: true, promotionId: id, promotionName: name })
+    setDeleteDialog({ open: true, announcementId: id, announcementName: name })
   }
 
   const handleDeleteConfirm = () => {
     startTransition(() => {
       // TODO: Replace with actual server action call
-      // await deletePromotion(deleteDialog.promotionId!)
-      toast.success("Promotion supprimee", {
-        description: `"${deleteDialog.promotionName}" a ete supprimee avec succes.`,
+      // await deleteAnnouncement(deleteDialog.announcementId!)
+      toast.success("Annonce supprimee", {
+        description: `"${deleteDialog.announcementName}" a ete supprimee avec succes.`,
       })
-      setPromotions((prev) => prev.filter((p) => p.id !== deleteDialog.promotionId))
-      setDeleteDialog({ open: false, promotionId: null, promotionName: "" })
+      setAnnouncements((prev) => prev.filter((a) => a.id !== deleteDialog.announcementId))
+      setDeleteDialog({ open: false, announcementId: null, announcementName: "" })
       router.refresh()
     })
   }
 
   const handleDeleteCancel = () => {
-    setDeleteDialog({ open: false, promotionId: null, promotionName: "" })
+    setDeleteDialog({ open: false, announcementId: null, announcementName: "" })
   }
 
-  const handleCreatePromotion = () => {
+  const handleCreateAnnouncement = () => {
     startTransition(() => {
       // TODO: Replace with actual server action call
-      toast.success("Promotion creee", {
-        description: "La nouvelle promotion a ete enregistree avec succes.",
+      toast.success("Annonce creee", {
+        description: "La nouvelle annonce a ete publiee avec succes.",
       })
       router.refresh()
     })
   }
 
-  const handleUpdatePromotion = () => {
+  const handleUpdateAnnouncement = () => {
     startTransition(() => {
       // TODO: Replace with actual server action call
-      toast.success("Promotion mise a jour", {
+      toast.success("Annonce mise a jour", {
         description: "Les modifications ont ete enregistrees avec succes.",
       })
       router.refresh()
     })
   }
 
-  const emptyState = promotions.length === 0
+  const emptyState = announcements.length === 0
 
   return (
     <div className="flex flex-col gap-8 pb-12">
       <AdminPageHeader
-        title="Promotions"
-        description="Gerez vos codes promotionnels, types de remises et periodes d'application."
+        title="Annonces"
+        description="Publiez des bannieres, popups et messages d'information sur le storefront."
         action={
           <Sheet>
             <SheetTrigger asChild>
-              <Button
-                size="lg"
-                className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a] shadow-md shadow-blue-900/20 font-semibold h-12 rounded-xl"
-              >
+              <Button size="lg" className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a] shadow-md shadow-blue-900/20 font-semibold h-12 rounded-xl">
                 <HugeiconsIcon icon={Add01Icon} size={20} className="mr-2" />
-                Nouvelle promotion
+                Nouvelle annonce
               </Button>
             </SheetTrigger>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle className="text-2xl font-bold text-slate-900">Nouvelle promotion</SheetTitle>
+                <SheetTitle className="text-2xl font-bold text-slate-900">Nouvelle annonce</SheetTitle>
                 <SheetDescription>
-                  Creez une promotion avec son type, sa valeur, son code et ses dates.
+                  Creez une annonce avec son type, son contenu et sa periode de diffusion.
                 </SheetDescription>
               </SheetHeader>
-              <PromotionForm onSubmit={handleCreatePromotion} isPending={isPending} />
+              <AnnouncementForm onSubmit={handleCreateAnnouncement} isPending={isPending} />
             </SheetContent>
           </Sheet>
         }
       />
 
       <div className="grid gap-4 sm:grid-cols-3 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100 fill-mode-both">
-        <AdminMetricCard label="Actives" value="1" icon={PercentIcon} tone="primary" />
-        <AdminMetricCard label="A venir" value="1" icon={Calendar01Icon} tone="warning" />
-        <AdminMetricCard label="Expirees" value="1" icon={DiscountTag01Icon} tone="neutral" />
+        <AdminMetricCard label="Bannieres" value="1" icon={Notification01Icon} tone="primary" />
+        <AdminMetricCard label="Popups" value="1" icon={MessageNotification01Icon} tone="warning" />
+        <AdminMetricCard label="Programmées" value="1" icon={Calendar01Icon} tone="neutral" />
       </div>
 
       <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200 fill-mode-both">
@@ -216,50 +212,47 @@ export default function PromotionsPage() {
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-3 text-xl font-bold text-slate-900">
                 <div className="rounded-xl bg-blue-50 p-2 text-[#1E40AF]">
-                  <HugeiconsIcon icon={DiscountTag01Icon} size={20} />
+                  <HugeiconsIcon icon={Notification01Icon} size={20} />
                 </div>
-                Campagnes en cours
+                Campagnes de communication
               </CardTitle>
               <AdminViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
             </div>
-            <CardDescription className="mt-2 text-base">Consultez et gere vos promotions actives, a venir et expirees.</CardDescription>
+            <CardDescription className="mt-2 text-base">Gerez l'affichage des messages promotionnels sur le storefront.</CardDescription>
           </CardHeader>
           <CardContent className="p-0 bg-slate-50/30">
             {emptyState ? (
               <div className="flex flex-col items-center justify-center py-20 px-4 text-center">
                 <div className="rounded-2xl bg-slate-100 p-4 mb-6">
-                  <HugeiconsIcon icon={PercentIcon} size={48} className="text-slate-400" />
+                  <HugeiconsIcon icon={Notification01Icon} size={48} className="text-slate-400" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">Aucune promotion</h3>
-                <p className="text-base text-slate-500 max-w-sm mb-6">Commencez par creer votre premiere promotion pour offrir des reductions.</p>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">Aucune annonce</h3>
+                <p className="text-base text-slate-500 max-w-sm mb-6">Commencez par creer votre premiere annonce pour communiquer avec vos clients.</p>
               </div>
             ) : viewMode === "list" ? (
               <div className="divide-y divide-slate-100">
-                {promotions.map((promotion, index) => (
+                {announcements.map((announcement, index) => (
                   <div
-                    key={promotion.code}
+                    key={announcement.title}
                     className="group flex items-center justify-between gap-4 px-8 py-5 bg-white hover:bg-slate-50 transition-colors"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div className="flex items-center gap-6">
                       <div className="flex flex-col">
                         <div className="flex items-center gap-3">
-                          <span className="text-lg font-bold text-slate-900">{promotion.title}</span>
-                          <AdminStatusBadge tone={statusToneMap[promotion.status]}>
-                            {promotion.status}
+                          <span className="text-lg font-bold text-slate-900">{announcement.title}</span>
+                          <AdminStatusBadge tone={statusToneMap[announcement.status]}>
+                            {announcement.status}
                           </AdminStatusBadge>
                         </div>
                         <div className="mt-1.5 flex items-center gap-3 text-sm font-medium text-slate-500">
-                          <span className="font-mono text-slate-700 bg-slate-100 px-1.5 rounded">{promotion.code}</span>
+                          <span className="font-mono text-slate-700 bg-slate-100 px-1.5 rounded">{announcement.type}</span>
                           <span>&bull;</span>
-                          <span>{promotion.type}</span>
-                          <span>&bull;</span>
-                          <span>{promotion.range}</span>
+                          <span>{announcement.range}</span>
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-6">
-                      <span className="text-2xl font-black tracking-tight text-slate-900">{promotion.value}</span>
+                    <div className="flex items-center gap-4">
                       <Sheet>
                         <SheetTrigger asChild>
                           <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full text-slate-400 opacity-40 group-hover:opacity-100 hover:text-[#1E40AF] hover:bg-blue-50 transition-all duration-300">
@@ -268,18 +261,18 @@ export default function PromotionsPage() {
                         </SheetTrigger>
                         <SheetContent>
                           <SheetHeader>
-                            <SheetTitle className="text-2xl font-bold text-slate-900">Editer la promotion</SheetTitle>
+                            <SheetTitle className="text-2xl font-bold text-slate-900">Editer l'annonce</SheetTitle>
                             <SheetDescription>
-                              Modifiez les informations de cette promotion.
+                              Modifiez le contenu ou les dates de diffusion de cette campagne.
                             </SheetDescription>
                           </SheetHeader>
-                          <PromotionForm promotion={promotion} onSubmit={handleUpdatePromotion} isPending={isPending} />
+                          <AnnouncementForm announcement={announcement} onSubmit={handleUpdateAnnouncement} isPending={isPending} />
                         </SheetContent>
                       </Sheet>
                       <Button
                         variant="ghost"
                         size="icon"
-                        onClick={() => handleDeleteClick(promotion.id, promotion.title)}
+                        onClick={() => handleDeleteClick(announcement.id, announcement.title)}
                         className="h-10 w-10 rounded-full text-slate-400 opacity-40 group-hover:opacity-100 hover:text-[#DC2626] hover:bg-red-50 transition-all duration-300"
                       >
                         <HugeiconsIcon icon={Delete01Icon} size={18} />
@@ -290,29 +283,27 @@ export default function PromotionsPage() {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-8">
-                {promotions.map((promotion) => (
-                  <div key={promotion.code} className="group relative flex flex-col rounded-2xl border border-slate-200 bg-white p-6 hover:border-[#1E40AF]/40 hover:shadow-lg transition-all duration-300 overflow-hidden">
+                {announcements.map((announcement) => (
+                  <div key={announcement.title} className="group relative flex flex-col rounded-2xl border border-slate-200 bg-white p-6 hover:border-[#1E40AF]/40 hover:shadow-lg transition-all duration-300 overflow-hidden">
                     <div className="absolute -right-4 -top-4 text-slate-50 opacity-50 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-500 pointer-events-none">
-                      <HugeiconsIcon icon={PercentIcon} size={100} />
+                      <HugeiconsIcon icon={Notification01Icon} size={100} />
                     </div>
                     <div className="relative z-10 flex items-start justify-between mb-6">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xl font-black tracking-tight text-slate-900 line-clamp-1">{promotion.title}</span>
+                      <div className="flex items-center gap-2 pr-4">
+                        <span className="text-xl font-black tracking-tight text-slate-900 line-clamp-2">{announcement.title}</span>
                       </div>
-                      <AdminStatusBadge tone={statusToneMap[promotion.status]} className="shrink-0 shadow-sm">
-                        {promotion.status}
+                      <AdminStatusBadge tone={statusToneMap[announcement.status]} className="shrink-0 shadow-sm">
+                        {announcement.status}
                       </AdminStatusBadge>
                     </div>
-
-                    <div className="relative z-10 flex flex-col gap-2 mb-8">
-                      <div className="text-sm font-medium text-slate-500">Code: <span className="font-mono font-bold text-slate-700 bg-slate-100 px-1.5 rounded">{promotion.code}</span></div>
-                      <div className="text-sm font-medium text-slate-500">Periode: {promotion.range}</div>
+                    <div className="relative z-10 text-sm font-medium text-slate-500 mb-8">
+                      P&eacute;riode: <span className="font-bold text-slate-700">{announcement.range}</span>
                     </div>
-
                     <div className="relative z-10 mt-auto flex items-end justify-between pt-4 border-t border-slate-100">
-                      <div className="flex flex-col">
-                        <span className="text-xs uppercase tracking-wider text-slate-400 font-bold">{promotion.type}</span>
-                        <span className="text-3xl font-black tracking-tighter text-slate-900">{promotion.value}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center justify-center rounded-md border border-slate-200 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 bg-slate-50">
+                          {announcement.type}
+                        </span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Sheet>
@@ -323,18 +314,18 @@ export default function PromotionsPage() {
                           </SheetTrigger>
                           <SheetContent>
                             <SheetHeader>
-                              <SheetTitle className="text-2xl font-bold text-slate-900">Editer la promotion</SheetTitle>
+                              <SheetTitle className="text-2xl font-bold text-slate-900">Editer l'annonce</SheetTitle>
                               <SheetDescription>
-                                Modifiez les informations de cette promotion.
+                                Modifiez le contenu ou les dates de diffusion de cette campagne.
                               </SheetDescription>
                             </SheetHeader>
-                            <PromotionForm promotion={promotion} onSubmit={handleUpdatePromotion} isPending={isPending} />
+                            <AnnouncementForm announcement={announcement} onSubmit={handleUpdateAnnouncement} isPending={isPending} />
                           </SheetContent>
                         </Sheet>
                         <Button
                           variant="ghost"
                           size="icon"
-                          onClick={() => handleDeleteClick(promotion.id, promotion.title)}
+                          onClick={() => handleDeleteClick(announcement.id, announcement.title)}
                           className="h-10 w-10 rounded-full text-slate-400 opacity-0 group-hover:opacity-100 hover:text-[#DC2626] hover:bg-red-50 transition-all duration-300"
                         >
                           <HugeiconsIcon icon={Delete01Icon} size={18} />
@@ -353,9 +344,9 @@ export default function PromotionsPage() {
       <Dialog open={deleteDialog.open} onOpenChange={(open: boolean) => !open && handleDeleteCancel()}>
         <DialogContent className="rounded-2xl sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-xl">Supprimer la promotion</DialogTitle>
+            <DialogTitle className="text-xl">Supprimer l'annonce</DialogTitle>
             <DialogDescription className="pt-2">
-              &Ecirc;tes-vous s&ucirc;r de vouloir supprimer <strong className="text-slate-900">&ldquo;{deleteDialog.promotionName}&rdquo;</strong> ? Cette action est irr&eacute;versible.
+              &Ecirc;tes-vous s&ucirc;r de vouloir supprimer <strong className="text-slate-900">&ldquo;{deleteDialog.announcementName}&rdquo;</strong> ? Cette action est irr&eacute;versible.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="gap-3 sm:gap-2 pt-2">

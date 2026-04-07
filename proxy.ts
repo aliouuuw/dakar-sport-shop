@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 
-export async function middleware(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname === "/admin/login") {
@@ -9,7 +10,7 @@ export async function middleware(request: NextRequest) {
   }
 
   const session = await auth.api.getSession({
-    headers: request.headers,
+    headers: await headers(),
   });
 
   if (!session) {

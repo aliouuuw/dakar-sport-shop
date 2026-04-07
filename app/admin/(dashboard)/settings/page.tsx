@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { AdminPageHeader } from "../components/admin-page-header"
+import { AdminPageHeader } from "@/app/admin/components/admin-page-header"
 import { toast } from "sonner"
 
 interface PhoneEntry {

@@ -17,9 +17,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { AdminPageHeader } from "../components/admin-page-header"
-import { AdminViewToggle } from "../components/admin-view-toggle"
-import { AdminStatusBadge, StatusTone } from "../components/admin-status-badge"
+import { AdminPageHeader } from "@/app/admin/components/admin-page-header"
+import { AdminViewToggle } from "@/app/admin/components/admin-view-toggle"
+import { AdminStatusBadge, StatusTone } from "@/app/admin/components/admin-status-badge"
 import { toast } from "sonner"
 
 interface Quote {

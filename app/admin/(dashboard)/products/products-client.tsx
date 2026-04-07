@@ -24,9 +24,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { AdminPageHeader } from "../components/admin-page-header";
-import { AdminViewToggle } from "../components/admin-view-toggle";
-import { AdminStatusBadge } from "../components/admin-status-badge";
+import { AdminPageHeader } from "@/app/admin/components/admin-page-header";
+import { AdminViewToggle } from "@/app/admin/components/admin-view-toggle";
+import { AdminStatusBadge } from "@/app/admin/components/admin-status-badge";
 import { deleteProduct, duplicateProduct } from "@/lib/actions/products";
 import type { getProducts } from "@/lib/actions/products";
 import type { getCategories } from "@/lib/actions/categories";

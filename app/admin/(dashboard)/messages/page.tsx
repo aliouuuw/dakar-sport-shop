@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { AdminPageHeader } from "../components/admin-page-header";
+import { AdminPageHeader } from "@/app/admin/components/admin-page-header";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Mail01Icon } from "@hugeicons/core-free-icons";
 import type { messages } from "@/lib/db/schema";

@@ -15,7 +15,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { AdminPageHeader } from "./components/admin-page-header"
+import { AdminPageHeader } from "@/app/admin/components/admin-page-header"
 
 const recentMessages = [
   { id: 1, name: "Moussa Diop", subject: "Devis pour équipe de foot", date: "Il y a 2h", unread: true },

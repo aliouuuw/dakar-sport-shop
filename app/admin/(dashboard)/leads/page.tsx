@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { AdminPageHeader } from "../components/admin-page-header";
+import { AdminPageHeader } from "@/app/admin/components/admin-page-header";
 import {
   Select,
   SelectContent,

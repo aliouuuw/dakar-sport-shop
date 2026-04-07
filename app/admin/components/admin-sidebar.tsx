@@ -19,6 +19,7 @@ import {
 } from "@hugeicons/core-free-icons"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
+import { signOut } from "@/lib/auth-client"
 import {
   Tooltip,
   TooltipContent,
@@ -200,11 +201,7 @@ export function AdminSidebar({ unreadCount = 0, onNavigate, collapsed = false }:
                 <p className="truncate text-xs text-blue-200/80">admin@dakarsport.sn</p>
               </div>
               <button
-                onClick={() => {
-                  // TODO: call signOut() once auth is set up
-                  // For now, redirect to login
-                  window.location.href = "/admin/login"
-                }}
+                onClick={() => signOut({ fetchOptions: { onSuccess: () => { window.location.href = "/admin/login" } } })}
                 className="rounded-lg p-2 text-blue-200/80 transition-colors hover:bg-white/20 hover:text-white"
                 title="D&eacute;connexion"
               >

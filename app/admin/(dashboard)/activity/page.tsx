@@ -4,7 +4,7 @@ import { Clock01Icon, FilterIcon, Calendar01Icon } from "@hugeicons/core-free-ic
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { AdminPageHeader } from "../components/admin-page-header"
+import { AdminPageHeader } from "@/app/admin/components/admin-page-header"
 
 export default function ActivityPage() {
   const activities = [

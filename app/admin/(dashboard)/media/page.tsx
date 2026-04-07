@@ -14,8 +14,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { toast } from "sonner"
-import { AdminPageHeader } from "../components/admin-page-header"
-import { AdminViewToggle } from "../components/admin-view-toggle"
+import { AdminPageHeader } from "@/app/admin/components/admin-page-header"
+import { AdminViewToggle } from "@/app/admin/components/admin-view-toggle"
 
 interface MediaFile {
   id: number
