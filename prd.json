@@ -168,7 +168,7 @@
         "Categories section shows all categories as clickable cards — verify navigation to /produits?category=slug",
         "Page is Server Component with no 'use client' at top level — verify file contents"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Storefront",

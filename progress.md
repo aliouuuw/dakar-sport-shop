@@ -257,3 +257,24 @@ All admin UI tasks are complete. Ready to begin storefront implementation.
   - Active link highlighting with blue-800 text + bg-blue-50
   - Search dialog with redirect to /produits?q= query
   - All brand colors consistent (#1E40AF blue, #DC2626 red)
+
+---
+
+## Working on: Homepage with hero, featured products, and announcements
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 16:01
+* **Task:** Create app/(store)/page.tsx with hero section, active announcements, featured products grid, categories showcase, and trust/info section.
+* **Plan:**
+  - Update `app/(store)/page.tsx` to be a Server Component with mocked data (until DB is ready).
+  - Create a Hero section with the tagline "Tout pour le Sport" and a CTA button to `/produits`.
+  - Create an active announcements banner component.
+  - Create a reusable `ProductCard` component and show an 8-item grid of featured products.
+  - Create a categories showcase grid.
+  - Create a Trust/Info section with phones, location, and opening hours.
+  - Use `shadcn/ui` components (Card, Button, Badge) and brand colors (blue #1E40AF, red #DC2626).
+* **Files:** `app/(store)/page.tsx`, `components/product-card.tsx` (new)
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success - Added lucide-react dependency, created reusable `ProductCard` component, and implemented a high-quality responsive homepage layout with mocked data.
+
+---
