@@ -41,14 +41,14 @@ export default function CategoriesPage() {
                 Nouvelle catégorie
               </Button>
             </SheetTrigger>
-            <SheetContent className="w-full sm:max-w-md border-l-0 shadow-2xl">
-              <SheetHeader className="pb-6 border-b border-slate-100">
+            <SheetContent>
+              <SheetHeader>
                 <SheetTitle className="text-2xl font-bold text-slate-900">Nouvelle catégorie</SheetTitle>
                 <SheetDescription>
                   Créez une nouvelle catégorie pour organiser vos produits.
                 </SheetDescription>
               </SheetHeader>
-              <div className="py-6 space-y-6">
+              <div className="grid flex-1 auto-rows-min gap-6 px-4">
                 <div className="space-y-2">
                   <label className="text-sm font-bold uppercase tracking-wider text-slate-700">Nom de la catégorie</label>
                   <Input placeholder="Ex: Football" className="h-12 bg-slate-50 border-slate-200 focus-visible:ring-[#1E40AF]" />
@@ -121,14 +121,14 @@ export default function CategoriesPage() {
                             <HugeiconsIcon icon={Edit01Icon} size={18} />
                           </Button>
                         </SheetTrigger>
-                        <SheetContent className="w-full sm:max-w-md border-l-0 shadow-2xl">
-                          <SheetHeader className="pb-6 border-b border-slate-100">
+                        <SheetContent>
+                          <SheetHeader>
                             <SheetTitle className="text-2xl font-bold text-slate-900">Éditer la catégorie</SheetTitle>
                             <SheetDescription>
                               Modifiez les informations de cette catégorie.
                             </SheetDescription>
                           </SheetHeader>
-                          <div className="py-6 space-y-6">
+                          <div className="grid flex-1 auto-rows-min gap-6 px-4">
                             <div className="space-y-2">
                               <label className="text-sm font-bold uppercase tracking-wider text-slate-700">Nom de la catégorie</label>
                               <Input defaultValue={category.name} className="h-12 bg-slate-50 border-slate-200 focus-visible:ring-[#1E40AF]" />

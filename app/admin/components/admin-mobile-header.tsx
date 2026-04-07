@@ -1,15 +1,47 @@
 "use client"
 
-import { useState } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Menu01Icon } from "@hugeicons/core-free-icons"
+import {
+  Home01Icon,
+  ShoppingBag01Icon,
+  GridIcon,
+  PercentIcon,
+  Megaphone01Icon,
+  Mail01Icon,
+  Invoice01Icon,
+  Image01Icon,
+  Clock01Icon,
+  Settings01Icon,
+  Logout01Icon,
+  Menu01Icon,
+} from "@hugeicons/core-free-icons"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
   SheetTitle,
 } from "@/components/ui/sheet"
-import { AdminSidebar } from "./admin-sidebar"
+import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
+
+const navItems = [
+  { href: "/admin", label: "Tableau de bord", icon: Home01Icon },
+  { href: "/admin/products", label: "Produits", icon: ShoppingBag01Icon },
+  { href: "/admin/categories", label: "Catégories", icon: GridIcon },
+  { href: "/admin/promotions", label: "Promotions", icon: PercentIcon },
+  { href: "/admin/announcements", label: "Annonces", icon: Megaphone01Icon },
+  { href: "/admin/messages", label: "Messages", icon: Mail01Icon, badge: true },
+  { href: "/admin/quotes", label: "Devis", icon: Invoice01Icon },
+  { href: "/admin/media", label: "Médias", icon: Image01Icon },
+  { href: "/admin/activity", label: "Activité", icon: Clock01Icon },
+] as const
+
+const bottomNavItems = [
+  { href: "/admin/settings", label: "Paramètres", icon: Settings01Icon },
+] as const
 
 interface AdminMobileHeaderProps {
   unreadCount?: number
@@ -17,6 +49,12 @@ interface AdminMobileHeaderProps {
 
 export function AdminMobileHeader({ unreadCount = 0 }: AdminMobileHeaderProps) {
   const [open, setOpen] = useState(false)
+  const pathname = usePathname()
+
+  const isActive = (href: string) => {
+    if (href === "/admin") return pathname === "/admin"
+    return pathname.startsWith(href)
+  }
 
   return (
     <>
@@ -38,12 +76,121 @@ export function AdminMobileHeader({ unreadCount = 0 }: AdminMobileHeaderProps) {
       </header>
 
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="left" className="w-[280px] p-0" showCloseButton={false}>
+        <SheetContent side="left" className="w-[280px] p-0 bg-[#1E40AF]" showCloseButton={false}>
           <SheetTitle className="sr-only">Menu de navigation</SheetTitle>
-          <AdminSidebar
-            unreadCount={unreadCount}
-            onNavigate={() => setOpen(false)}
-          />
+          <div className="flex h-full flex-col bg-[#1E40AF] text-white">
+            {/* Logo */}
+            <div className="flex h-16 shrink-0 items-center px-6 border-b border-white/10">
+              <Link
+                href="/admin"
+                className="flex items-center gap-2 transition-opacity hover:opacity-90"
+                onClick={() => setOpen(false)}
+              >
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-[#1E40AF] shadow-sm">
+                  <span className="font-heading text-lg font-bold leading-none tracking-tight">D</span>
+                </div>
+                <span className="font-heading text-lg font-bold tracking-tight">
+                  Dakar Sport
+                </span>
+              </Link>
+            </div>
+
+            {/* Nav */}
+            <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-1 scrollbar-hide">
+              <div className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-blue-200/60">
+                Menu Principal
+              </div>
+              {navItems.map((item) => {
+                const active = isActive(item.href)
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                      active
+                        ? "bg-white text-[#1E40AF] shadow-sm"
+                        : "text-blue-100/80 hover:bg-white/10 hover:text-white"
+                    )}
+                  >
+                    <HugeiconsIcon
+                      icon={item.icon}
+                      size={18}
+                      className={cn(
+                        "transition-colors",
+                        active ? "text-[#1E40AF]" : "text-blue-200/80 group-hover:text-white"
+                      )}
+                    />
+                    <span className="flex-1">{item.label}</span>
+                    {"badge" in item && item.badge && unreadCount > 0 && (
+                      <Badge className={cn(
+                        "h-5 min-w-[20px] rounded-full px-1.5 text-[10px] font-bold border-none",
+                        "bg-[#DC2626] text-white"
+                      )}>
+                        {unreadCount > 99 ? "99+" : unreadCount}
+                      </Badge>
+                    )}
+                  </Link>
+                )
+              })}
+            </nav>
+
+            {/* Bottom nav */}
+            <div className="px-4 pb-4">
+              <div className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-blue-200/60">
+                Système
+              </div>
+              {bottomNavItems.map((item) => {
+                const active = isActive(item.href)
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                      active
+                        ? "bg-white text-[#1E40AF] shadow-sm"
+                        : "text-blue-100/80 hover:bg-white/10 hover:text-white"
+                    )}
+                  >
+                    <HugeiconsIcon
+                      icon={item.icon}
+                      size={18}
+                      className={cn(
+                        "transition-colors",
+                        active ? "text-[#1E40AF]" : "text-blue-200/80 group-hover:text-white"
+                      )}
+                    />
+                    <span>{item.label}</span>
+                  </Link>
+                )
+              })}
+            </div>
+
+            {/* User section */}
+            <div className="border-t border-white/10 p-4">
+              <div className="flex items-center gap-3 rounded-xl bg-black/10 p-3 backdrop-blur-sm">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20 text-sm font-bold text-white shadow-inner">
+                  A
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="truncate text-sm font-semibold text-white">Admin</p>
+                  <p className="truncate text-xs text-blue-200/80">admin@dakarsport.sn</p>
+                </div>
+                <button
+                  onClick={() => {
+                    // TODO: call signOut() once auth is set up
+                  }}
+                  className="rounded-lg p-2 text-blue-200/80 transition-colors hover:bg-white/20 hover:text-white"
+                  title="Déconnexion"
+                >
+                  <HugeiconsIcon icon={Logout01Icon} size={18} />
+                </button>
+              </div>
+            </div>
+          </div>
         </SheetContent>
       </Sheet>
     </>
