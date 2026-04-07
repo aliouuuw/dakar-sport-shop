@@ -35,16 +35,17 @@ export function ProductCard({
   };
 
   return (
-    <Link href={`/produits/${slug}`} className="group block">
-      <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg border-slate-200">
-        <div className="relative aspect-square overflow-hidden bg-slate-100">
+    <Link href={`/produits/${slug}`} className="group block h-full">
+      <Card className="h-full flex flex-col overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1 border-slate-100 bg-white rounded-2xl">
+        <div className="relative aspect-[4/5] overflow-hidden bg-slate-50">
+          <div className="absolute inset-0 bg-black/40 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           {isNew && (
-            <Badge className="absolute top-2 left-2 z-10 bg-blue-600 hover:bg-blue-700">
+            <Badge className="absolute top-3 left-3 z-20 bg-blue-600 text-white border-none text-xs font-black uppercase tracking-wider px-2.5 py-1">
               Nouveau
             </Badge>
           )}
           {compareAtPrice && compareAtPrice > price && (
-            <Badge className="absolute top-2 right-2 z-10 bg-red-600 hover:bg-red-700">
+            <Badge className="absolute top-3 right-3 z-20 bg-red-600 text-white border-none text-xs font-black uppercase tracking-wider px-2.5 py-1">
               Promo
             </Badge>
           )}
@@ -52,36 +53,31 @@ export function ProductCard({
             src={image}
             alt={name}
             fill
-            className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+            className="object-cover object-center transition-transform duration-700 group-hover:scale-110"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
           />
         </div>
-        <CardContent className="p-4">
-          <div className="text-xs font-medium text-slate-500 mb-1 uppercase tracking-wider">
+        <CardContent className="p-5 flex flex-col flex-1 bg-white">
+          <div className="text-[10px] font-black text-slate-400 mb-2 uppercase tracking-[0.15em]">
             {category}
           </div>
-          <h3 className="font-semibold text-slate-900 line-clamp-2 min-h-[3rem] mb-2 group-hover:text-blue-800 transition-colors">
+          <h3 className="font-bold text-slate-900 text-sm leading-snug line-clamp-2 min-h-[2.5rem] mb-4 group-hover:text-blue-600 transition-colors">
             {name}
           </h3>
-          <div className="flex items-center justify-between mt-auto">
+          <div className="flex items-end justify-between mt-auto">
             <div className="flex flex-col">
-              <span className="font-bold text-lg text-slate-900">
-                {formatPrice(price)}
-              </span>
               {compareAtPrice && compareAtPrice > price && (
-                <span className="text-sm text-slate-500 line-through">
+                <span className="text-xs text-slate-400 line-through font-semibold">
                   {formatPrice(compareAtPrice)}
                 </span>
               )}
+              <span className="font-black text-lg text-slate-900 leading-none">
+                {formatPrice(price)}
+              </span>
             </div>
-            <Button
-              size="icon"
-              variant="secondary"
-              className="rounded-full bg-slate-100 text-slate-900 hover:bg-blue-800 hover:text-white transition-colors"
-            >
-              <HugeiconsIcon icon={ShoppingBag01Icon} size={16} />
-              <span className="sr-only">Ajouter au panier</span>
-            </Button>
+            <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-[#1E40AF] group-hover:text-white transition-all duration-300 transform group-hover:scale-110">
+              <HugeiconsIcon icon={ShoppingBag01Icon} size={18} />
+            </div>
           </div>
         </CardContent>
       </Card>
