@@ -383,7 +383,7 @@
         "deleteCategory() fails if category has products (returns error) — verify with category that has products",
         "reorderCategories() updates order field for each id — verify by reordering and re-reading"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Admin-API",

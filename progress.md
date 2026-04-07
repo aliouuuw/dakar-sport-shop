@@ -477,6 +477,32 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Categories CRUD server actions
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:34
+* **Task:** Create lib/actions/categories.ts with full CRUD + reorder. Auto-slug, Zod validation, prevent deletion if has products.
+* **Plan:**
+  - `getCategories()` — ordered by `order` field
+  - `getCategoryBySlug(slug)` — single lookup
+  - `createCategory(data)` — auto-generate slug from name, validate uniqueness
+  - `updateCategory(id, data)` — Zod validation, update row
+  - `deleteCategory(id)` — check for products first, return error if any
+  - `reorderCategories(orderedIds)` — update order field for each id
+  - All mutations guarded by `requireAdmin()`
+* **Files:** `lib/actions/categories.ts`
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Categories CRUD server actions created:
+  - `lib/actions/categories.ts` with `getCategories()`, `getCategoryBySlug()`, `getCategoryById()`, `createCategory()`, `updateCategory()`, `deleteCategory()`, `reorderCategories()`
+  - `generateSlug()` — normalizes accented French characters, lowercases, replaces spaces with dashes
+  - Slug uniqueness check on create and update (ignores self on update)
+  - `deleteCategory()` checks product count — returns French error if products exist
+  - `reorderCategories()` updates `order` field for each id in sequence
+  - All mutations guarded by `requireAdmin()`
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:
