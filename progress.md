@@ -386,3 +386,11 @@ All admin UI tasks are complete. Ready to begin storefront implementation.
   - Use HugeIcons, brand colors, and match admin design conventions.
 * **Files:** `components/product-variants.tsx` (new), `app/(store)/produits/[slug]/page.tsx` (modify), `app/admin/leads/page.tsx` (new)
 * **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Implemented WhatsApp commerce flow with:
+  - `ProductVariants` client component for size/color selection and dynamic price calculation
+  - Dynamic WhatsApp order button that includes selected variants in the pre-filled message
+  - Admin `/admin/leads` page showing a list of WhatsApp leads with product, variant, timestamp, and clicks
+  - Added Promotions page (`/promotions`) with active offers and promo codes
+  - Added Mobile Filtering UX (`MobileFilters` with Sheet) for the products page
+  - Added Framer Motion scroll reveal animations to the storefront homepage
+  - Polished storefront to match admin design language (HugeIcons, bold typography, rounded-3xl cards)

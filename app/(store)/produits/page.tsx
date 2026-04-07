@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { ProductCard } from "@/components/product-card";
 import { ProductFilters, ProductPagination } from "@/components/product-filters";
+import { MobileFilters } from "@/components/mobile-filters";
 
 // Mock data — will be replaced by DB queries
 const ALL_PRODUCTS = [
@@ -267,8 +268,17 @@ export default async function ProduitsPage({
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex flex-col lg:flex-row gap-10">
-          {/* Sidebar Filters */}
-          <aside className="w-full lg:w-72 shrink-0">
+          {/* Mobile Filters (Hidden on Desktop) */}
+          <Suspense fallback={null}>
+            <MobileFilters 
+              categories={CATEGORIES}
+              totalCount={ALL_PRODUCTS.length}
+              filteredCount={filtered.length}
+            />
+          </Suspense>
+
+          {/* Sidebar Filters (Hidden on Mobile) */}
+          <aside className="hidden lg:block w-72 shrink-0">
             <div className="lg:sticky lg:top-36">
               <Suspense fallback={null}>
                 <ProductFilters
