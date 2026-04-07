@@ -370,7 +370,7 @@
         "updateSiteSetting() rejects non-admin users — verify by calling without admin session",
         "Zod schema rejects invalid keys — verify with invalid input"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Admin-API",

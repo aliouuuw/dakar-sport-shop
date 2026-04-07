@@ -453,6 +453,30 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Site settings CRUD server actions
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:33
+* **Task:** Create lib/actions/site-settings.ts with getSiteSettings() and updateSiteSetting() server actions. Admin-only mutations, Zod validation.
+* **Plan:**
+  - Create `lib/actions/` directory
+  - Create `lib/actions/site-settings.ts` with:
+    - `getSiteSettings()` — returns all settings as Record<string, string>
+    - `updateSiteSetting(key, value)` — validates with Zod, requires admin, updates DB
+  - Use `requireAdmin()` from `lib/auth-server.ts` to guard mutations
+  - Zod schema validates allowed keys
+* **Files:** `lib/actions/site-settings.ts`
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Site settings server actions created:
+  - `lib/actions/site-settings.ts` with `getSiteSettings()`, `updateSiteSetting()`, `updateSiteSettings()`, `deleteSiteSetting()`
+  - Zod schema with enum of 12 allowed keys (siteName, tagline, phones, email, address, etc.)
+  - `requireAdmin()` guards all mutations — returns typed error response if unauthorized
+  - `ActionResult<T>` discriminated union type for consistent error handling
+  - `zod@4.3.6` installed
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:
