@@ -384,6 +384,26 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Auth API route handler
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:18
+* **Task:** Create app/api/auth/[...all]/route.ts that delegates all auth requests to better-auth's handler.
+* **Plan:**
+  - Create `app/api/auth/[...all]/route.ts` exporting GET and POST handlers from better-auth
+  - Create `lib/auth-client.ts` for client-side auth (signIn, signUp, signOut, useSession)
+  - Create `lib/auth-server.ts` with getSession() helper for Server Components
+  - Verify with `bunx tsc --noEmit`
+* **Files:** `app/api/auth/[...all]/route.ts`, `lib/auth-client.ts`, `lib/auth-server.ts`
+* **Verification:** TypeScript compiles cleanly
+* **Result:** Success — Auth API route handler and helpers created:
+  - `app/api/auth/[...all]/route.ts` — delegates GET/POST to better-auth via `toNextJsHandler`
+  - `lib/auth-client.ts` — exports `authClient`, `signIn`, `signUp`, `signOut`, `useSession` for client components
+  - `lib/auth-server.ts` — exports `getSession()` for Server Components and `requireAdmin()` for protected server actions
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:

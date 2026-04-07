@@ -322,7 +322,7 @@
         "POST /api/auth/sign-in/email returns session cookie — verify with curl or fetch",
         "GET /api/auth/get-session returns current session — verify with curl or fetch"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Auth",
