@@ -478,7 +478,7 @@
         "next.config.ts configured with image remotePatterns — verify with tsc --noEmit",
         "bun run build succeeds with no errors — verify by running build"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Infrastructure",

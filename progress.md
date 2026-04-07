@@ -647,6 +647,27 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Environment configuration and project dependencies
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:52
+* **Task:** Verify all deps installed, configure next.config.ts with image remotePatterns, add NEXT_PUBLIC_APP_URL to .env.example.
+* **Plan:**
+  - Install missing deps: lucide-react, sonner if not present
+  - Configure next.config.ts with image remotePatterns for unsplash, images.pexels.com etc.
+  - Add NEXT_PUBLIC_APP_URL to .env.example
+  - Verify with `bunx tsc --noEmit`
+* **Files:** `next.config.ts`, `.env.example`
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Infrastructure dependencies and env configured:
+  - `lucide-react@1.7.0` installed
+  - `next.config.ts` extended with image remotePatterns: unsplash, pexels, picsum, cloudinary, localhost
+  - `.env.example` updated with NEXT_PUBLIC_APP_URL
+  - `tsconfig.json` cleaned: removed `.next/dev/types/**/*.ts` include that caused tsc to fail on unbuilt dev artifacts
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:
