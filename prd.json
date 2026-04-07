@@ -491,7 +491,7 @@
         "PageHeader component renders title, description, and optional action button — verify with tsc --noEmit",
         "DataTable component wraps @tanstack/react-table with sorting, filtering, pagination — verify with tsc --noEmit"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Infrastructure",
