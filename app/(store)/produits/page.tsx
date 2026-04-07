@@ -2,191 +2,9 @@ import { Suspense } from "react";
 import { ProductCard } from "@/components/product-card";
 import { ProductFilters, ProductPagination } from "@/components/product-filters";
 import { MobileFilters } from "@/components/mobile-filters";
-
 import { ScrollReveal } from "@/components/scroll-reveal";
-
-// Mock data — will be replaced by DB queries
-const ALL_PRODUCTS = [
-  {
-    id: "1",
-    name: "Maillot Domicile Equipe Nationale Sénégal 2024",
-    slug: "maillot-senegal-2024",
-    price: 35000,
-    compareAtPrice: 45000,
-    category: "Football",
-    categorySlug: "football",
-    image: "https://images.unsplash.com/photo-1577223625816-7546f13df25d?q=80&w=600&auto=format&fit=crop",
-    isNew: true,
-    createdAt: "2024-03-20",
-  },
-  {
-    id: "2",
-    name: "Chaussures de Running Pro X-Vite",
-    slug: "running-pro-x-vite",
-    price: 65000,
-    category: "Running",
-    categorySlug: "running",
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600&auto=format&fit=crop",
-    createdAt: "2024-03-18",
-  },
-  {
-    id: "3",
-    name: "Ballon de Basket Officiel Taille 7",
-    slug: "ballon-basket-t7",
-    price: 25000,
-    compareAtPrice: 30000,
-    category: "Basketball",
-    categorySlug: "basketball",
-    image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=600&auto=format&fit=crop",
-    createdAt: "2024-03-15",
-  },
-  {
-    id: "4",
-    name: "Haltères Réglables 20kg (Set de 2)",
-    slug: "halteres-20kg-set",
-    price: 45000,
-    category: "Fitness",
-    categorySlug: "fitness",
-    image: "https://images.unsplash.com/photo-1638202993928-7267aad84c31?q=80&w=600&auto=format&fit=crop",
-    createdAt: "2024-03-12",
-  },
-  {
-    id: "5",
-    name: "Gants de Boxe Entraînement 12oz",
-    slug: "gants-boxe-12oz",
-    price: 22000,
-    category: "Sports de Combat",
-    categorySlug: "sports-de-combat",
-    image: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=600&auto=format&fit=crop",
-    createdAt: "2024-03-10",
-  },
-  {
-    id: "6",
-    name: "Tapis de Yoga Antidérapant Épais",
-    slug: "tapis-yoga-epais",
-    price: 15000,
-    compareAtPrice: 20000,
-    category: "Fitness",
-    categorySlug: "fitness",
-    image: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?q=80&w=600&auto=format&fit=crop",
-    createdAt: "2024-03-08",
-  },
-  {
-    id: "7",
-    name: "Raquette de Tennis Pro Carbone",
-    slug: "raquette-tennis-pro",
-    price: 85000,
-    category: "Tennis",
-    categorySlug: "tennis",
-    image: "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=600&auto=format&fit=crop",
-    isNew: true,
-    createdAt: "2024-03-22",
-  },
-  {
-    id: "8",
-    name: "Sac de Sport Imperméable 50L",
-    slug: "sac-sport-50l",
-    price: 18000,
-    category: "Accessoires",
-    categorySlug: "accessoires",
-    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600&auto=format&fit=crop",
-    createdAt: "2024-03-05",
-  },
-  {
-    id: "9",
-    name: "Maillot FC Barcelone 2024",
-    slug: "maillot-barca-2024",
-    price: 42000,
-    category: "Football",
-    categorySlug: "football",
-    image: "https://images.unsplash.com/photo-1577223625816-7546f13df25d?q=80&w=600&auto=format&fit=crop",
-    isNew: true,
-    createdAt: "2024-03-21",
-  },
-  {
-    id: "10",
-    name: "Chaussures de Football Crampons Moulés",
-    slug: "crampons-moules",
-    price: 55000,
-    compareAtPrice: 70000,
-    category: "Football",
-    categorySlug: "football",
-    image: "https://images.unsplash.com/photo-1511886929837-354d827aafe2?q=80&w=600&auto=format&fit=crop",
-    createdAt: "2024-03-01",
-  },
-  {
-    id: "11",
-    name: "Lunettes de Natation Pro Anti-Buée",
-    slug: "lunettes-natation-pro",
-    price: 12000,
-    category: "Natation",
-    categorySlug: "natation",
-    image: "https://images.unsplash.com/photo-1519315901367-f34f9274ceb3?q=80&w=600&auto=format&fit=crop",
-    createdAt: "2024-02-28",
-  },
-  {
-    id: "12",
-    name: "Short de Basketball Respirant",
-    slug: "short-basketball",
-    price: 18000,
-    category: "Basketball",
-    categorySlug: "basketball",
-    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=600&auto=format&fit=crop",
-    createdAt: "2024-02-25",
-  },
-  {
-    id: "13",
-    name: "Corde à Sauter Professionnelle",
-    slug: "corde-sauter-pro",
-    price: 8000,
-    compareAtPrice: 12000,
-    category: "Fitness",
-    categorySlug: "fitness",
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop",
-    createdAt: "2024-02-20",
-  },
-  {
-    id: "14",
-    name: "Protège-Tibias Pro Football",
-    slug: "protege-tibias-pro",
-    price: 10000,
-    category: "Football",
-    categorySlug: "football",
-    image: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=600&auto=format&fit=crop",
-    createdAt: "2024-02-18",
-  },
-  {
-    id: "15",
-    name: "Maillot de Bain Compétition Homme",
-    slug: "maillot-bain-competition",
-    price: 20000,
-    category: "Natation",
-    categorySlug: "natation",
-    image: "https://images.unsplash.com/photo-1519315901367-f34f9274ceb3?q=80&w=600&auto=format&fit=crop",
-    createdAt: "2024-02-15",
-  },
-  {
-    id: "16",
-    name: "Ballon de Football Officiel Taille 5",
-    slug: "ballon-foot-t5",
-    price: 15000,
-    category: "Football",
-    categorySlug: "football",
-    image: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=600&auto=format&fit=crop",
-    createdAt: "2024-02-10",
-  },
-];
-
-const CATEGORIES = [
-  { name: "Football", slug: "football", count: 5 },
-  { name: "Basketball", slug: "basketball", count: 2 },
-  { name: "Running", slug: "running", count: 1 },
-  { name: "Fitness", slug: "fitness", count: 3 },
-  { name: "Natation", slug: "natation", count: 2 },
-  { name: "Tennis", slug: "tennis", count: 1 },
-  { name: "Sports de Combat", slug: "sports-de-combat", count: 1 },
-  { name: "Accessoires", slug: "accessoires", count: 1 },
-];
+import { getProducts, getProductCountByCategory } from "@/lib/actions/products";
+import { getCategories } from "@/lib/actions/categories";
 
 const PRODUCTS_PER_PAGE = 9;
 
@@ -197,62 +15,62 @@ interface SearchParams {
   page?: string;
 }
 
-function getFilteredProducts(searchParams: SearchParams) {
-  let products = [...ALL_PRODUCTS];
-
-  // Filter by category
-  if (searchParams.category) {
-    products = products.filter(
-      (p) => p.categorySlug === searchParams.category
-    );
-  }
-
-  // Filter by search query
-  if (searchParams.q) {
-    const query = searchParams.q.toLowerCase();
-    products = products.filter(
-      (p) =>
-        p.name.toLowerCase().includes(query) ||
-        p.category.toLowerCase().includes(query)
-    );
-  }
-
-  // Sort
-  switch (searchParams.sort) {
-    case "price-asc":
-      products.sort((a, b) => a.price - b.price);
-      break;
-    case "price-desc":
-      products.sort((a, b) => b.price - a.price);
-      break;
-    case "name-asc":
-      products.sort((a, b) => a.name.localeCompare(b.name, "fr"));
-      break;
-    case "newest":
-    default:
-      products.sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-      break;
-  }
-
-  return products;
-}
-
 export default async function ProduitsPage({
   searchParams,
 }: {
   searchParams: Promise<SearchParams>;
 }) {
   const params = await searchParams;
-  const filtered = getFilteredProducts(params);
+
+  const [allProducts, allCategories, countByCategory] = await Promise.all([
+    getProducts({ active: true, limit: 500 }),
+    getCategories(),
+    getProductCountByCategory(),
+  ]);
+
+  let filtered = [...allProducts];
+
+  if (params.category) {
+    filtered = filtered.filter((p) => p.categorySlug === params.category);
+  }
+
+  if (params.q) {
+    const query = params.q.toLowerCase();
+    filtered = filtered.filter(
+      (p) =>
+        p.name.toLowerCase().includes(query) ||
+        (p.categoryName ?? "").toLowerCase().includes(query)
+    );
+  }
+
+  switch (params.sort) {
+    case "price-asc":
+      filtered.sort((a, b) => a.price - b.price);
+      break;
+    case "price-desc":
+      filtered.sort((a, b) => b.price - a.price);
+      break;
+    case "name-asc":
+      filtered.sort((a, b) => a.name.localeCompare(b.name, "fr"));
+      break;
+    case "newest":
+    default:
+      filtered.sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+      break;
+  }
+
   const currentPage = Math.max(1, parseInt(params.page || "1", 10));
   const totalPages = Math.ceil(filtered.length / PRODUCTS_PER_PAGE);
   const paginated = filtered.slice(
     (currentPage - 1) * PRODUCTS_PER_PAGE,
     currentPage * PRODUCTS_PER_PAGE
   );
+
+  const categories = allCategories
+    .filter((c) => (countByCategory[c.id] ?? 0) > 0)
+    .map((c) => ({ name: c.name, slug: c.slug, count: countByCategory[c.id] ?? 0 }));
 
   return (
     <div className="bg-slate-50 min-h-screen">
@@ -275,8 +93,8 @@ export default async function ProduitsPage({
           {/* Mobile Filters (Hidden on Desktop) */}
           <Suspense fallback={null}>
             <MobileFilters 
-              categories={CATEGORIES}
-              totalCount={ALL_PRODUCTS.length}
+              categories={categories}
+              totalCount={allProducts.length}
               filteredCount={filtered.length}
             />
           </Suspense>
@@ -286,8 +104,8 @@ export default async function ProduitsPage({
             <div className="lg:sticky lg:top-36">
               <Suspense fallback={null}>
                 <ProductFilters
-                  categories={CATEGORIES}
-                  totalCount={ALL_PRODUCTS.length}
+                  categories={categories}
+                  totalCount={allProducts.length}
                   filteredCount={filtered.length}
                 />
               </Suspense>
@@ -302,14 +120,13 @@ export default async function ProduitsPage({
                   {paginated.map((product, idx) => (
                     <ScrollReveal key={product.id} delay={(idx % 6) * 100} direction="up" className="h-full">
                       <ProductCard
-                        id={product.id}
+                        id={String(product.id)}
                         name={product.name}
                         slug={product.slug}
                         price={product.price}
-                        compareAtPrice={product.compareAtPrice}
-                        category={product.category}
-                        image={product.image}
-                        isNew={product.isNew}
+                        compareAtPrice={product.compareAtPrice ?? undefined}
+                        category={product.categoryName ?? ""}
+                        image={product.images[0] ?? ""}
                       />
                     </ScrollReveal>
                   ))}

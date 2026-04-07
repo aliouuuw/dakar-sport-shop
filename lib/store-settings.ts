@@ -19,10 +19,17 @@ export async function getStoreSettings(): Promise<StoreSettings> {
   let phones: { label: string; number: string }[] = [];
   try {
     if (settings.phones) {
-      phones = JSON.parse(settings.phones);
+      const parsed = JSON.parse(settings.phones);
+      phones = Array.isArray(parsed)
+        ? parsed.filter((p): p is { label: string; number: string } =>
+            p && typeof p.number === "string" && p.number.length > 0
+          )
+        : [];
     }
   } catch {
-    // Fallback to default phones
+    phones = [];
+  }
+  if (phones.length === 0) {
     phones = [
       { label: "Fixe", number: "+221 33 840 09 45" },
       { label: "Mobile", number: "+221 77 634 51 15" },
