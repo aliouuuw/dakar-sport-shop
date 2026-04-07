@@ -216,6 +216,31 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Drizzle ORM setup and database connection
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:04
+* **Task:** Install drizzle-orm, drizzle-kit, and postgres driver. Configure NeonDB connection with environment variables. Create drizzle.config.ts and lib/db/index.ts with connection pool.
+* **Plan:**
+  - Install dependencies: `drizzle-orm`, `drizzle-kit`, `@neondatabase/serverless`
+  - Create `.env.example` with `DATABASE_URL` placeholder
+  - Create `drizzle.config.ts` pointing to `lib/db/schema/`
+  - Create `lib/db/index.ts` with drizzle instance connected to NeonDB
+  - Verify with `bunx tsc --noEmit`
+* **Files:** `package.json`, `.env.example`, `drizzle.config.ts`, `lib/db/index.ts`
+* **Verification:** `bun pm ls` shows packages installed, `bunx tsc --noEmit` passes
+* **Challenges:** Need to ensure proper TypeScript types for Neon serverless driver
+* **Result:** Success — Drizzle ORM setup complete with:
+  - Dependencies installed: `drizzle-orm@0.45.2`, `drizzle-kit@0.31.10`, `@neondatabase/serverless@1.0.2`
+  - `.env.example` created with `DATABASE_URL` placeholder
+  - `drizzle.config.ts` configured to point to `lib/db/schema/index.ts`
+  - `lib/db/index.ts` exports drizzle instance with Neon connection pool
+  - `lib/db/schema/index.ts` created as schema export hub
+  - TypeScript compilation passes
+  - `bunx drizzle-kit generate` runs successfully
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:
