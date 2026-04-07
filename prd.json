@@ -273,7 +273,7 @@
         "At least 6 categories and 20 products seeded with CFA prices — verify by querying DB",
         "Running seed twice does not create duplicates — verify by running twice and checking counts"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database",
@@ -285,7 +285,7 @@
         "bun run db:push applies schema to database — verify by connecting and listing tables",
         "bun run db:seed populates data — verify by querying"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database",

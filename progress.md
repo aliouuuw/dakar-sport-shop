@@ -312,6 +312,33 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Seed script with Dakar Sport data
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 18:15
+* **Task:** Create `lib/db/seed.ts` with idempotent seed data for Dakar Sport: site settings, 6+ categories, 20+ products, 2 promotions, 1 announcement, 3 messages.
+* **Plan:**
+  - Use `onConflictDoUpdate` / `onConflictDoNothing` for idempotency
+  - Site settings: siteName, tagline, phones (JSON), email, address, aboutText
+  - Categories: Football, Basketball, Running, Fitness, Natation, Textile (with Unsplash images)
+  - Products: 20+ items with realistic CFA prices spread across categories
+  - Promotions: 2 seasonal promo with date ranges and discount types
+  - Announcements: 1 active banner announcement
+  - Messages: 3 sample contact messages (read + unread mix)
+* **Files:** `lib/db/seed.ts`
+* **Verification:** `bun run lib/db/seed.ts` completes without error (with valid DATABASE_URL); verify TypeScript with `bunx tsc --noEmit`
+* **Result:** Success — Seed script created with:
+  - 10 site settings (name, tagline, phones JSON, email, address, hours, social links)
+  - 6 categories: Football, Basketball, Running, Fitness, Natation, Textile (with Unsplash images)
+  - 22 products with realistic CFA prices spread across all categories
+  - 2 promotions: FOOT20 (20% off Football) and RUN5K (5000 FCFA off Running)
+  - 1 active banner announcement
+  - 3 sample messages (1 read, 2 unread)
+  - Idempotent: `onConflictDoUpdate` for settings/categories/products, `onConflictDoNothing` for the rest
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:
