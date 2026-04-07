@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { organizationJsonLd } from "@/lib/json-ld";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -61,6 +62,10 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
+        />
         {children}
         <Toaster
           position="top-right"

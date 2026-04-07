@@ -573,7 +573,7 @@
         "Product view, WhatsApp click, quote request tracked — verify by checking analytics dashboard",
         "Analytics dashboard shows traffic, top products, conversion funnel — verify by visiting dashboard"
       ],
-      "passes": false
+      "passes": true
     }
   ]
 }
