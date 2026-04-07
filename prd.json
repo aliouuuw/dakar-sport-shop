@@ -503,7 +503,7 @@
         "sitemap.xml lists homepage, /produits, /contact, all product slugs, all category pages — verify by visiting /sitemap.xml",
         "Each page has unique title via metadata export — verify on products and contact pages"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Infrastructure",

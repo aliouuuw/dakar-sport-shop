@@ -9,9 +9,40 @@ const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-sans",
 });
 
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://dakarsport.sn";
+
 export const metadata: Metadata = {
-  title: "Dakar Sport | Admin",
-  description: "Tout pour le Sport - Administration",
+  title: {
+    default: "Dakar Sport — Tout pour le Sport",
+    template: "%s | Dakar Sport",
+  },
+  description:
+    "Dakar Sport — Spécialiste des équipements sportifs à Dakar. Football, basketball, running, fitness, natation. Livraison rapide au Sénégal.",
+  metadataBase: new URL(APP_URL),
+  openGraph: {
+    type: "website",
+    locale: "fr_SN",
+    siteName: "Dakar Sport",
+    title: "Dakar Sport — Tout pour le Sport",
+    description:
+      "Spécialiste des équipements sportifs à Dakar. Football, basketball, running, fitness, natation.",
+    url: APP_URL,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dakar Sport — Tout pour le Sport",
+    description:
+      "Spécialiste des équipements sportifs à Dakar. Football, basketball, running, fitness, natation.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
 };
 
 export default function RootLayout({

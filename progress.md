@@ -668,6 +668,26 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: SEO metadata and Open Graph defaults
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 19:00
+* **Task:** Configure root layout metadata, robots.txt, sitemap.ts for all products and categories.
+* **Plan:**
+  - Update `app/layout.tsx` with default metadata (title template, description, OG, Twitter)
+  - Create `app/robots.ts` — allow all, disallow /admin
+  - Create `app/sitemap.ts` — dynamically lists homepage, /produits, /contact, all product and category slugs
+  - Verify with `bunx tsc --noEmit`
+* **Files:** `app/layout.tsx`, `app/robots.ts`, `app/sitemap.ts`
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — SEO metadata and sitemap configured:
+  - `app/layout.tsx` updated with full metadata: title template, description, OG (locale fr_SN), Twitter card, robots
+  - `app/robots.ts` — allows `/`, disallows `/admin/` and `/api/`, points to sitemap
+  - `app/sitemap.ts` — dynamic sitemap fetching all active products and categories from DB
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:
