@@ -337,3 +337,35 @@ All admin UI tasks are complete. Ready to begin storefront implementation.
   - SEO metadata: title, description, og:image
   - 404 handling via notFound() for invalid slugs
   - HugeIcons throughout, brand colors, rounded-3xl cards
+
+---
+
+## Working on: Contact page with message form
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 16:33
+* **Task:** Create `app/(store)/contact/page.tsx` with contact form, contact info, Google Maps embed. Form submits to mocked createMessage (DB integration deferred).
+* **Plan:**
+  - Create `app/(store)/contact/page.tsx` as a Server Component.
+  - Two-column layout: form on left, contact info + map on right (responsive).
+  - Form fields: name, email, phone, subject, message (all required except phone).
+  - Zod validation: email format, required fields, message min 10 chars.
+  - Client component `components/contact-form.tsx` with useTransition for loading state, toast on success/error (French messages).
+  - Contact info section: phones (3 numbers), email, address, opening hours from mocked site settings.
+  - Google Maps iframe embed for Avenue G. Pompidou, Dakar (static embed, no API key needed).
+  - Form resets after successful submission.
+  - Use HugeIcons, brand colors, rounded-xl inputs matching storefront conventions.
+  - For now, log form data to console (DB integration via server actions deferred to Database/Auth tasks).
+* **Files:** `app/(store)/contact/page.tsx` (new), `components/contact-form.tsx` (new)
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Created contact page with:
+  - Server Component at `/contact` with two-column layout (form + info)
+  - `ContactForm` client component: name, email, phone (optional), subject, message fields
+  - Zod validation: email format, required fields, message min 10 chars
+  - useTransition for loading state, toast notifications (French)
+  - Form resets after successful submission
+  - Contact info section: 4 cards with phone, email, address, hours (HugeIcons)
+  - Google Maps iframe embed for Avenue G. Pompidou, Dakar
+  - FAQ section with 4 common questions
+  - Brand colors, rounded-3xl cards, HugeIcons throughout
+  - Form data logged to console (DB integration deferred)

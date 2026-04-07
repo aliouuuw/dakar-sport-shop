@@ -210,7 +210,7 @@
         "Google Maps embed shows correct location — verify visually",
         "Form resets after successful submission — verify by submitting and checking form state"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Storefront",
