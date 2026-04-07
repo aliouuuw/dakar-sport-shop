@@ -200,9 +200,11 @@ export function AdminSidebar({ unreadCount = 0, onNavigate, collapsed = false }:
               <button
                 onClick={() => {
                   // TODO: call signOut() once auth is set up
+                  // For now, redirect to login
+                  window.location.href = "/admin/login"
                 }}
                 className="rounded-lg p-2 text-blue-200/80 transition-colors hover:bg-white/20 hover:text-white"
-                title="Déconnexion"
+                title="D&eacute;connexion"
               >
                 <HugeiconsIcon icon={Logout01Icon} size={18} />
               </button>

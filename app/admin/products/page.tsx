@@ -1,11 +1,21 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useTransition } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Add01Icon, Search01Icon, Edit01Icon, FilterIcon, GridViewIcon } from "@hugeicons/core-free-icons"
+import { Add01Icon, Search01Icon, Edit01Icon, Delete01Icon, FilterIcon, GridViewIcon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { toast } from "sonner"
 import { AdminPageHeader } from "../components/admin-page-header"
 import { AdminViewToggle } from "../components/admin-view-toggle"
 import { AdminStatusBadge } from "../components/admin-status-badge"
@@ -19,8 +29,41 @@ const products = [
   { id: 6, name: "Tapis de yoga 6mm", category: "Fitness", price: "9 500 FCFA", compareAt: "11 000 FCFA", stock: 30, active: true, featured: false },
 ]
 
+interface DeleteDialogState {
+  open: boolean
+  productId: number | null
+  productName: string
+}
+
 export default function ProductsPage() {
   const [viewMode, setViewMode] = useState<"table" | "grid">("table")
+  const [deleteDialog, setDeleteDialog] = useState<DeleteDialogState>({
+    open: false,
+    productId: null,
+    productName: "",
+  })
+  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
+
+  const handleDeleteClick = (id: number, name: string) => {
+    setDeleteDialog({ open: true, productId: id, productName: name })
+  }
+
+  const handleDeleteConfirm = () => {
+    startTransition(() => {
+      // TODO: Replace with actual server action call
+      // await deleteProduct(deleteDialog.productId!)
+      toast.success("Produit supprimé", {
+        description: `"${deleteDialog.productName}" a été supprimé avec succès.`,
+      })
+      setDeleteDialog({ open: false, productId: null, productName: "" })
+      router.refresh()
+    })
+  }
+
+  const handleDeleteCancel = () => {
+    setDeleteDialog({ open: false, productId: null, productName: "" })
+  }
 
   return (
     <div className="flex flex-col gap-8 pb-12">
@@ -129,12 +172,22 @@ export default function ProductsPage() {
                         {product.active ? "Actif" : "Inactif"}
                       </AdminStatusBadge>
                     </td>
-                    <td className="px-8 py-4 text-right">
-                      <Button variant="ghost" size="icon" asChild className="h-10 w-10 rounded-full text-slate-400 opacity-40 group-hover:opacity-100 hover:text-[#1E40AF] hover:bg-blue-50 transition-all duration-300">
-                        <Link href={`/admin/products/${product.id}/edit`}>
-                          <HugeiconsIcon icon={Edit01Icon} size={18} />
-                        </Link>
-                      </Button>
+                    <td className="px-8 py-4">
+                      <div className="flex items-center justify-end gap-1">
+                        <Button variant="ghost" size="icon" asChild className="h-10 w-10 rounded-full text-slate-400 opacity-40 group-hover:opacity-100 hover:text-[#1E40AF] hover:bg-blue-50 transition-all duration-300">
+                          <Link href={`/admin/products/${product.id}/edit`}>
+                            <HugeiconsIcon icon={Edit01Icon} size={18} />
+                          </Link>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDeleteClick(product.id, product.name)}
+                          className="h-10 w-10 rounded-full text-slate-400 opacity-40 group-hover:opacity-100 hover:text-[#DC2626] hover:bg-red-50 transition-all duration-300"
+                        >
+                          <HugeiconsIcon icon={Delete01Icon} size={18} />
+                        </Button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -194,6 +247,46 @@ export default function ProductsPage() {
             </div>
           </div>
         )}
+
+        {/* Delete Confirmation Dialog */}
+        <Dialog open={deleteDialog.open} onOpenChange={(open: boolean) => !open && handleDeleteCancel()}>
+          <DialogContent className="rounded-2xl sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-xl">Supprimer le produit</DialogTitle>
+              <DialogDescription className="pt-2">
+                {"\u00cates"}-vous s\u00fbr de vouloir supprimer <strong className="text-slate-900">&ldquo;{deleteDialog.productName}&rdquo;</strong> ? Cette action est irr\u00e9versible.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter className="gap-3 sm:gap-2 pt-2">
+              <Button
+                variant="outline"
+                onClick={handleDeleteCancel}
+                disabled={isPending}
+                className="rounded-xl h-12 font-semibold"
+              >
+                Annuler
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={handleDeleteConfirm}
+                disabled={isPending}
+                className="rounded-xl h-12 font-semibold min-w-[120px]"
+              >
+                {isPending ? (
+                  <>
+                    <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Suppression...
+                  </>
+                ) : (
+                  "Supprimer"
+                )}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         <div className="flex items-center justify-between border-t border-slate-100 px-8 py-5 text-sm font-medium text-slate-500 bg-white">
           <span>Affichage de <span className="text-slate-900 font-bold">{products.length}</span> sur {products.length} produits</span>
