@@ -155,7 +155,7 @@
         "Mobile hamburger menu opens full nav with Sheet component — verify at mobile viewport",
         "Active nav link highlighted with brand color — verify by navigating"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Storefront",

@@ -228,3 +228,32 @@ The following Storefront tasks remain in the PRD backlog:
 6. **WhatsApp commerce flow** — Variant selector, WhatsApp share card, lead tracking, admin leads page
 
 All admin UI tasks are complete. Ready to begin storefront implementation.
+
+---
+
+## Working on: Store layout with header and footer
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 15:38
+* **Task:** Create app/(store)/layout.tsx with responsive header (logo, nav links, search, mobile hamburger) and footer (contact info, social links, copyright)
+* **Plan:**
+  - Create `app/(store)/layout.tsx` — server component wrapping header + main + footer
+  - Create `components/store-header.tsx` — client component with responsive nav, logo, 4 nav links (Accueil, Produits, Promotions, Contact), search dialog, mobile Sheet
+  - Create `components/store-footer.tsx` — 3-column footer (Brand+social, Navigation, Contact info), dark bg (slate-900), social icons (Facebook, Instagram, WhatsApp)
+  - Header: white bg, border-b, h-16 desktop, h-14 mobile, sticky on scroll
+  - Mobile: hamburger triggers Sheet from left with full nav + contact + social
+  - Search: icon triggers Dialog with search input (placeholder for now, URL-driven)
+  - Active link highlight based on current pathname using usePathname
+  - Mock site settings data (phones, address, email, social links) — will connect to DB later
+  - Install shadcn Sheet if not already present (it is)
+* **Files:** `app/(store)/layout.tsx`, `components/store-header.tsx`, `components/store-footer.tsx`
+* **Verification:** `bun run build` passes — all 15 routes compile including new `/` route
+* **Result:** Success — Store layout created with:
+  - `app/(store)/layout.tsx` — server component wrapping header + main + footer with flex min-h-screen layout
+  - `components/store-header.tsx` — sticky header with announcement bar (red bg), logo (DAKAR SPORT + tagline), 4 nav links (Accueil, Produits, Promotions, Contact), search dialog, WhatsApp CTA button, mobile hamburger with Sheet showing full nav + contact info + social links
+  - `components/store-footer.tsx` — 3-column dark footer (slate-900): Brand info + social icons (Facebook, Instagram, WhatsApp), Navigation links, Contact info (3 phones, email, address with icons)
+  - `app/(store)/page.tsx` — placeholder homepage with hero text and CTAs
+  - Header: white bg, border-b, shadow, h-16, sticky top-0, responsive mobile menu
+  - Active link highlighting with blue-800 text + bg-blue-50
+  - Search dialog with redirect to /produits?q= query
+  - All brand colors consistent (#1E40AF blue, #DC2626 red)
