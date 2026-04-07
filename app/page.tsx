@@ -121,56 +121,54 @@ export default function StorePage() {
     <div className="flex flex-col min-h-screen">
       <StoreHeader />
       <main className="flex-1">
-        {/* Hero Section */}
-      <section className="relative bg-slate-900 text-white min-h-[90vh] flex flex-col justify-center overflow-hidden">
-        {/* Dynamic Background */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-10" />
-          <Image
-            src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=2000&auto=format&fit=crop"
-            alt="Dakar Sport Shop Equipements"
-            fill
-            className="object-cover object-center transform scale-105 animate-[pulse_10s_ease-in-out_infinite]"
-            priority
-          />
+        {/* Hero Section — Video/Motion (Brand Adapted) */}
+      <section className="relative bg-blue-950 text-white overflow-hidden h-[360px] sm:h-[420px] lg:h-[520px]">
+        {/* Background Video */}
+        <div className="absolute inset-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="https://images.unsplash.com/photo-1518605368461-1e1252220a22?q=80&w=1920&auto=format&fit=crop"
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="https://videos.pexels.com/video-files/6077718/6077718-hd_1920_1080_25fps.mp4" type="video/mp4" />
+          </video>
+          {/* Brand-blue overlay for readability and brand cohesion */}
+          <div className="absolute inset-0 bg-blue-950/50 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-blue-950/40 to-blue-900/20" />
         </div>
-        
-        <div className="relative z-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 flex flex-col items-start w-full">
-          <ScrollReveal delay={100} direction="left">
-            <Badge className="bg-[#DC2626] hover:bg-red-700 text-white mb-6 px-4 py-1.5 text-xs sm:text-sm font-black uppercase tracking-[0.2em]">
-              Collection 2024
+
+        {/* Centered Content */}
+        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 sm:px-6">
+          <ScrollReveal delay={100} direction="up">
+            <Badge className="bg-[#DC2626] hover:bg-red-700 text-white mb-5 px-4 py-1.5 text-xs font-bold uppercase tracking-wider border-none shadow-lg shadow-red-900/20">
+              <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse mr-2 inline-block align-middle" />
+              Spécialiste Football
             </Badge>
           </ScrollReveal>
-          
-          <ScrollReveal delay={200} direction="left">
-            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tighter mb-6 leading-[0.9]">
-              <span className="block text-white">DÉPASSEZ</span>
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#1E40AF]">
-                VOS LIMITES.
-              </span>
+
+          <ScrollReveal delay={250} direction="up">
+            <h1 className="text-5xl sm:text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.9] mb-4 drop-shadow-xl">
+              <span className="block text-white">Dakar</span>
+              <span className="block text-[#DC2626]">Sport</span>
             </h1>
           </ScrollReveal>
-          
-          <ScrollReveal delay={300} direction="left">
-            <p className="max-w-xl text-lg sm:text-xl text-slate-300 mb-10 font-medium leading-relaxed">
-              L'équipementier sportif de référence à Dakar. Des marques premium pour les athlètes qui exigent le meilleur.
+
+          <ScrollReveal delay={400} direction="up">
+            <p className="text-sm sm:text-base text-blue-50 mb-8 max-w-md font-medium drop-shadow-md">
+              L'équipementier de référence pour les clubs associatifs et les passionnés de football au Sénégal.
             </p>
           </ScrollReveal>
-          
-          <ScrollReveal delay={400} direction="left">
-            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <Button asChild size="lg" className="bg-white hover:bg-slate-100 text-slate-900 h-16 px-10 text-lg font-black uppercase tracking-wide rounded-none">
-                <Link href="/produits">
-                  Découvrir
-                  <HugeiconsIcon icon={ArrowRight01Icon} size={24} className="ml-3" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="bg-transparent hover:bg-white/10 text-white border-white/30 h-16 px-10 text-lg font-bold uppercase tracking-wide rounded-none backdrop-blur-sm">
-                <Link href="/promotions">
-                  Offres du moment
-                </Link>
-              </Button>
-            </div>
+
+          <ScrollReveal delay={550} direction="up">
+            <Button asChild size="lg" className="bg-white hover:bg-blue-50 text-blue-900 h-14 px-10 text-sm font-bold uppercase tracking-wider rounded-xl shadow-xl shadow-black/20 transition-all hover:scale-[1.03]">
+              <Link href="/produits">
+                Découvrir la collection
+                <HugeiconsIcon icon={ArrowRight01Icon} size={20} className="ml-2" />
+              </Link>
+            </Button>
           </ScrollReveal>
         </div>
       </section>
