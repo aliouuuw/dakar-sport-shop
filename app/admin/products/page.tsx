@@ -3,10 +3,12 @@
 import { useState } from "react"
 import Link from "next/link"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Add01Icon, Search01Icon, Edit01Icon, FilterIcon, GridViewIcon, ListViewIcon } from "@hugeicons/core-free-icons"
+import { Add01Icon, Search01Icon, Edit01Icon, FilterIcon, GridViewIcon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { AdminPageHeader } from "../components/admin-page-header"
+import { AdminViewToggle } from "../components/admin-view-toggle"
+import { AdminStatusBadge } from "../components/admin-status-badge"
 
 const products = [
   { id: 1, name: "Ballon de foot Pro", category: "Football", price: "15 000 FCFA", compareAt: "18 000 FCFA", stock: 24, active: true, featured: true },
@@ -22,18 +24,18 @@ export default function ProductsPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Produits</h1>
-          <p className="mt-1 text-sm text-slate-500">Gérez votre catalogue — {products.length} produits au total.</p>
-        </div>
-        <Button asChild className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">
-          <Link href="/admin/products/new">
-            <HugeiconsIcon icon={Add01Icon} size={18} className="mr-2" />
-            Nouveau produit
-          </Link>
-        </Button>
-      </div>
+      <AdminPageHeader
+        title="Produits"
+        description={`Gérez votre catalogue — ${products.length} produits au total.`}
+        action={
+          <Button asChild className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">
+            <Link href="/admin/products/new">
+              <HugeiconsIcon icon={Add01Icon} size={18} className="mr-2" />
+              Nouveau produit
+            </Link>
+          </Button>
+        }
+      />
 
       <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
         <div className="flex flex-col gap-3 border-b border-slate-100 p-4 sm:flex-row sm:items-center sm:justify-between">
@@ -62,14 +64,7 @@ export default function ProductsPage() {
               </select>
             </div>
             <div className="h-6 w-px bg-slate-200 hidden sm:block" />
-            <ToggleGroup type="single" value={viewMode} onValueChange={(v) => v && setViewMode(v as "table" | "grid")} className="justify-start">
-              <ToggleGroupItem value="table" aria-label="Vue tableau" className="h-9 px-2.5 data-[state=on]:bg-slate-100">
-                <HugeiconsIcon icon={ListViewIcon} size={18} />
-              </ToggleGroupItem>
-              <ToggleGroupItem value="grid" aria-label="Vue grille" className="h-9 px-2.5 data-[state=on]:bg-slate-100">
-                <HugeiconsIcon icon={GridViewIcon} size={18} />
-              </ToggleGroupItem>
-            </ToggleGroup>
+            <AdminViewToggle viewMode={viewMode === "table" ? "list" : "grid"} onViewModeChange={(m) => setViewMode(m === "list" ? "table" : "grid")} className="justify-start" />
           </div>
         </div>
 
@@ -113,11 +108,9 @@ export default function ProductsPage() {
                     </span>
                   </td>
                   <td className="px-4 py-3">
-                    <Badge className={`h-5 rounded-md px-2 text-[10px] font-semibold border-none ${
-                      product.active ? "bg-green-100 text-green-700" : "bg-slate-100 text-slate-500"
-                    }`}>
+                    <AdminStatusBadge tone={product.active ? "success" : "neutral"}>
                       {product.active ? "Actif" : "Inactif"}
-                    </Badge>
+                    </AdminStatusBadge>
                   </td>
                   <td className="px-4 py-3 text-right">
                     <Button variant="ghost" size="icon" asChild className="h-8 w-8 text-slate-400 hover:text-[#1E40AF]">
@@ -140,11 +133,9 @@ export default function ProductsPage() {
                       <HugeiconsIcon icon={GridViewIcon} size={48} />
                     </div>
                     <div className="absolute top-3 left-3 flex flex-col gap-1">
-                      <Badge className={`h-5 rounded-md px-2 text-[10px] font-semibold border-none shadow-sm ${
-                        product.active ? "bg-green-100 text-green-700 hover:bg-green-100" : "bg-slate-100 text-slate-500 hover:bg-slate-100"
-                      }`}>
+                      <AdminStatusBadge tone={product.active ? "success" : "neutral"} className="shadow-sm">
                         {product.active ? "Actif" : "Inactif"}
-                      </Badge>
+                      </AdminStatusBadge>
                       {product.featured && (
                         <Badge className="h-5 rounded-md bg-[#1E40AF] px-2 text-[10px] font-semibold text-white border-none shadow-sm hover:bg-[#1E40AF]">
                           Mis en avant

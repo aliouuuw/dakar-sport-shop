@@ -2,13 +2,15 @@
 
 import { useState } from "react"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Add01Icon, Calendar01Icon, DiscountTag01Icon, Edit01Icon, PercentIcon, ListViewIcon, GridViewIcon } from "@hugeicons/core-free-icons"
+import { Add01Icon, Calendar01Icon, DiscountTag01Icon, Edit01Icon, PercentIcon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { AdminPageHeader } from "../components/admin-page-header"
+import { AdminMetricCard } from "../components/admin-metric-card"
+import { AdminViewToggle } from "../components/admin-view-toggle"
+import { AdminStatusBadge, StatusTone } from "../components/admin-status-badge"
 
 const promotions = [
   { title: "Promo rentrée", code: "RENTREE20", type: "Pourcentage", value: "20%", status: "Active", range: "01 Avr - 30 Avr" },
@@ -16,50 +18,32 @@ const promotions = [
   { title: "Club partenaire", code: "CLUB10", type: "Pourcentage", value: "10%", status: "Expirée", range: "01 Mar - 31 Mar" },
 ] as const
 
+const statusToneMap: Record<string, StatusTone> = {
+  "Active": "success",
+  "Bientôt": "warning",
+  "Expirée": "neutral"
+}
+
 export default function PromotionsPage() {
   const [viewMode, setViewMode] = useState<"list" | "grid">("list")
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Promotions</h1>
-          <p className="mt-1 text-sm text-slate-500">Gérez vos codes promotionnels, types de remises et périodes d'application.</p>
-        </div>
-        <Button className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">
-          <HugeiconsIcon icon={Add01Icon} size={18} className="mr-2" />
-          Nouvelle promotion
-        </Button>
-      </div>
+      <AdminPageHeader
+        title="Promotions"
+        description="Gérez vos codes promotionnels, types de remises et périodes d'application."
+        action={
+          <Button className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">
+            <HugeiconsIcon icon={Add01Icon} size={18} className="mr-2" />
+            Nouvelle promotion
+          </Button>
+        }
+      />
 
       <div className="grid gap-4 sm:grid-cols-3">
-        <Card className="border-slate-200 shadow-none rounded-xl">
-          <CardContent className="flex items-center gap-4 p-5">
-            <div className="rounded-lg bg-blue-100 p-3 text-[#1E40AF]"><HugeiconsIcon icon={PercentIcon} size={20} /></div>
-            <div>
-              <p className="text-xs uppercase tracking-wide text-slate-500">Actives</p>
-              <p className="text-2xl font-semibold text-slate-900">1</p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="border-slate-200 shadow-none rounded-xl">
-          <CardContent className="flex items-center gap-4 p-5">
-            <div className="rounded-lg bg-amber-100 p-3 text-amber-700"><HugeiconsIcon icon={Calendar01Icon} size={20} /></div>
-            <div>
-              <p className="text-xs uppercase tracking-wide text-slate-500">À venir</p>
-              <p className="text-2xl font-semibold text-slate-900">1</p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="border-slate-200 shadow-none rounded-xl">
-          <CardContent className="flex items-center gap-4 p-5">
-            <div className="rounded-lg bg-slate-100 p-3 text-slate-700"><HugeiconsIcon icon={DiscountTag01Icon} size={20} /></div>
-            <div>
-              <p className="text-xs uppercase tracking-wide text-slate-500">Expirées</p>
-              <p className="text-2xl font-semibold text-slate-900">1</p>
-            </div>
-          </CardContent>
-        </Card>
+        <AdminMetricCard label="Actives" value="1" icon={PercentIcon} tone="primary" />
+        <AdminMetricCard label="À venir" value="1" icon={Calendar01Icon} tone="warning" />
+        <AdminMetricCard label="Expirées" value="1" icon={DiscountTag01Icon} tone="neutral" />
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[1.35fr_0.95fr]">
@@ -70,14 +54,7 @@ export default function PromotionsPage() {
                 <HugeiconsIcon icon={DiscountTag01Icon} size={18} className="text-[#1E40AF]" />
                 Liste des promotions
               </CardTitle>
-              <ToggleGroup type="single" value={viewMode} onValueChange={(v) => v && setViewMode(v as "list" | "grid")} className="justify-end">
-                <ToggleGroupItem value="list" aria-label="Vue liste" className="h-8 px-2 data-[state=on]:bg-slate-100">
-                  <HugeiconsIcon icon={ListViewIcon} size={16} />
-                </ToggleGroupItem>
-                <ToggleGroupItem value="grid" aria-label="Vue grille" className="h-8 px-2 data-[state=on]:bg-slate-100">
-                  <HugeiconsIcon icon={GridViewIcon} size={16} />
-                </ToggleGroupItem>
-              </ToggleGroup>
+              <AdminViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
             </div>
             <CardDescription className="mt-1">Consultez et gérez vos promotions actives, à venir et expirées.</CardDescription>
           </CardHeader>
@@ -89,15 +66,9 @@ export default function PromotionsPage() {
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="font-medium text-slate-900">{promotion.title}</span>
-                        <Badge className={`h-5 rounded-md px-2 text-[10px] font-semibold border-none ${
-                          promotion.status === "Active"
-                            ? "bg-green-100 text-green-700"
-                            : promotion.status === "Bientôt"
-                              ? "bg-amber-100 text-amber-700"
-                              : "bg-slate-100 text-slate-600"
-                        }`}>
+                        <AdminStatusBadge tone={statusToneMap[promotion.status]}>
                           {promotion.status}
-                        </Badge>
+                        </AdminStatusBadge>
                       </div>
                       <div className="mt-1 text-xs text-slate-500">
                         {promotion.code} · {promotion.type} · {promotion.range}
@@ -120,15 +91,9 @@ export default function PromotionsPage() {
                       <div className="flex items-center gap-2">
                         <span className="font-semibold text-slate-900 line-clamp-1">{promotion.title}</span>
                       </div>
-                      <Badge className={`h-5 rounded-md px-2 text-[10px] font-semibold border-none shrink-0 ${
-                        promotion.status === "Active"
-                          ? "bg-green-100 text-green-700"
-                          : promotion.status === "Bientôt"
-                            ? "bg-amber-100 text-amber-700"
-                            : "bg-slate-100 text-slate-600"
-                      }`}>
+                      <AdminStatusBadge tone={statusToneMap[promotion.status]} className="shrink-0">
                         {promotion.status}
-                      </Badge>
+                      </AdminStatusBadge>
                     </div>
                     <div className="text-xs text-slate-500 mb-1">Code: <span className="font-medium text-slate-700">{promotion.code}</span></div>
                     <div className="text-xs text-slate-500 mb-4">Période: {promotion.range}</div>

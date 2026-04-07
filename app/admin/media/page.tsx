@@ -2,9 +2,10 @@
 
 import { useState } from "react"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Add01Icon, Search01Icon, Delete01Icon, Image01Icon, ListViewIcon, GridViewIcon } from "@hugeicons/core-free-icons"
+import { Add01Icon, Search01Icon, Delete01Icon, Image01Icon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { AdminPageHeader } from "../components/admin-page-header"
+import { AdminViewToggle } from "../components/admin-view-toggle"
 
 const mediaFiles = [
   { id: 1, filename: "ballon-foot-pro-1.jpg", alt: "Ballon de foot professionnel face", size: "245 KB", date: "04 Avr 2026", url: "https://images.unsplash.com/photo-1614632537423-1e6c2e7e0aab?w=400&q=80" },
@@ -22,16 +23,16 @@ export default function MediaPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Médias</h1>
-          <p className="mt-1 text-sm text-slate-500">Gérez votre bibliothèque d'images pour les produits et annonces</p>
-        </div>
-        <Button className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">
-          <HugeiconsIcon icon={Add01Icon} size={18} className="mr-2" />
-          Uploader une image
-        </Button>
-      </div>
+      <AdminPageHeader
+        title="Médias"
+        description="Gérez votre bibliothèque d'images pour les produits et annonces"
+        action={
+          <Button className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">
+            <HugeiconsIcon icon={Add01Icon} size={18} className="mr-2" />
+            Uploader une image
+          </Button>
+        }
+      />
 
       <div className="rounded-xl border border-slate-200 bg-white p-6">
         <div className="mb-6 flex items-center justify-between gap-4">
@@ -46,14 +47,7 @@ export default function MediaPage() {
           <div className="flex items-center gap-4">
             <span className="text-sm text-slate-500">{mediaFiles.length} fichiers</span>
             <div className="h-6 w-px bg-slate-200" />
-            <ToggleGroup type="single" value={viewMode} onValueChange={(v) => v && setViewMode(v as "list" | "grid")}>
-              <ToggleGroupItem value="list" aria-label="Vue liste" className="h-9 px-2.5 data-[state=on]:bg-slate-100">
-                <HugeiconsIcon icon={ListViewIcon} size={18} />
-              </ToggleGroupItem>
-              <ToggleGroupItem value="grid" aria-label="Vue grille" className="h-9 px-2.5 data-[state=on]:bg-slate-100">
-                <HugeiconsIcon icon={GridViewIcon} size={18} />
-              </ToggleGroupItem>
-            </ToggleGroup>
+            <AdminViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
           </div>
         </div>
 

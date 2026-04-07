@@ -14,13 +14,15 @@ import {
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { AdminPageHeader } from "./components/admin-page-header"
+import { AdminMetricCard, MetricTone } from "./components/admin-metric-card"
 
 const metrics = [
-  { label: "Total Produits", value: "142", icon: ShoppingBag01Icon },
-  { label: "Produits Actifs", value: "128", icon: CheckmarkBadge01Icon },
-  { label: "Catégories", value: "8", icon: GridIcon },
-  { label: "Messages non lus", value: "3", icon: Mail01Icon, alert: true },
-  { label: "Promotions actives", value: "2", icon: PercentIcon },
+  { label: "Total Produits", value: "142", icon: ShoppingBag01Icon, tone: "neutral" as MetricTone },
+  { label: "Produits Actifs", value: "128", icon: CheckmarkBadge01Icon, tone: "success" as MetricTone },
+  { label: "Catégories", value: "8", icon: GridIcon, tone: "primary" as MetricTone },
+  { label: "Messages non lus", value: "3", icon: Mail01Icon, alert: true, tone: "danger" as MetricTone },
+  { label: "Promotions actives", value: "2", icon: PercentIcon, tone: "warning" as MetricTone },
 ]
 
 const recentMessages = [
@@ -35,53 +37,45 @@ export default function AdminDashboardPage() {
   return (
     <div className="flex flex-col gap-8 pb-12">
       {/* HEADER */}
-      <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Tableau de bord</h1>
-          <p className="mt-1.5 text-sm text-slate-500">
-            Aperçu des performances et activités récentes de Dakar Sport.
-          </p>
-        </div>
-        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
-          <Button variant="outline" asChild className="border-slate-200 bg-white text-slate-700 hover:bg-slate-50">
-            <Link href="/admin/promotions">
-              <HugeiconsIcon icon={PercentIcon} size={18} className="mr-2" />
-              Nouvelle promotion
-            </Link>
-          </Button>
-          <Button asChild className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a] shadow-none">
-            <Link href="/admin/products/new">
-              <HugeiconsIcon icon={Add01Icon} size={18} className="mr-2" />
-              Ajouter un produit
-            </Link>
-          </Button>
-        </div>
-      </div>
+      <AdminPageHeader
+        title="Tableau de bord"
+        description="Aperçu des performances et activités récentes de Dakar Sport."
+        action={
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
+            <Button variant="outline" asChild className="border-slate-200 bg-white text-slate-700 hover:bg-slate-50">
+              <Link href="/admin/promotions">
+                <HugeiconsIcon icon={PercentIcon} size={18} className="mr-2" />
+                Nouvelle promotion
+              </Link>
+            </Button>
+            <Button asChild className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a] shadow-none">
+              <Link href="/admin/products/new">
+                <HugeiconsIcon icon={Add01Icon} size={18} className="mr-2" />
+                Ajouter un produit
+              </Link>
+            </Button>
+          </div>
+        }
+      />
 
       {/* METRICS */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
         {metrics.map((metric, i) => (
-          <Card key={i} className="group relative flex flex-col justify-between border-slate-200 shadow-none hover:border-[#1E40AF]/30 hover:shadow-sm transition-all overflow-hidden">
-            <CardContent className="p-5">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-sm font-medium text-slate-500">{metric.label}</span>
-                <div className="rounded-md bg-slate-50 p-2 text-slate-600 group-hover:bg-[#1E40AF]/10 group-hover:text-[#1E40AF] transition-colors">
-                  <HugeiconsIcon icon={metric.icon} size={18} />
-                </div>
-              </div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-semibold tracking-tight text-slate-900">
-                  {metric.value}
-                </span>
-                {metric.alert && (
-                  <span className="relative flex h-2.5 w-2.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
-                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#DC2626]"></span>
-                  </span>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+          <div key={i} className="relative">
+            <AdminMetricCard 
+              label={metric.label} 
+              value={metric.value} 
+              icon={metric.icon} 
+              tone={metric.tone} 
+              className="h-full hover:border-[#1E40AF]/30 hover:shadow-sm transition-all"
+            />
+            {metric.alert && (
+              <span className="absolute top-4 right-4 flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#DC2626]"></span>
+              </span>
+            )}
+          </div>
         ))}
       </div>
 

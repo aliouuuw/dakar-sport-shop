@@ -31,7 +31,7 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
-* **Status:** In Progress
+* **Status:** Success
 * **Started:** 2026-04-06 18:36
 * **Task:** Create lightweight design document for all 8 admin pages + component library patterns
 * **Plan:**
@@ -139,3 +139,18 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 * **Files:** `app/admin/messages/page.tsx`, `app/admin/settings/page.tsx`, `app/admin/media/page.tsx`, `components/media-picker.tsx`, `app/admin/activity/page.tsx`, `app/admin/quotes/page.tsx`, `app/admin/quotes/[id]/page.tsx`
 * **Verification:** `bunx tsc --noEmit` passed on all files.
 * **Result:** Success — All remaining Admin-UI tasks are now fully mocked with high-fidelity, production-ready layouts that match the design specifications. The entire `Admin-UI` PRD group is complete.
+
+---
+
+## Working on: Admin UI Refinement & Grid Views
+
+* **Status:** Success
+* **Started:** 2026-04-06 21:20
+* **Task:** Polish admin UX/UI applying UI skills (arrange, normalize, polish) and add Table/Grid view toggles to all list pages.
+* **Plan:**
+  - Enhance layout and sidebar for better consistency and visual hierarchy.
+  - Implement a List/Grid `ToggleGroup` on Products, Categories, Promotions, Announcements, Media, and Quotes pages.
+  - Polish the Dashboard with standardized `Card` components and an "Astuce du jour" section.
+  - Polish the Activity page for a cleaner timeline view.
+* **Files:** `app/admin/layout.tsx`, `app/admin/components/admin-sidebar.tsx`, `app/admin/page.tsx`, `app/admin/products/page.tsx`, `app/admin/categories/page.tsx`, `app/admin/promotions/page.tsx`, `app/admin/announcements/page.tsx`, `app/admin/quotes/page.tsx`, `app/admin/media/page.tsx`, `app/admin/activity/page.tsx`
+* **Result:** Success — Admin interfaces are thoroughly polished. All list-based pages now correctly support toggling between list and grid views with consistent empty/loading states and refined typography.

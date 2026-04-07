@@ -2,12 +2,13 @@
 
 import { useState } from "react"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Add01Icon, ArrowDown01Icon, ArrowUp01Icon, Edit01Icon, GridIcon, ListViewIcon, GridViewIcon } from "@hugeicons/core-free-icons"
+import { Add01Icon, ArrowDown01Icon, ArrowUp01Icon, Edit01Icon, GridIcon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { AdminPageHeader } from "../components/admin-page-header"
+import { AdminViewToggle } from "../components/admin-view-toggle"
 
 const categories = [
   { name: "Football", slug: "football", products: 32, order: 1, active: true },
@@ -21,16 +22,16 @@ export default function CategoriesPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Catégories</h1>
-          <p className="mt-1 text-sm text-slate-500">Organisez vos catégories de produits et définissez leur ordre d'affichage.</p>
-        </div>
-        <Button className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">
-          <HugeiconsIcon icon={Add01Icon} size={18} className="mr-2" />
-          Nouvelle catégorie
-        </Button>
-      </div>
+      <AdminPageHeader
+        title="Catégories"
+        description="Organisez vos catégories de produits et définissez leur ordre d'affichage."
+        action={
+          <Button className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">
+            <HugeiconsIcon icon={Add01Icon} size={18} className="mr-2" />
+            Nouvelle catégorie
+          </Button>
+        }
+      />
 
       <div className="grid gap-6 xl:grid-cols-[1.4fr_0.9fr]">
         <Card className="border-slate-200 shadow-none rounded-xl h-fit">
@@ -40,14 +41,7 @@ export default function CategoriesPage() {
                 <HugeiconsIcon icon={GridIcon} size={18} className="text-[#1E40AF]" />
                 Liste des catégories
               </CardTitle>
-              <ToggleGroup type="single" value={viewMode} onValueChange={(v) => v && setViewMode(v as "list" | "grid")} className="justify-end">
-                <ToggleGroupItem value="list" aria-label="Vue liste" className="h-8 px-2 data-[state=on]:bg-slate-100">
-                  <HugeiconsIcon icon={ListViewIcon} size={16} />
-                </ToggleGroupItem>
-                <ToggleGroupItem value="grid" aria-label="Vue grille" className="h-8 px-2 data-[state=on]:bg-slate-100">
-                  <HugeiconsIcon icon={GridViewIcon} size={16} />
-                </ToggleGroupItem>
-              </ToggleGroup>
+              <AdminViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
             </div>
             <CardDescription className="mt-1">Réordonnez les catégories pour contrôler leur ordre d'apparition sur le storefront.</CardDescription>
           </CardHeader>

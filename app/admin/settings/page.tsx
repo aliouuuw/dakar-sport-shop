@@ -4,20 +4,21 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { AdminPageHeader } from "../components/admin-page-header"
 
 export default function SettingsPage() {
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Paramètres</h1>
-          <p className="mt-1 text-sm text-slate-500">Gérez les informations globales et l'apparence de votre boutique</p>
-        </div>
-        <Button className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">
-          <HugeiconsIcon icon={SaveIcon} size={18} className="mr-2" />
-          Enregistrer tout
-        </Button>
-      </div>
+      <AdminPageHeader
+        title="Paramètres"
+        description="Gérez les informations globales et l'apparence de votre boutique"
+        action={
+          <Button className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a]">
+            <HugeiconsIcon icon={SaveIcon} size={18} className="mr-2" />
+            Enregistrer tout
+          </Button>
+        }
+      />
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* General Settings */}
