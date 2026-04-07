@@ -403,14 +403,16 @@ All admin UI tasks are complete. Ready to begin storefront implementation.
 * **Started:** 2026-04-07 16:56
 * **Task:** Refine and improve the landing page to match top sports brands (Gymshark, Puma, Decathlon).
 * **Plan & Execution:**
-  - **Bolder Hero Section:** Created a full-bleed, dynamic hero with a pulsing background image, dark gradient overlay, and massive tracking-tight typography ("DÉPASSEZ VOS LIMITES").
+  - **Video Hero Section:** Implemented a Puma-style video hero featuring a looping football match background (specialty of the store) with a deep brand-blue overlay (`bg-blue-950/50 mix-blend-multiply`).
+  - **Brand Styling:** Applied brand red (`#DC2626`) accents to the badge and "Sport" text, and used the `rounded-xl` CTA button style to match the design system.
+  - **Typography & Copy:** Huge tracking-tight typography ("Dakar Sport") with "Spécialiste Football" positioning.
   - **Marquee Ticker:** Added an infinite scrolling marquee component for brand messaging (Livraison gratuite, etc.) using `framer-motion`.
   - **Bento Grid Categories:** Redesigned the "Explorer par Sport" section into a modern asymmetrical bento grid with hover-zoom and text-reveal effects.
   - **Sleeker Product Cards:** Updated `ProductCard` to a minimalist, high-end style with floating badges, hover-reveal cart buttons, and tight typography.
   - **Social Proof:** Added a new Testimonials/Reviews section with a 3-column layout and stylish quote marks to build trust.
-* **Files:** `app/(store)/page.tsx` (modify), `components/product-card.tsx` (modify), `components/marquee.tsx` (new)
+* **Files:** `app/page.tsx` (modify), `components/product-card.tsx` (modify), `components/marquee.tsx` (new)
 * **Verification:** `bunx tsc --noEmit`
-* **Result:** Success — Landing page now features a highly premium, aggressive, and dynamic aesthetic typical of top-tier sportswear brands.
+* **Result:** Success — Landing page hero now features a highly premium, aggressive, and dynamic video aesthetic tailored to the Dakar Sport brand and its football specialty.
 
 ---
 
