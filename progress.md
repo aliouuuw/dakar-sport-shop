@@ -739,6 +739,26 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: CSV/PDF export utilities and product duplication action
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 19:10
+* **Task:** Create lib/export.ts with exportToCsv() and exportToPdf(). Add duplicateProduct() to products actions.
+* **Plan:**
+  - `lib/export.ts` — exportToCsv() returns CSV string, exportToPdf() returns simple HTML string (printable, no native deps)
+  - Add `duplicateProduct(id)` to `lib/actions/products.ts` — clones product + variants, appends "(copie)" to name
+  - Verify with `bunx tsc --noEmit`
+* **Files:** `lib/export.ts`, `lib/actions/products.ts`
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Export utilities and product duplication created:
+  - `lib/export.ts` — `exportToCsv()`, `exportToPdf()` (printable HTML), `downloadCsv()`, `downloadPdf()` client helpers
+  - CSV handles quoting/escaping, BOM for Excel compatibility
+  - PDF generates printable HTML with brand colors, table layout, date, footer
+  - `duplicateProduct(id)` in `lib/actions/products.ts` — clones product + all variants, appends "(copie)", unique slug, starts inactive
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:

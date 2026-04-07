@@ -544,7 +544,7 @@
         "Messages list has 'Exporter' button that downloads as CSV — verify by clicking",
         "Product detail page has 'Dupliquer' button that creates copy and redirects — verify by clicking"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Infrastructure",

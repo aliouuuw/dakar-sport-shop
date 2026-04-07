@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { db } from "@/lib/db";
-import { products, categories } from "@/lib/db/schema";
+import { products, categories, productVariants } from "@/lib/db/schema";
 import { requireAdmin } from "@/lib/auth-server";
 import { eq, asc, desc, and, sql } from "drizzle-orm";
 import type { ActionResult } from "./site-settings";
@@ -211,4 +211,56 @@ export async function toggleProductActive(id: number): Promise<ActionResult<{ ac
     .returning({ active: products.active });
 
   return { success: true, data: { active: row.active } };
+}
+
+export async function duplicateProduct(id: number): Promise<ActionResult<typeof products.$inferSelect>> {
+  try {
+    await requireAdmin();
+  } catch {
+    return { success: false, error: "Accès refusé : rôle administrateur requis" };
+  }
+
+  const source = await getProductById(id);
+  if (!source) return { success: false, error: "Produit introuvable" };
+
+  const baseName = `${source.name} (copie)`;
+  const baseSlug = generateSlug(baseName);
+
+  let slug = baseSlug;
+  let attempt = 0;
+  while (true) {
+    const existing = await db.select({ id: products.id }).from(products).where(eq(products.slug, slug)).limit(1);
+    if (existing.length === 0) break;
+    attempt++;
+    slug = `${baseSlug}-${attempt}`;
+  }
+
+  const [newProduct] = await db.insert(products).values({
+    name: baseName,
+    slug,
+    description: source.description,
+    price: source.price,
+    compareAtPrice: source.compareAtPrice,
+    images: source.images,
+    categoryId: source.categoryId,
+    featured: false,
+    active: false,
+    stock: source.stock,
+  }).returning();
+
+  const variants = await db.select().from(productVariants).where(eq(productVariants.productId, id));
+  for (const variant of variants) {
+    const newSku = `${variant.sku}-copie-${Date.now()}`;
+    await db.insert(productVariants).values({
+      productId: newProduct.id,
+      sku: newSku,
+      size: variant.size,
+      color: variant.color,
+      priceOverride: variant.priceOverride,
+      stock: variant.stock,
+      active: variant.active,
+    });
+  }
+
+  return { success: true, data: newProduct };
 }
