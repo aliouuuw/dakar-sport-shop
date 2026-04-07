@@ -303,3 +303,37 @@ All admin UI tasks are complete. Ready to begin storefront implementation.
   - All URL-driven via search params (SSR-friendly): `?category=`, `?sort=`, `?q=`, `?page=`
   - Empty state for no results
   - HugeIcons throughout, brand colors, rounded-xl controls matching admin conventions
+
+---
+
+## Working on: Product detail page
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 16:26
+* **Task:** Create `app/(store)/produits/[slug]/page.tsx` with full product details, image gallery, WhatsApp order button, related products, SEO metadata.
+* **Plan:**
+  - Create `app/(store)/produits/[slug]/page.tsx` as a Server Component.
+  - Fetch product by slug from mocked data (same as products listing).
+  - Display: image gallery (main + thumbnails), name, price, compare-at-price, description, category breadcrumb, stock status.
+  - Create `components/product-gallery.tsx` client component for image selection (main + thumbnails).
+  - WhatsApp button: link to `wa.me/22177634511?text=Intéressé par: [product name] - [price] FCFA - [product URL]`.
+  - Related products: 4 products from same category (exclude current product).
+  - SEO metadata: `generateMetadata()` with title, description, og:image.
+  - 404 handling: notFound() if slug doesn't exist.
+  - Use HugeIcons, brand colors, rounded-3xl cards matching admin/storefront conventions.
+* **Files:** `app/(store)/produits/[slug]/page.tsx` (new), `components/product-gallery.tsx` (new)
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Created product detail page with:
+  - Server Component at `/produits/[slug]` with full product details
+  - `ProductGallery` client component: main image + clickable thumbnails with blue border highlight
+  - Breadcrumb navigation (Home > Products > Category > Product)
+  - Price display with strikethrough compare-at-price, savings badge
+  - Stock status indicator (green/amber dot + text)
+  - Star rating (5 stars, 4 filled) with review count
+  - WhatsApp order button with pre-filled message (product name, price, URL)
+  - "Add to cart" button (placeholder)
+  - Info cards: Free delivery to Dakar, 12-month warranty
+  - Related products section (4 products from same category)
+  - SEO metadata: title, description, og:image
+  - 404 handling via notFound() for invalid slugs
+  - HugeIcons throughout, brand colors, rounded-3xl cards

@@ -196,7 +196,7 @@
         "SEO metadata generated (title, description, og:image) — verify with view-source or meta inspector",
         "404 page shown for non-existent slug — verify with random slug"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Storefront",
