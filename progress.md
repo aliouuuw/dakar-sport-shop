@@ -719,6 +719,26 @@ This file tracks all implementation cycles, decisions, and learnings during deve
 
 ---
 
+## Working on: Image upload utility with local storage fallback
+
+* **Status:** In Progress
+* **Started:** 2026-04-07 19:05
+* **Task:** Create lib/upload.ts, app/api/upload/route.ts, and ImageUpload client component.
+* **Plan:**
+  - `lib/upload.ts` — uploadImage() writes to public/uploads/ with unique filename, returns URL string
+  - `app/api/upload/route.ts` — POST handler for multipart form data, calls uploadImage, returns { url }
+  - `components/image-upload.tsx` — drag-and-drop, preview, remove (client component)
+  - Verify with `bunx tsc --noEmit`
+* **Files:** `lib/upload.ts`, `app/api/upload/route.ts`, `components/image-upload.tsx`
+* **Verification:** `bunx tsc --noEmit`
+* **Result:** Success — Image upload utility created:
+  - `lib/upload.ts` — `uploadImage()` writes to `public/uploads/` with UUID filename, `isAllowedImageType()`, `MAX_FILE_SIZE` (5MB)
+  - `app/api/upload/route.ts` — POST handler, validates session + admin role, type check, size check, returns `{ url, filename }`
+  - `components/image-upload.tsx` — drag-and-drop zone, preview with remove button, upload spinner, error display
+  - TypeScript compilation passes
+
+---
+
 ## Next: Storefront UI Tasks
 
 The following Storefront tasks remain in the PRD backlog:

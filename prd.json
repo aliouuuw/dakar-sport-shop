@@ -516,7 +516,7 @@
         "Uploaded files saved to public/uploads/ with unique names — verify by uploading a file",
         "Component works in product and category create/edit forms — verify by using in form"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Infrastructure",
