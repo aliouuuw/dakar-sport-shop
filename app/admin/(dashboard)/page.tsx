@@ -8,7 +8,6 @@ import {
   PercentIcon,
   Add01Icon,
   ArrowRight01Icon,
-  MoreVerticalIcon,
   BulbIcon,
   ArrowUp01Icon
 } from "@hugeicons/core-free-icons"
@@ -16,16 +15,22 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { AdminPageHeader } from "@/app/admin/components/admin-page-header"
+import { getProducts } from "@/lib/actions/products"
+import { getCategories } from "@/lib/actions/categories"
+import { getMessages, getUnreadCount } from "@/lib/actions/messages"
+import { getActivePromotions } from "@/lib/actions/promotions"
 
-const recentMessages = [
-  { id: 1, name: "Moussa Diop", subject: "Devis pour équipe de foot", date: "Il y a 2h", unread: true },
-  { id: 2, name: "Aissatou Fall", subject: "Disponibilité maillots", date: "Il y a 4h", unread: true },
-  { id: 3, name: "Ibrahim Sene", subject: "Question sur les chaussures", date: "Hier", unread: true },
-  { id: 4, name: "Fatou Ndiaye", subject: "Commande #1024", date: "Hier", unread: false },
-  { id: 5, name: "Cheikh Ba", subject: "Partenariat", date: "04 Avr", unread: false },
-]
+export default async function AdminDashboardPage() {
+  const [allProducts, categories, recentMessages, unreadCount, activePromotions] = await Promise.all([
+    getProducts({ limit: 500 }),
+    getCategories(),
+    getMessages({ limit: 5 }),
+    getUnreadCount(),
+    getActivePromotions(),
+  ])
 
-export default function AdminDashboardPage() {
+  const totalProducts = allProducts.length
+  const activeProducts = allProducts.filter((p) => p.active).length
   return (
     <div className="flex flex-col gap-10 pb-16">
       {/* HEADER */}
@@ -68,7 +73,7 @@ export default function AdminDashboardPage() {
           </div>
           <div className="relative z-10 mt-auto flex flex-col items-start gap-4">
             <span className="text-7xl font-black tracking-tighter text-slate-900">
-              142
+              {totalProducts}
             </span>
             <Badge className="bg-green-100 text-green-700 hover:bg-green-200 border-none px-3 py-1 text-sm font-bold flex items-center gap-1.5">
               <HugeiconsIcon icon={ArrowUp01Icon} size={16} className="rotate-45" />
@@ -86,7 +91,7 @@ export default function AdminDashboardPage() {
               <HugeiconsIcon icon={Mail01Icon} size={20} className="text-red-200" />
             </div>
             <div className="flex items-center gap-3 mt-2">
-              <span className="text-5xl font-black tracking-tight">3</span>
+              <span className="text-5xl font-black tracking-tight">{unreadCount}</span>
               <span className="relative flex h-3 w-3">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75"></span>
                 <span className="relative inline-flex h-3 w-3 rounded-full bg-white"></span>
@@ -101,7 +106,7 @@ export default function AdminDashboardPage() {
             <span className="text-sm font-bold uppercase tracking-wider text-slate-500">Produits Actifs</span>
             <HugeiconsIcon icon={CheckmarkBadge01Icon} size={20} className="text-green-600" />
           </div>
-          <span className="text-4xl font-black tracking-tight text-slate-900 mt-4">128</span>
+          <span className="text-4xl font-black tracking-tight text-slate-900 mt-4">{activeProducts}</span>
         </div>
 
         <div className="md:col-span-2 lg:col-span-4 row-span-1 flex flex-col justify-between rounded-3xl border border-slate-200 bg-white p-6 transition-colors hover:bg-slate-50">
@@ -109,7 +114,7 @@ export default function AdminDashboardPage() {
             <span className="text-sm font-bold uppercase tracking-wider text-slate-500">Promotions</span>
             <HugeiconsIcon icon={PercentIcon} size={20} className="text-amber-500" />
           </div>
-          <span className="text-4xl font-black tracking-tight text-slate-900 mt-4">2</span>
+          <span className="text-4xl font-black tracking-tight text-slate-900 mt-4">{activePromotions.length}</span>
         </div>
 
         <div className="md:col-span-2 lg:col-span-3 row-span-1 flex flex-col justify-between rounded-3xl border border-slate-200 bg-white p-6 transition-colors hover:bg-slate-50">
@@ -117,7 +122,7 @@ export default function AdminDashboardPage() {
             <span className="text-sm font-bold uppercase tracking-wider text-slate-500">Catégories</span>
             <HugeiconsIcon icon={GridIcon} size={20} className="text-[#1E40AF]" />
           </div>
-          <span className="text-4xl font-black tracking-tight text-slate-900 mt-4">8</span>
+          <span className="text-4xl font-black tracking-tight text-slate-900 mt-4">{categories.length}</span>
         </div>
 
         {/* TIP OF THE DAY - Dark mode contrast block */}
@@ -146,18 +151,22 @@ export default function AdminDashboardPage() {
           </div>
           <div className="flex-1 px-4 pb-4">
             <div className="divide-y divide-slate-100">
-              {recentMessages.map((msg) => (
+              {recentMessages.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <p className="text-slate-400 font-medium">Aucun message pour l&apos;instant</p>
+                </div>
+              ) : recentMessages.map((msg) => (
                 <div key={msg.id} className="group flex items-center justify-between p-3 rounded-2xl hover:bg-slate-50 transition-colors cursor-pointer">
                   <div className="flex items-center gap-4">
-                    <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-sm font-bold ${msg.unread ? 'bg-blue-100 text-[#1E40AF]' : 'bg-slate-100 text-slate-600'}`}>
-                      {msg.name.charAt(0)}
+                    <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-sm font-bold ${!msg.read ? 'bg-blue-100 text-[#1E40AF]' : 'bg-slate-100 text-slate-600'}`}>
+                      {msg.name.charAt(0).toUpperCase()}
                     </div>
                     <div className="flex flex-col">
                       <div className="flex items-center gap-2">
-                        <span className={`text-base font-semibold ${msg.unread ? 'text-slate-900' : 'text-slate-700'}`}>
+                        <span className={`text-base font-semibold ${!msg.read ? 'text-slate-900' : 'text-slate-700'}`}>
                           {msg.name}
                         </span>
-                        {msg.unread && (
+                        {!msg.read && (
                           <span className="h-2 w-2 rounded-full bg-[#DC2626]" />
                         )}
                       </div>
@@ -165,7 +174,12 @@ export default function AdminDashboardPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="text-sm font-medium text-slate-400 whitespace-nowrap">{msg.date}</span>
+                    <span className="text-sm font-medium text-slate-400 whitespace-nowrap">
+                      {new Intl.RelativeTimeFormat("fr", { numeric: "auto" }).format(
+                        Math.round((new Date(msg.createdAt).getTime() - Date.now()) / (1000 * 60 * 60)),
+                        "hour"
+                      )}
+                    </span>
                     <div className="h-10 w-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-slate-100 opacity-0 group-hover:opacity-100 transition-all group-hover:scale-105 text-slate-400 group-hover:text-[#1E40AF]">
                       <HugeiconsIcon icon={ArrowRight01Icon} size={18} />
                     </div>
