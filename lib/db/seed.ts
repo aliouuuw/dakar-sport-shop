@@ -52,7 +52,7 @@ async function seed() {
     {
       name: "Basketball",
       slug: "basketball",
-      image: "https://images.unsplash.com/photo-1546519638405-a9f4d9e6d587?q=80&w=800",
+      image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=800",
       description: "Ballons, chaussures et équipements pour le basketball",
       order: 2,
     },
@@ -110,9 +110,9 @@ async function seed() {
     { name: "Chasuble Entraînement Football (lot de 10)", slug: "chasuble-football-lot-10", description: "Chasubles fluorescentes lavables, idéales pour les clubs.", price: 15000, compareAtPrice: null, images: ["https://images.unsplash.com/photo-1511886929837-354d827aae26?q=80&w=600"], categoryId: getCatId("football"), featured: false, active: true, stock: 25 },
     { name: "Protège-tibias Nike Charge", slug: "protege-tibias-nike-charge", description: "Protège-tibias légers avec chaussettes de maintien, taille S/M/L.", price: 8500, compareAtPrice: 11000, images: ["https://images.unsplash.com/photo-1553778263-73a83bab9b0c?q=80&w=600"], categoryId: getCatId("football"), featured: false, active: true, stock: 40 },
     // Basketball (3 products)
-    { name: "Ballon Basketball Spalding NBA", slug: "ballon-basketball-spalding-nba", description: "Ballon officiel NBA Spalding, cuir composite, taille 7.", price: 25000, compareAtPrice: 32000, images: ["https://images.unsplash.com/photo-1546519638405-a9f4d9e6d587?q=80&w=600"], categoryId: getCatId("basketball"), featured: true, active: true, stock: 18 },
+    { name: "Ballon Basketball Spalding NBA", slug: "ballon-basketball-spalding-nba", description: "Ballon officiel NBA Spalding, cuir composite, taille 7.", price: 25000, compareAtPrice: 32000, images: ["https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=600"], categoryId: getCatId("basketball"), featured: true, active: true, stock: 18 },
     { name: "Chaussures Basketball Nike Air Jordan", slug: "chaussures-basketball-nike-air-jordan", description: "Chaussures de basketball pour terrain intérieur, amorti Air Max.", price: 75000, compareAtPrice: 90000, images: ["https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600"], categoryId: getCatId("basketball"), featured: true, active: true, stock: 10 },
-    { name: "Panier Basketball Portable Réglable", slug: "panier-basketball-portable", description: "Panier amovible réglable de 2,30m à 3,05m, base lestable.", price: 185000, compareAtPrice: 220000, images: ["https://images.unsplash.com/photo-1546519638405-a9f4d9e6d587?q=80&w=600"], categoryId: getCatId("basketball"), featured: false, active: true, stock: 3 },
+    { name: "Panier Basketball Portable Réglable", slug: "panier-basketball-portable", description: "Panier amovible réglable de 2,30m à 3,05m, base lestable.", price: 185000, compareAtPrice: 220000, images: ["https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=600"], categoryId: getCatId("basketball"), featured: false, active: true, stock: 3 },
     // Running (3 products)
     { name: "Chaussures Running Adidas Ultraboost 23", slug: "chaussures-running-adidas-ultraboost-23", description: "Chaussures de course légères avec semelle Boost, amorti maximal.", price: 85000, compareAtPrice: 100000, images: ["https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600"], categoryId: getCatId("running"), featured: true, active: true, stock: 14 },
     { name: "Montre GPS Running Garmin Forerunner", slug: "montre-gps-running-garmin", description: "Montre GPS avec fréquencemètre cardiaque et suivi de course.", price: 95000, compareAtPrice: 115000, images: ["https://images.unsplash.com/photo-1571008887538-b36bb32f4571?q=80&w=600"], categoryId: getCatId("running"), featured: true, active: true, stock: 6 },
