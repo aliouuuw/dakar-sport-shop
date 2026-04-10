@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { z } from "zod";
+import { createMessage } from "@/lib/actions/messages";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
@@ -64,27 +65,20 @@ export function ContactForm() {
     }
 
     startTransition(async () => {
-      try {
-        // For now, just log to console (DB integration deferred)
-        console.log("Contact form submission:", result.data);
+      const response = await createMessage({
+        name: result.data.name,
+        email: result.data.email,
+        phone: result.data.phone ?? null,
+        subject: result.data.subject,
+        body: result.data.message,
+      });
 
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          subject: "",
-          message: "",
-        });
+      if (response.success) {
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
         setErrors({});
-
         toast.success("Merci! Votre message a été envoyé avec succès.");
-      } catch (error) {
-        console.error("Error submitting form:", error);
-        toast.error("Une erreur s'est produite. Veuillez réessayer.");
+      } else {
+        toast.error("Une erreur s'est produite", { description: response.error });
       }
     });
   };

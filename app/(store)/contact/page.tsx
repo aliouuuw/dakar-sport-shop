@@ -1,28 +1,16 @@
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Call02Icon, Mail01Icon, Location01Icon, Clock01Icon } from "@hugeicons/core-free-icons";
+import { Call02Icon, Mail01Icon, Location01Icon } from "@hugeicons/core-free-icons";
 import { ContactForm } from "@/components/contact-form";
 import { ScrollReveal } from "@/components/scroll-reveal";
-
-const siteSettings = {
-  phones: [
-    { label: "Fixe", number: "+221 33 840 09 45" },
-    { label: "Mobile", number: "+221 77 634 51 15" },
-    { label: "WhatsApp", number: "+221 77 041 49 30" },
-  ],
-  email: "promosportsdakar@yahoo.fr",
-  address: "Avenue G. Pompidou, en face Restaurant Ali baba, Dakar, Sénégal",
-  hours: {
-    weekday: "09:00 - 19:30",
-    weekend: "Fermé",
-  },
-};
+import { getStoreSettings } from "@/lib/store-settings";
 
 export const metadata = {
   title: "Contactez-nous | Dakar Sport",
   description: "Contactez Dakar Sport pour vos questions sur nos équipements sportifs. Nous sommes à votre écoute.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const siteSettings = await getStoreSettings();
   return (
     <div className="bg-slate-50 min-h-screen pb-24">
       {/* Page Header */}
