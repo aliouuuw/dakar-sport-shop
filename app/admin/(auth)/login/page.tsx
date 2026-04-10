@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition, Suspense } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -118,6 +119,28 @@ function LoginForm() {
         <p className="mt-6 text-center text-xs text-slate-400">
           Dakar Sport — Backoffice v1.0
         </p>
+        <p className="mt-3 text-center">
+          <Link
+            href="/"
+            className="text-sm text-slate-500 hover:text-blue-800 transition-colors inline-flex items-center gap-1"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m12 19-7-7 7-7" />
+              <path d="M19 12H5" />
+            </svg>
+            Retour à l&apos;accueil
+          </Link>
+        </p>
       </div>
     </div>
   );
@@ -150,6 +173,28 @@ export default function AdminLoginPage() {
               </div>
             </CardContent>
           </Card>
+          <p className="mt-6 text-center text-xs text-slate-400">
+            Dakar Sport — Backoffice v1.0
+          </p>
+          <p className="mt-3 text-center">
+            <span className="text-sm text-slate-500 inline-flex items-center gap-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="m12 19-7-7 7-7" />
+                <path d="M19 12H5" />
+              </svg>
+              Retour à l&apos;accueil
+            </span>
+          </p>
         </div>
       </div>
     }>
