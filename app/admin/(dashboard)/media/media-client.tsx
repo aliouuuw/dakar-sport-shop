@@ -79,7 +79,7 @@ export function MediaClient({ initial }: { initial: MediaRow[] }) {
         title="Médias"
         description="Gérez votre bibliothèque d'images pour les produits et annonces."
         action={
-          <Button size="lg" className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a] shadow-md font-semibold h-12 rounded-xl" disabled>
+          <Button size="lg" className="bg-[#1E40AF] text-white hover:bg-[#1e3a8a] shadow-md font-semibold h-12 rounded-xl">
             <HugeiconsIcon icon={Add01Icon} size={20} className="mr-2" />
             Uploader une image
           </Button>

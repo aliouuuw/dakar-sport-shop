@@ -77,7 +77,7 @@ export default async function AdminDashboardPage() {
             </span>
             <Badge className="bg-green-100 text-green-700 hover:bg-green-200 border-none px-3 py-1 text-sm font-bold flex items-center gap-1.5">
               <HugeiconsIcon icon={ArrowUp01Icon} size={16} className="rotate-45" />
-              +12% ce mois
+              {activeProducts} actifs
             </Badge>
           </div>
         </div>

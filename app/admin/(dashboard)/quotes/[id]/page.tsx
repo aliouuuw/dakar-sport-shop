@@ -1,38 +1,47 @@
 import Link from "next/link"
+import { notFound } from "next/navigation"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowLeft01Icon, FileDownloadIcon, Delete01Icon, Mail01Icon } from "@hugeicons/core-free-icons"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { getQuoteById } from "@/lib/actions/quotes"
 
-const quote = {
-  id: 1,
-  club: "AS Dakar FC",
-  contact: "Moussa Diop",
-  email: "moussa.d@asdakarfc.sn",
-  phone: "+221 77 123 45 67",
-  status: "Nouveau",
-  date: "Il y a 2h",
-  notes: "Nous préparons la nouvelle saison qui commence en septembre. Besoin urgent pour le tournoi d'août.",
-  items: [
-    { id: 101, name: "Maillot Pro Équipe - Bleu", quantity: 25, price: 12000, total: 300000 },
-    { id: 102, name: "Short Pro Équipe - Blanc", quantity: 25, price: 6000, total: 150000 },
-  ],
-  subtotal: 450000,
-  discount: 0,
-  total: 450000
+const statusColors: Record<string, string> = {
+  "new": "bg-blue-100 text-[#1E40AF]",
+  "pending": "bg-amber-100 text-amber-700",
+  "sent": "bg-green-100 text-green-700",
+  "accepted": "bg-emerald-100 text-emerald-700",
+  "rejected": "bg-slate-100 text-slate-600",
+}
+
+const statusLabels: Record<string, string> = {
+  "new": "Nouveau",
+  "pending": "En cours",
+  "sent": "Envoyé",
+  "accepted": "Accepté",
+  "rejected": "Refusé",
+}
+
+function fmtDate(d: Date) {
+  const now = new Date()
+  const diff = now.getTime() - new Date(d).getTime()
+  const minutes = Math.floor(diff / 60000)
+  const hours = Math.floor(diff / 3600000)
+  const days = Math.floor(diff / 86400000)
+  
+  if (minutes < 60) return `Il y a ${minutes} minute${minutes > 1 ? "s" : ""}`
+  if (hours < 24) return `Il y a ${hours} heure${hours > 1 ? "s" : ""}`
+  if (days < 7) return `Il y a ${days} jour${days > 1 ? "s" : ""}`
+  
+  return new Intl.DateTimeFormat("fr", { day: "2-digit", month: "short", year: "numeric" }).format(new Date(d))
 }
 
 export default async function QuoteDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
+  const quote = await getQuoteById(parseInt(id, 10))
 
-  const statusColors: Record<string, string> = {
-    "Nouveau": "bg-blue-100 text-[#1E40AF]",
-    "En cours": "bg-amber-100 text-amber-700",
-    "Envoyé": "bg-green-100 text-green-700",
-    "Accepté": "bg-emerald-100 text-emerald-700",
-    "Refusé": "bg-slate-100 text-slate-600",
-  }
+  if (!quote) notFound()
 
   return (
     <div className="flex flex-col gap-6">
@@ -48,10 +57,10 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
             <div className="flex items-center gap-3">
               <h1 className="text-3xl font-bold tracking-tight text-slate-900">Devis #{id}</h1>
               <Badge className={`h-5 rounded-md px-2 text-[10px] font-semibold border-none ${statusColors[quote.status]}`}>
-                {quote.status}
+                {statusLabels[quote.status]}
               </Badge>
             </div>
-            <p className="mt-1 text-sm text-slate-500">Reçu {quote.date.toLowerCase()}</p>
+            <p className="mt-1 text-sm text-slate-500">Reçu {fmtDate(quote.createdAt)}</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -80,29 +89,19 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {quote.items.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-50/50">
-                    <td className="px-6 py-4 font-medium text-slate-900">{item.name}</td>
+                {quote.items.map((item, idx) => (
+                  <tr key={idx} className="hover:bg-slate-50/50">
+                    <td className="px-6 py-4 font-medium text-slate-900">{item.productName}</td>
                     <td className="px-6 py-4 text-center text-slate-600">{item.quantity}</td>
-                    <td className="px-6 py-4 text-right text-slate-600">{item.price.toLocaleString('fr-FR')} FCFA</td>
-                    <td className="px-6 py-4 text-right font-medium text-slate-900">{item.total.toLocaleString('fr-FR')} FCFA</td>
+                    <td className="px-6 py-4 text-right text-slate-600">{item.unitPrice.toLocaleString('fr-FR')} FCFA</td>
+                    <td className="px-6 py-4 text-right font-medium text-slate-900">{(item.unitPrice * item.quantity).toLocaleString('fr-FR')} FCFA</td>
                   </tr>
                 ))}
               </tbody>
               <tfoot className="border-t border-slate-200 bg-slate-50/30">
-                <tr>
-                  <td colSpan={3} className="px-6 py-3 text-right text-sm text-slate-500">Sous-total</td>
-                  <td className="px-6 py-3 text-right font-medium text-slate-900">{quote.subtotal.toLocaleString('fr-FR')} FCFA</td>
-                </tr>
-                <tr>
-                  <td colSpan={3} className="px-6 py-3 text-right text-sm text-slate-500">Remise</td>
-                  <td className="px-6 py-3 text-right font-medium text-[#DC2626]">
-                    {quote.discount > 0 ? `-${quote.discount.toLocaleString('fr-FR')} FCFA` : "0 FCFA"}
-                  </td>
-                </tr>
                 <tr className="border-t border-slate-100">
                   <td colSpan={3} className="px-6 py-4 text-right text-base font-semibold text-slate-900">Total</td>
-                  <td className="px-6 py-4 text-right text-base font-bold text-[#1E40AF]">{quote.total.toLocaleString('fr-FR')} FCFA</td>
+                  <td className="px-6 py-4 text-right text-base font-bold text-[#1E40AF]">{quote.totalPrice.toLocaleString('fr-FR')} FCFA</td>
                 </tr>
               </tfoot>
             </table>
@@ -153,20 +152,22 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
             <CardContent className="pt-4 space-y-4">
               <div>
                 <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Club / Équipe</p>
-                <p className="mt-1 text-sm font-medium text-slate-900">{quote.club}</p>
+                <p className="mt-1 text-sm font-medium text-slate-900">{quote.clubName}</p>
               </div>
               <div>
                 <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Contact principal</p>
-                <p className="mt-1 text-sm font-medium text-slate-900">{quote.contact}</p>
+                <p className="mt-1 text-sm font-medium text-slate-900">{quote.contactName}</p>
               </div>
               <div>
                 <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Email</p>
                 <a href={`mailto:${quote.email}`} className="mt-1 block text-sm text-[#1E40AF] hover:underline">{quote.email}</a>
               </div>
-              <div>
-                <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Téléphone</p>
-                <a href={`tel:${quote.phone.replace(/\s+/g, '')}`} className="mt-1 block text-sm text-[#1E40AF] hover:underline">{quote.phone}</a>
-              </div>
+              {quote.phone && (
+                <div>
+                  <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Téléphone</p>
+                  <a href={`tel:${quote.phone.replace(/\s+/g, '')}`} className="mt-1 block text-sm text-[#1E40AF] hover:underline">{quote.phone}</a>
+                </div>
+              )}
             </CardContent>
           </Card>
 
