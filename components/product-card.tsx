@@ -1,10 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { ShoppingBag01Icon } from "@hugeicons/core-free-icons";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 
 export interface ProductCardProps {
   id: string;
@@ -36,51 +33,61 @@ export function ProductCard({
 
   return (
     <Link href={`/produits/${slug}`} className="group block h-full">
-      <Card className="h-full flex flex-col overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1 border-slate-100 bg-white rounded-2xl">
-        <div className="relative aspect-[4/5] overflow-hidden bg-slate-50">
-          <div className="absolute inset-0 bg-black/40 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <div className="h-full flex flex-col bg-white overflow-hidden transition-shadow duration-300 hover:shadow-[0_8px_32px_oklch(0.1_0.02_265/0.08)]">
+        {/* Image area */}
+        <div className="relative aspect-[3/4] overflow-hidden bg-[oklch(0.97_0.005_265)]">
+          {/* Blue wash on hover — Adidas-style */}
+          <div className="absolute inset-0 bg-[#1E40AF]/0 group-hover:bg-[#1E40AF]/8 transition-colors duration-500 z-10" />
           {isNew && (
-            <Badge className="absolute top-3 left-3 z-20 bg-blue-600 text-white border-none text-xs font-black uppercase tracking-wider px-2.5 py-1">
+            <span className="absolute top-3 left-3 z-20 text-[9px] font-bold uppercase tracking-[0.25em] text-white bg-[oklch(0.1_0.02_265)] px-2 py-1">
               Nouveau
-            </Badge>
+            </span>
           )}
           {compareAtPrice && compareAtPrice > price && (
-            <Badge className="absolute top-3 right-3 z-20 bg-red-600 text-white border-none text-xs font-black uppercase tracking-wider px-2.5 py-1">
+            <span className="absolute top-3 right-3 z-20 text-[9px] font-bold uppercase tracking-[0.25em] text-white bg-[#DC2626] px-2 py-1">
               Promo
-            </Badge>
+            </span>
           )}
-          <Image
-            src={image}
-            alt={name}
-            fill
-            className="object-cover object-center transition-transform duration-700 group-hover:scale-110"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-          />
+          {image ? (
+            <Image
+              src={image}
+              alt={name}
+              fill
+              className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1E40AF]/10 to-[#1E40AF]/5" />
+          )}
         </div>
-        <CardContent className="p-5 flex flex-col flex-1 bg-white">
-          <div className="text-[10px] font-black text-slate-400 mb-2 uppercase tracking-[0.15em]">
+
+        {/* Info area */}
+        <div className="p-4 flex flex-col flex-1">
+          <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-2">
             {category}
-          </div>
-          <h3 className="font-bold text-slate-900 text-sm leading-snug line-clamp-2 min-h-[2.5rem] mb-4 group-hover:text-blue-600 transition-colors">
+          </span>
+          <h3 className="font-sans font-semibold text-[oklch(0.15_0.02_265)] text-sm leading-snug line-clamp-2 mb-3 group-hover:text-[#1E40AF] transition-colors duration-300">
             {name}
           </h3>
-          <div className="flex items-end justify-between mt-auto">
-            <div className="flex flex-col">
+          <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-100">
+            <div className="flex flex-col gap-0.5">
               {compareAtPrice && compareAtPrice > price && (
-                <span className="text-xs text-slate-400 line-through font-semibold">
+                <span className="text-[10px] text-slate-400 line-through">
                   {formatPrice(compareAtPrice)}
                 </span>
               )}
-              <span className="font-black text-lg text-slate-900 leading-none">
+              <span className="font-heading font-bold italic text-xl text-[oklch(0.15_0.02_265)] leading-none tracking-tight">
                 {formatPrice(price)}
               </span>
             </div>
-            <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-[#1E40AF] group-hover:text-white transition-all duration-300 transform group-hover:scale-110">
-              <HugeiconsIcon icon={ShoppingBag01Icon} size={18} />
-            </div>
+            <HugeiconsIcon
+              icon={ArrowRight01Icon}
+              size={14}
+              className="text-slate-300 group-hover:text-[#1E40AF] transition-all duration-300 group-hover:translate-x-0.5"
+            />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </Link>
   );
 }

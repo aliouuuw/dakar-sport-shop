@@ -1,166 +1,222 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { ArrowRight01Icon, Location01Icon, Call02Icon, Clock01Icon, CheckmarkBadge01Icon } from "@hugeicons/core-free-icons";
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { ProductCard } from "@/components/product-card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { Marquee } from "@/components/marquee";
 import { getProducts } from "@/lib/actions/products";
 import { getCategories } from "@/lib/actions/categories";
+import { cn } from "@/lib/utils";
 
 export default async function StorePage() {
   const [featuredProducts, allCategories] = await Promise.all([
-    getProducts({ active: true, featured: true, limit: 8 }),
+    getProducts({ active: true, featured: true, limit: 5 }),
     getCategories(),
   ]);
 
-  const categories = allCategories.slice(0, 6);
-
-  const getBentoClass = (i: number) => {
-    if (i === 0) return "md:col-span-2 md:row-span-2";
-    if (i === 1) return "md:col-span-2 md:row-span-1";
-    if (i === 2) return "md:col-span-1 md:row-span-1";
-    if (i === 3) return "md:col-span-1 md:row-span-1";
-    if (i === 4) return "md:col-span-2 md:row-span-1";
-    if (i === 5) return "md:col-span-2 md:row-span-1";
-    return "md:col-span-1 md:row-span-1";
-  };
+  const categories = allCategories.slice(0, 4);
 
   return (
-    <div className="flex-1">
-      {/* Hero Section */}
-      <section className="relative bg-blue-950 text-white overflow-hidden h-[360px] sm:h-[420px] lg:h-[520px]">
-        <div className="absolute inset-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster="https://images.unsplash.com/photo-1518605368461-1e1252220a22?q=80&w=1920&auto=format&fit=crop"
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="https://videos.pexels.com/video-files/6077718/6077718-hd_1920_1080_25fps.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-blue-950/50 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-blue-950/40 to-blue-900/20" />
+    <div className="flex-1 bg-white">
+
+      {/* ── HERO ─────────────────────────────────────────────────────── */}
+      <section className="relative noise-overlay bg-[oklch(0.1_0.02_265)] text-white overflow-hidden h-[92vh] min-h-[640px]">
+        {/* Background image — local gradient fallback, external image optional */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.25_0.15_265)] via-[oklch(0.15_0.12_265)] to-[oklch(0.08_0.08_265)]">
+          {/* Attempt to load external image, but don't block on timeout */}
+          <Image
+            src="https://images.unsplash.com/photo-1518605368461-1e1252220a22?q=80&w=1920&auto=format&fit=crop"
+            alt="Football au Sénégal"
+            fill
+            priority
+            className="object-cover object-center opacity-80"
+            onError={() => {}} 
+          />
+          {/* Two-layer overlay: deep blue tint + bottom vignette */}
+          <div className="absolute inset-0 bg-[oklch(0.2_0.12_265/0.55)]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.1_0.02_265)] via-transparent to-transparent" />
         </div>
 
-        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 sm:px-6">
-          <ScrollReveal delay={100} direction="up">
-            <Badge className="bg-[#DC2626] hover:bg-red-700 text-white mb-5 px-4 py-1.5 text-xs font-bold uppercase tracking-wider border-none shadow-lg shadow-red-900/20">
-              <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse mr-2 inline-block align-middle" />
-              Spécialiste Football
-            </Badge>
-          </ScrollReveal>
+        {/* Edition label — top right */}
+        <div className="absolute top-6 right-6 z-20 hidden sm:block">
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40">
+            Dakar · Sénégal · Est. 2010
+          </span>
+        </div>
 
-          <ScrollReveal delay={250} direction="up">
-            <h1 className="text-5xl sm:text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.9] mb-4 drop-shadow-xl">
-              <span className="block text-white">Dakar</span>
-              <span className="block text-[#DC2626]">Sport</span>
-            </h1>
-          </ScrollReveal>
+        {/* Content — bottom-left anchored */}
+        <div className="relative z-10 h-full flex flex-col justify-end px-5 sm:px-8 lg:px-14 pb-12 lg:pb-20 max-w-screen-xl mx-auto w-full">
 
-          <ScrollReveal delay={400} direction="up">
-            <p className="text-sm sm:text-base text-blue-50 mb-8 max-w-md font-medium drop-shadow-md">
-              L&apos;équipementier de référence pour les clubs associatifs et les passionnés de football au Sénégal.
+          {/* Eyebrow */}
+          <div className="clip-reveal clip-reveal-delay-1 mb-4 flex items-center gap-3">
+            <span className="block h-px w-8 bg-[#DC2626]" />
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/60">
+              Spécialiste Sport — Dakar
+            </span>
+          </div>
+
+          {/* Headline — the type IS the design */}
+          <h1 className="clip-reveal clip-reveal-delay-2 font-heading font-bold italic leading-[0.88] mb-8">
+            <span className="block text-white text-[clamp(4.5rem,13vw,11rem)] tracking-tight">
+              Dakar
+            </span>
+            <span className="block text-[#DC2626] text-[clamp(4.5rem,13vw,11rem)] tracking-tight">
+              Sport
+            </span>
+          </h1>
+
+          {/* Sub + CTAs in one row */}
+          <div className="clip-reveal clip-reveal-delay-3 flex flex-col sm:flex-row sm:items-end gap-6 sm:gap-12">
+            <p className="text-sm sm:text-base text-white/60 max-w-xs font-medium leading-relaxed">
+              L&apos;équipementier de référence pour les clubs et passionnés de sport au Sénégal.
             </p>
-          </ScrollReveal>
-
-          <ScrollReveal delay={550} direction="up">
-            <Button asChild size="lg" className="bg-white hover:bg-blue-50 text-blue-900 h-14 px-10 text-sm font-bold uppercase tracking-wider rounded-xl shadow-xl shadow-black/20 transition-all hover:scale-[1.03]">
-              <Link href="/produits">
-                Découvrir la collection
-                <HugeiconsIcon icon={ArrowRight01Icon} size={20} className="ml-2" />
+            <div className="flex items-center gap-4">
+              <a
+                href="https://wa.me/221770414930"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 bg-white text-[oklch(0.1_0.02_265)] px-6 py-3 text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:bg-[#DC2626] hover:text-white"
+              >
+                Commander
+                <HugeiconsIcon icon={ArrowRight01Icon} size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+              <Link
+                href="/produits"
+                className="inline-flex items-center gap-2 text-white/60 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors duration-300"
+              >
+                Catalogue
+                <HugeiconsIcon icon={ArrowRight01Icon} size={14} />
               </Link>
-            </Button>
-          </ScrollReveal>
+            </div>
+          </div>
+
+          {/* Scroll indicator */}
+          <div className="clip-reveal clip-reveal-delay-4 absolute bottom-8 right-6 sm:right-14 flex flex-col items-center gap-2 opacity-40">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] rotate-90 origin-center translate-x-5">Scroll</span>
+            <span className="block w-px h-10 bg-white/40" />
+          </div>
         </div>
       </section>
 
-      {/* Marquee Ticker */}
-      <Marquee items={["LIVRAISON GRATUITE DÈS 50.000 FCFA", "RETOURS SOUS 14 JOURS", "PAIEMENT À LA LIVRAISON", "ÉQUIPEMENTS OFFICIELS"]} />
+      {/* ── MARQUEE ──────────────────────────────────────────────────── */}
+      <Marquee items={["Livraison gratuite dès 50 000 FCFA", "Paiement à la livraison", "Équipements officiels", "Clubs & Associations"]} />
 
-      {/* Categories Bento Grid */}
+      {/* ── CATEGORIES ───────────────────────────────────────────────── */}
       {categories.length > 0 && (
-        <section className="py-24 bg-white">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section className="py-20 lg:py-28 bg-white">
+          <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14">
+
+            {/* Section label */}
             <ScrollReveal>
-              <div className="flex flex-col items-center text-center mb-16">
-                <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-slate-900 uppercase">
-                  Choisissez votre <span className="text-[#1E40AF]">arène</span>
-                </h2>
-                <p className="mt-4 text-lg text-slate-500 font-medium max-w-2xl">
-                  Des équipements spécialisés pour chaque discipline. Ne laissez rien au hasard.
-                </p>
+              <div className="flex items-center justify-between mb-10">
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">
+                  01 — Catégories
+                </span>
+                <Link
+                  href="/produits"
+                  className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400 hover:text-slate-900 transition-colors inline-flex items-center gap-2"
+                >
+                  Tout voir <HugeiconsIcon icon={ArrowRight01Icon} size={12} />
+                </Link>
               </div>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[250px] sm:auto-rows-[300px] gap-4 lg:gap-6">
-              {categories.map((category, idx) => (
-                <ScrollReveal
-                  key={category.slug}
-                  delay={idx * 50}
-                  className={getBentoClass(idx)}
-                >
+            {/* Asymmetric 3-col grid: tall left + two stacked right */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+
+              {/* Large feature cell */}
+              {categories[0] && (
+                <ScrollReveal className="md:row-span-2 md:col-span-1" delay={0}>
                   <Link
-                    href={`/produits?category=${category.slug}`}
-                    className="group relative overflow-hidden rounded-3xl block h-full w-full bg-slate-100"
+                    href={`/produits?category=${categories[0].slug}`}
+                    className="group relative overflow-hidden block h-[360px] md:h-full bg-slate-100"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 transition-opacity duration-500 group-hover:opacity-90" />
-                    {category.image ? (
-                      <Image
-                        src={category.image}
-                        alt={category.name}
-                        fill
-                        className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#1E40AF] to-blue-900" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent z-10" />
+                    <div className="absolute inset-0 bg-[#1E40AF]/0 group-hover:bg-[#1E40AF]/20 transition-colors duration-500 z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#1E40AF] to-[oklch(0.2_0.12_265)]" />
+                    {categories[0].image && (
+                      <Image src={categories[0].image} alt={categories[0].name} fill className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]" sizes="(max-width: 768px) 100vw, 33vw" onError={() => {}} />
                     )}
-                    <div className="absolute inset-0 z-20 flex flex-col justify-end p-8">
-                      <h3 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-wider mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                        {category.name}
+                    <div className="absolute inset-0 z-20 flex flex-col justify-end p-7">
+                      <h3 className="font-heading font-bold italic text-4xl lg:text-5xl text-white leading-tight tracking-tight">
+                        {categories[0].name}
                       </h3>
-                      <div className="flex items-center text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100 font-bold uppercase tracking-wider text-sm">
-                        Découvrir <HugeiconsIcon icon={ArrowRight01Icon} size={18} className="ml-2" />
-                      </div>
+                      <span className="mt-2 text-[10px] font-bold uppercase tracking-[0.25em] text-white/50 group-hover:text-white/80 transition-colors duration-300 flex items-center gap-2">
+                        Explorer <HugeiconsIcon icon={ArrowRight01Icon} size={10} />
+                      </span>
                     </div>
                   </Link>
                 </ScrollReveal>
-              ))}
+              )}
+
+              {/* Two stacked cells */}
+              <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {categories.slice(1).map((cat, idx) => (
+                  <ScrollReveal key={cat.slug} delay={(idx + 1) * 60}>
+                    <Link
+                      href={`/produits?category=${cat.slug}`}
+                      className="group relative overflow-hidden block h-[220px] bg-slate-100"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent z-10" />
+                      <div className="absolute inset-0 bg-[#1E40AF]/0 group-hover:bg-[#1E40AF]/20 transition-colors duration-500 z-10" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#1E40AF] to-[oklch(0.2_0.12_265)]" />
+                      {cat.image && (
+                        <Image src={cat.image} alt={cat.name} fill className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]" sizes="(max-width: 768px) 100vw, 25vw" onError={() => {}} />
+                      )}
+                      <div className="absolute inset-0 z-20 flex flex-col justify-end p-5">
+                        <h3 className="font-heading font-bold italic text-2xl lg:text-3xl text-white leading-tight tracking-tight">
+                          {cat.name}
+                        </h3>
+                      </div>
+                    </Link>
+                  </ScrollReveal>
+                ))}
+              </div>
             </div>
           </div>
         </section>
       )}
 
-      {/* Featured Products */}
+      {/* ── FEATURED PRODUCTS ────────────────────────────────────────── */}
       {featuredProducts.length > 0 && (
-        <section className="py-24 bg-slate-50 border-t border-slate-200">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section className="py-20 lg:py-28 bg-[oklch(0.97_0.005_265)]">
+          <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14">
+
+            {/* Section label row */}
             <ScrollReveal>
-              <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-16 gap-6">
+              <div className="flex items-end justify-between mb-10">
                 <div>
-                  <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-slate-900 uppercase">
-                    Tendances
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-3">
+                    02 — Tendances
+                  </span>
+                  <h2 className="font-heading font-bold italic text-5xl lg:text-6xl text-slate-900 leading-none tracking-tight">
+                    Sélection du moment
                   </h2>
-                  <p className="mt-4 text-lg text-slate-500 font-medium">
-                    Les équipements les plus demandés cette semaine.
-                  </p>
                 </div>
-                <Button asChild variant="outline" className="hidden md:flex bg-white hover:bg-slate-100 text-slate-900 border-slate-300 h-14 px-8 text-sm font-bold uppercase tracking-wider rounded-xl">
-                  <Link href="/produits">
-                    Tout voir <HugeiconsIcon icon={ArrowRight01Icon} size={20} className="ml-2" />
-                  </Link>
-                </Button>
+                <Link
+                  href="/produits"
+                  className="hidden md:inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400 hover:text-slate-900 transition-colors"
+                >
+                  Tout le catalogue <HugeiconsIcon icon={ArrowRight01Icon} size={12} />
+                </Link>
               </div>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {/* Editorial product layout: 1 large + 4 standard */}
+            <div className={cn(
+              "grid gap-3",
+              featuredProducts.length >= 3
+                ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                : "grid-cols-1 sm:grid-cols-2"
+            )}>
               {featuredProducts.map((product, idx) => (
-                <ScrollReveal key={product.id} delay={idx * 100} direction="up" className="h-full">
+                <ScrollReveal
+                  key={product.id}
+                  delay={idx * 80}
+                  direction="up"
+                  className={cn("h-full", idx === 0 && featuredProducts.length >= 3 && "lg:col-span-1 lg:row-span-1")}
+                >
                   <ProductCard
                     id={String(product.id)}
                     name={product.name}
@@ -174,50 +230,36 @@ export default async function StorePage() {
               ))}
             </div>
 
-            <div className="mt-12 text-center md:hidden">
-              <Button asChild className="w-full bg-slate-900 hover:bg-slate-800 text-white h-14 text-sm font-bold uppercase tracking-wider rounded-xl">
-                <Link href="/produits">Tout voir</Link>
-              </Button>
+            <div className="mt-8 md:hidden">
+              <Link
+                href="/produits"
+                className="flex items-center justify-center gap-2 w-full border border-slate-200 py-4 text-xs font-bold uppercase tracking-widest text-slate-700 hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all duration-300"
+              >
+                Voir tout le catalogue <HugeiconsIcon icon={ArrowRight01Icon} size={14} />
+              </Link>
             </div>
           </div>
         </section>
       )}
 
-      {/* Social Proof */}
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="flex flex-col items-center text-center mb-16">
-              <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-slate-900 uppercase">
-                Ils nous font <span className="text-[#1E40AF]">confiance</span>
-              </h2>
-              <p className="mt-4 text-lg text-slate-500 font-medium max-w-2xl">
-                Plus de 5000 athlètes et clubs sportifs équipés partout au Sénégal.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* ── STAT STRIP ───────────────────────────────────────────────── */}
+      <section className="bg-[oklch(0.1_0.02_265)] text-white">
+        <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14">
+          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/10">
             {[
-              { name: "Moussa Diop", role: "Coach de Football, AS Dakar", content: "Des équipements de qualité professionnelle. Les maillots résistent parfaitement à l'usure de nos entraînements quotidiens.", rating: 5 },
-              { name: "Awa Ndiaye", role: "Athlète Semi-Pro", content: "Livraison ultra rapide et service client réactif. J'ai trouvé exactement la paire de running qu'il me fallait pour mon marathon.", rating: 5 },
-              { name: "Cheikh Fall", role: "Propriétaire de Salle de Sport", content: "J'ai équipé toute ma salle avec leurs haltères et bancs de musculation. Excellent rapport qualité/prix pour les professionnels.", rating: 5 },
-            ].map((review, idx) => (
-              <ScrollReveal key={idx} delay={idx * 150} direction="up">
-                <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100 h-full flex flex-col relative group hover:border-[#1E40AF]/30 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300">
-                  <div className="flex gap-1 mb-6 text-amber-400">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <svg key={i} className="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <p className="text-slate-700 text-lg font-medium leading-relaxed italic mb-8 flex-1">&ldquo;{review.content}&rdquo;</p>
-                  <div>
-                    <div className="font-black text-slate-900">{review.name}</div>
-                    <div className="text-sm font-semibold text-slate-500 uppercase tracking-wider mt-1">{review.role}</div>
-                  </div>
-                  <div className="absolute top-8 right-8 text-8xl font-serif text-slate-200/50 leading-none select-none group-hover:text-[#1E40AF]/10 transition-colors duration-300">&ldquo;</div>
+              { stat: "150+",  label: "Clubs équipés" },
+              { stat: "24h",   label: "Livraison Dakar" },
+              { stat: "Lun–Sam", label: "09h – 19h30" },
+              { stat: "Av. G. Pompidou", label: "En face Ali Baba, Dakar" },
+            ].map(({ stat, label }, idx) => (
+              <ScrollReveal key={idx} delay={idx * 70}>
+                <div className="py-10 px-6 lg:px-10 flex flex-col gap-1">
+                  <span className="font-heading font-bold italic text-3xl lg:text-4xl text-white tracking-tight leading-none">
+                    {stat}
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 mt-1">
+                    {label}
+                  </span>
                 </div>
               </ScrollReveal>
             ))}
@@ -225,29 +267,6 @@ export default async function StorePage() {
         </div>
       </section>
 
-      {/* Trust & Info */}
-      <section className="py-16 bg-blue-900 text-white overflow-hidden">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 divide-y md:divide-y-0 md:divide-x divide-blue-800">
-            {[
-              { icon: CheckmarkBadge01Icon, title: "Qualité Garantie", text: "Équipements officiels et marques reconnues mondialement." },
-              { icon: Location01Icon, title: "Boutique Dakar", text: "Av. G. Pompidou, en face Restaurant Ali baba, Dakar." },
-              { icon: Call02Icon, title: "Service Client", text: "+221 77 634 51 15\nLundi - Samedi" },
-              { icon: Clock01Icon, title: "Horaires", text: "Ouvert de 09:00 à 19:30\nFermé le Dimanche" },
-            ].map((item, idx) => (
-              <ScrollReveal key={idx} delay={(idx + 1) * 100} direction="right">
-                <div className="flex flex-col items-center text-center p-6">
-                  <div className="bg-blue-800 p-4 rounded-full mb-4">
-                    <HugeiconsIcon icon={item.icon} size={32} className="text-blue-200" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                  <p className="text-blue-200 whitespace-pre-line">{item.text}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

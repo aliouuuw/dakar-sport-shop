@@ -73,23 +73,26 @@ export default async function ProduitsPage({
     .map((c) => ({ name: c.name, slug: c.slug, count: countByCategory[c.id] ?? 0 }));
 
   return (
-    <div className="bg-slate-50 min-h-screen">
+    <div className="bg-white min-h-screen">
       {/* Page Header */}
-      <div className="bg-slate-900 text-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+      <div className="bg-[oklch(0.1_0.02_265)] text-white">
+        <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-20 lg:py-28">
           <ScrollReveal direction="down">
-            <h1 className="text-5xl lg:text-7xl font-black tracking-tighter uppercase">
-              Nos <span className="text-[#1E40AF]">Produits</span>
+            <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 mb-4">
+              Catalogue complet
+            </span>
+            <h1 className="font-heading font-bold italic text-6xl lg:text-7xl text-white leading-none tracking-tight mb-3">
+              Tous les équipements
             </h1>
-            <p className="mt-4 text-xl text-slate-400 max-w-2xl font-medium">
-              Découvrez notre gamme complète d'équipements sportifs de qualité.
+            <p className="text-sm text-white/60 max-w-2xl font-medium">
+              Découvrez notre gamme complète d'équipements sportifs de qualité pour clubs, athlètes et passionnés.
             </p>
           </ScrollReveal>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex flex-col lg:flex-row gap-10">
+      <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-16">
+        <div className="flex flex-col lg:flex-row gap-12">
           {/* Mobile Filters (Hidden on Desktop) */}
           <Suspense fallback={null}>
             <MobileFilters 
@@ -116,9 +119,9 @@ export default async function ProduitsPage({
           <div className="flex-1 min-w-0">
             {paginated.length > 0 ? (
               <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {paginated.map((product, idx) => (
-                    <ScrollReveal key={product.id} delay={(idx % 6) * 100} direction="up" className="h-full">
+                    <ScrollReveal key={product.id} delay={(idx % 6) * 80} direction="up" className="h-full">
                       <ProductCard
                         id={String(product.id)}
                         name={product.name}
@@ -132,7 +135,7 @@ export default async function ProduitsPage({
                   ))}
                 </div>
 
-                <div className="mt-12">
+                <div className="mt-16">
                   <Suspense fallback={null}>
                     <ProductPagination
                       currentPage={currentPage}
@@ -142,29 +145,26 @@ export default async function ProduitsPage({
                 </div>
               </>
             ) : (
-              <div className="flex flex-col items-center justify-center py-24 text-center">
-                <div className="bg-slate-100 rounded-full p-6 mb-6">
-                  <svg
-                    className="h-12 w-12 text-slate-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">
-                  Aucun produit trouvé
+              <div className="flex flex-col items-center justify-center py-32 text-center">
+                <svg
+                  className="h-16 w-16 text-slate-200 mb-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                  />
+                </svg>
+                <h3 className="font-heading font-bold italic text-3xl text-slate-900 mb-2 leading-none">
+                  Aucun résultat
                 </h3>
-                <p className="text-slate-500 max-w-md">
-                  Essayez de modifier vos filtres ou votre recherche pour trouver
-                  ce que vous cherchez.
+                <p className="text-sm text-slate-500 max-w-sm mt-2">
+                  Essayez de modifier vos filtres ou votre recherche pour trouver ce que vous cherchez.
                 </p>
               </div>
             )}

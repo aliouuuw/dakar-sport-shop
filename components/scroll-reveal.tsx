@@ -22,17 +22,17 @@ export function ScrollReveal({
     const visible = { 
       opacity: 1, 
       transition: { 
-        duration: 0.8, 
+        duration: 0.4, 
         delay: delay / 1000, 
-        ease: "easeOut" as const 
+        ease: "circOut" as const 
       } 
     };
     
     switch (direction) {
-      case "up": return { hidden: { ...hidden, y: 40 }, visible: { ...visible, y: 0 } };
-      case "down": return { hidden: { ...hidden, y: -40 }, visible: { ...visible, y: 0 } };
-      case "left": return { hidden: { ...hidden, x: 40 }, visible: { ...visible, x: 0 } };
-      case "right": return { hidden: { ...hidden, x: -40 }, visible: { ...visible, x: 0 } };
+      case "up": return { hidden: { ...hidden, y: 20 }, visible: { ...visible, y: 0 } };
+      case "down": return { hidden: { ...hidden, y: -20 }, visible: { ...visible, y: 0 } };
+      case "left": return { hidden: { ...hidden, x: 20 }, visible: { ...visible, x: 0 } };
+      case "right": return { hidden: { ...hidden, x: -20 }, visible: { ...visible, x: 0 } };
       case "none": return { hidden, visible };
       default: return { hidden, visible };
     }

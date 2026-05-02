@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Barlow_Condensed } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -8,6 +8,13 @@ import { organizationJsonLd } from "@/lib/json-ld";
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
+});
+
+const barlowCondensed = Barlow_Condensed({
+  weight: ["600", "700", "800"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-heading",
 });
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://dakarsport.sn";
@@ -58,6 +65,7 @@ export default function RootLayout({
         "h-full",
         "antialiased",
         plusJakarta.variable,
+        barlowCondensed.variable,
         "font-sans"
       )}
     >

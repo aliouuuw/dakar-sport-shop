@@ -13,16 +13,16 @@ export function Marquee({ items }: MarqueeProps) {
   const duplicatedItems = [...items, ...items, ...items, ...items];
 
   return (
-    <div className="flex overflow-hidden bg-[#DC2626] text-white py-3 whitespace-nowrap border-y border-red-800/50 relative z-30">
+    <div className="flex overflow-hidden bg-[oklch(0.1_0.02_265)] text-white py-3 whitespace-nowrap relative z-30 border-y border-white/5">
       <motion.div
-        className="flex items-center space-x-8 text-sm font-black uppercase tracking-[0.2em]"
+        className="flex items-center gap-0 font-sans"
         animate={{ x: ["0%", "-50%"] }}
-        transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
+        transition={{ repeat: Infinity, ease: "linear", duration: 35 }}
       >
         {duplicatedItems.map((item, i) => (
-          <div key={i} className="flex items-center space-x-8 shrink-0">
-            <span>{item}</span>
-            <HugeiconsIcon icon={ZapIcon} size={16} className="text-amber-400" />
+          <div key={i} className="flex items-center shrink-0">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 px-8">{item}</span>
+            <span className="block w-px h-3 bg-white/15" />
           </div>
         ))}
       </motion.div>

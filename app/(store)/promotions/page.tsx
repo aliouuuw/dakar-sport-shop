@@ -27,45 +27,43 @@ export default async function PromotionsPage() {
   ]);
 
   return (
-    <div className="bg-slate-50 min-h-screen pb-24">
+    <div className="bg-white min-h-screen pb-24">
       {/* Header */}
-      <div className="bg-slate-900 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-10" />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-20">
+      <div className="bg-[oklch(0.1_0.02_265)] text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent z-10" />
+        <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-20 lg:py-28 relative z-20">
           <ScrollReveal direction="down">
-            <div className="inline-flex items-center justify-center p-3 bg-[#DC2626] rounded-xl mb-6 shadow-lg shadow-red-900/50">
-              <HugeiconsIcon icon={DiscountTag01Icon} size={32} className="text-white" />
-            </div>
-            <h1 className="text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-4">
-              Nos <span className="text-[#DC2626]">Promotions</span>
+            <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 mb-4">
+              Offres spéciales
+            </span>
+            <h1 className="font-heading font-bold italic text-6xl lg:text-7xl text-white leading-none tracking-tight mb-3">
+              Promotions
             </h1>
-            <p className="max-w-2xl text-xl text-slate-300 font-medium">
+            <p className="max-w-2xl text-sm text-white/60 font-medium">
               Équipez-vous avec les meilleures marques à prix réduits. Offres valables dans la limite des stocks disponibles.
             </p>
           </ScrollReveal>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 relative z-30">
+      <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-16 relative z-30">
         {promotions.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-center">
-            <div className="inline-flex items-center justify-center p-5 bg-slate-100 rounded-full mb-6">
-              <HugeiconsIcon icon={DiscountTag01Icon} size={40} className="text-slate-400" />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 mb-2">Aucune promotion en cours</h2>
-            <p className="text-slate-500 max-w-sm">Revenez bientôt pour découvrir nos prochaines offres.</p>
+          <div className="flex flex-col items-center justify-center py-32 text-center">
+            <HugeiconsIcon icon={DiscountTag01Icon} size={48} className="text-slate-200 mb-6" />
+            <h2 className="font-heading font-bold italic text-3xl text-slate-900 mb-2 leading-none">Aucune promotion</h2>
+            <p className="text-sm text-slate-500 max-w-sm mt-2">Revenez bientôt pour découvrir nos prochaines offres spéciales.</p>
           </div>
         ) : (
           <div className="flex flex-col gap-16">
             {promotions.map((promo) => (
-              <div key={promo.id} className="bg-white rounded-[2rem] border border-slate-200 shadow-xl shadow-slate-200/50 overflow-hidden flex flex-col">
+              <div key={promo.id} className="bg-white rounded-none border border-slate-200 shadow-xl shadow-slate-200/50 overflow-hidden flex flex-col">
                 {/* Promo Banner */}
                 <div className="bg-slate-900 text-white p-8 sm:p-10 flex flex-col lg:flex-row gap-8 justify-between items-start lg:items-center relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-96 h-96 bg-[#DC2626]/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
                   <div className="flex-1 relative z-10">
                     <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <span className="bg-[#DC2626] text-white px-4 py-1.5 rounded-lg text-sm font-black uppercase tracking-wider">
+                      <span className="bg-[#DC2626] text-white px-4 py-1.5 rounded-none text-sm font-bold uppercase tracking-wider">
                         {promo.discountType === "percentage"
                           ? `-${promo.discountValue}%`
                           : `-${(promo.discountValue / 1000).toFixed(0)}k FCFA`}
@@ -75,7 +73,7 @@ export default async function PromotionsPage() {
                         Finit le {formatDate(promo.endsAt)}
                       </span>
                     </div>
-                    <h2 className="text-4xl sm:text-5xl font-black tracking-tighter uppercase mb-3 text-white">
+                    <h2 className="font-heading text-5xl sm:text-6xl tracking-tight uppercase mb-3 text-white">
                       {promo.title}
                     </h2>
                     {promo.description && (
@@ -85,11 +83,11 @@ export default async function PromotionsPage() {
                     )}
                   </div>
                   {promo.code && (
-                    <div className="shrink-0 bg-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/10 text-center min-w-[240px] relative z-10">
-                      <span className="block text-xs uppercase tracking-[0.2em] text-slate-400 font-black mb-2">
+                    <div className="shrink-0 bg-white/5 backdrop-blur-xl rounded-none p-6 border border-white/10 text-center min-w-[240px] relative z-10">
+                      <span className="block text-xs uppercase tracking-[0.2em] text-slate-400 font-bold mb-2">
                         Code Promo
                       </span>
-                      <span className="block text-3xl font-black font-mono tracking-wider text-amber-400">
+                      <span className="block text-4xl font-heading tracking-widest text-amber-400">
                         {promo.code}
                       </span>
                     </div>
