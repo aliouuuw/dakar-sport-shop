@@ -127,7 +127,8 @@
         "Selecting media in picker closes modal and populates URL field — verify by selecting",
         "MediaPicker works in product, category, and announcement forms — verify by using in each"
       ],
-      "passes": true
+      "passes": false,
+      "notes": "Upload button has no handler (no backend). MediaPicker component not created. Upload relies on Infrastructure 'Image upload utility' task."
     },
     {
       "group": "Admin-UI",
@@ -142,7 +143,8 @@
         "Generate PDF button downloads quote as PDF file — verify by clicking and opening file",
         "Quote detail page shows all items with product names, quantities, prices — verify visually"
       ],
-      "passes": true
+      "passes": false,
+      "notes": "PDF generation not implemented (shows toast placeholder). Activity 'Voir les détails' button has no action. No pagination on activity/quotes lists."
     },
     {
       "group": "Storefront",
@@ -224,7 +226,8 @@
         "Admin can view /admin/leads showing top products by WhatsApp clicks — verify by visiting",
         "Lead list shows product name, variant, timestamp, and click count — verify visually"
       ],
-      "passes": true
+      "passes": false,
+      "notes": "Leads admin page is a placeholder ('Fonctionnalité en développement'). WhatsApp lead tracking not implemented. Variant selector not implemented."
     },
     {
       "group": "Database",
@@ -438,7 +441,8 @@
         "deleteMedia() removes file and DB record — verify by deleting and checking filesystem",
         "All mutations require admin role — verify by calling without admin session"
       ],
-      "passes": true
+      "passes": false,
+      "notes": "uploadMedia() not implemented. lib/actions/media.ts exists with getMedia/deleteMedia but no upload handler. Depends on Infrastructure 'Image upload utility' task."
     },
     {
       "group": "Admin-API",
@@ -452,7 +456,8 @@
         "generateQuotePdf(id) returns PDF with product list, quantities, unit prices, total in CFA — verify by generating and opening PDF",
         "updateQuoteStatus() changes status and logs activity — verify by updating and checking log"
       ],
-      "passes": true
+      "passes": false,
+      "notes": "generateQuotePdf() not implemented. PDF generation button shows toast placeholder. Activity auto-logging may not be wired to all mutations."
     },
     {
       "group": "Admin-API",
@@ -516,7 +521,8 @@
         "Uploaded files saved to public/uploads/ with unique names — verify by uploading a file",
         "Component works in product and category create/edit forms — verify by using in form"
       ],
-      "passes": true
+      "passes": false,
+      "notes": "Not implemented. No upload API route, no ImageUpload component, no lib/upload.ts. Blocks media upload feature."
     },
     {
       "group": "Infrastructure",
