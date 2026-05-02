@@ -31,7 +31,6 @@ export default async function StorePage() {
             fill
             priority
             className="object-cover object-center opacity-80"
-            onError={() => {}} 
           />
           {/* Two-layer overlay: deep blue tint + bottom vignette */}
           <div className="absolute inset-0 bg-[oklch(0.2_0.12_265/0.55)]" />
@@ -136,7 +135,7 @@ export default async function StorePage() {
                     <div className="absolute inset-0 bg-[#1E40AF]/0 group-hover:bg-[#1E40AF]/20 transition-colors duration-500 z-10" />
                     <div className="absolute inset-0 bg-gradient-to-br from-[#1E40AF] to-[oklch(0.2_0.12_265)]" />
                     {categories[0].image && (
-                      <Image src={categories[0].image} alt={categories[0].name} fill className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]" sizes="(max-width: 768px) 100vw, 33vw" onError={() => {}} />
+                      <Image src={categories[0].image} alt={categories[0].name} fill className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]" sizes="(max-width: 768px) 100vw, 33vw" />
                     )}
                     <div className="absolute inset-0 z-20 flex flex-col justify-end p-7">
                       <h3 className="font-heading font-bold italic text-4xl lg:text-5xl text-white leading-tight tracking-tight">
@@ -162,7 +161,7 @@ export default async function StorePage() {
                       <div className="absolute inset-0 bg-[#1E40AF]/0 group-hover:bg-[#1E40AF]/20 transition-colors duration-500 z-10" />
                       <div className="absolute inset-0 bg-gradient-to-br from-[#1E40AF] to-[oklch(0.2_0.12_265)]" />
                       {cat.image && (
-                        <Image src={cat.image} alt={cat.name} fill className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]" sizes="(max-width: 768px) 100vw, 25vw" onError={() => {}} />
+                        <Image src={cat.image} alt={cat.name} fill className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]" sizes="(max-width: 768px) 100vw, 25vw" />
                       )}
                       <div className="absolute inset-0 z-20 flex flex-col justify-end p-5">
                         <h3 className="font-heading font-bold italic text-2xl lg:text-3xl text-white leading-tight tracking-tight">
