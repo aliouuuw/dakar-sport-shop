@@ -93,7 +93,7 @@ export function ProductFilters({
               pushParams({ q: value || null });
             }
           }}
-          className="pl-10 h-11 bg-white border-slate-200 rounded-xl"
+          className="pl-10 h-11 bg-white border-slate-200"
         />
       </div>
 
@@ -106,7 +106,7 @@ export function ProductFilters({
           value={currentSort}
           onValueChange={(value) => pushParams({ sort: value })}
         >
-          <SelectTrigger className="h-11 bg-white border-slate-200 rounded-xl">
+          <SelectTrigger className="h-11 bg-white border-slate-200">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -127,20 +127,20 @@ export function ProductFilters({
           <button
             onClick={() => pushParams({ category: null })}
             className={cn(
-              "flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
+              "flex w-full items-center justify-between px-3 py-2.5 text-xs font-medium transition-colors",
               !currentCategory
-                ? "bg-[#1E40AF] text-white"
-                : "text-slate-700 hover:bg-slate-100"
+                ? "bg-[oklch(0.1_0.02_265)] text-white"
+                : "text-slate-600 hover:bg-slate-50"
             )}
           >
             <span>Toutes les catégories</span>
             <Badge
               variant="secondary"
               className={cn(
-                "text-xs font-bold",
+                "text-[10px] font-bold",
                 !currentCategory
                   ? "bg-white/20 text-white"
-                  : "bg-slate-100 text-slate-600"
+                  : "bg-slate-50 text-slate-500"
               )}
             >
               {totalCount}
@@ -155,20 +155,20 @@ export function ProductFilters({
                 })
               }
               className={cn(
-                "flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
+                "flex w-full items-center justify-between px-3 py-2.5 text-xs font-medium transition-colors",
                 currentCategory === cat.slug
-                  ? "bg-[#1E40AF] text-white"
-                  : "text-slate-700 hover:bg-slate-100"
+                  ? "bg-[oklch(0.1_0.02_265)] text-white"
+                  : "text-slate-600 hover:bg-slate-50"
               )}
             >
               <span>{cat.name}</span>
               <Badge
                 variant="secondary"
                 className={cn(
-                  "text-xs font-bold",
+                  "text-[10px] font-bold",
                   currentCategory === cat.slug
                     ? "bg-white/20 text-white"
-                    : "bg-slate-100 text-slate-600"
+                    : "bg-slate-50 text-slate-500"
                 )}
               >
                 {cat.count}
@@ -270,13 +270,13 @@ export function ProductPagination({
   }
 
   return (
-    <nav className="flex items-center justify-center gap-1 mt-12">
+    <nav className="flex items-center justify-center gap-1">
       <Button
         variant="outline"
         size="sm"
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage <= 1}
-        className="rounded-xl"
+        className=""
       >
         Précédent
       </Button>
@@ -292,8 +292,8 @@ export function ProductPagination({
             size="sm"
             onClick={() => goToPage(page)}
             className={cn(
-              "rounded-xl min-w-[40px]",
-              page === currentPage && "bg-[#1E40AF] hover:bg-[#1e3a8a]"
+              "min-w-[40px]",
+              page === currentPage && "bg-[oklch(0.1_0.02_265)] hover:bg-[oklch(0.15_0.02_265)]"
             )}
           >
             {page}
@@ -305,7 +305,7 @@ export function ProductPagination({
         size="sm"
         onClick={() => goToPage(currentPage + 1)}
         disabled={currentPage >= totalPages}
-        className="rounded-xl"
+        className=""
       >
         Suivant
       </Button>

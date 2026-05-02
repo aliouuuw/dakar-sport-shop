@@ -154,21 +154,17 @@ const defaultSettings: StoreSettings = {
 
 export default function StoreFooter({ settings = defaultSettings }: StoreFooterProps) {
   return (
-    <footer className="bg-slate-950 text-slate-400 py-20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+    <footer className="bg-[oklch(0.08_0.02_265)] text-slate-500 pt-24 pb-12 relative overflow-hidden">
+      <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand Column */}
           <div className="col-span-1 lg:col-span-2">
-            <Link href="/" className="inline-flex items-center gap-3 mb-6">
-              <div className="bg-white p-2 rounded-lg">
-                <StoreIcon className="text-slate-900 h-6 w-6" />
-              </div>
-              <span className="text-white font-black text-2xl tracking-tighter uppercase leading-none">
+            <Link href="/" className="inline-block mb-6">
+              <span className="font-heading font-bold italic text-3xl text-white tracking-tight leading-none">
                 {settings.siteName}
               </span>
             </Link>
-            <p className="text-sm max-w-sm mb-8 leading-relaxed font-medium text-slate-400">
+            <p className="text-xs max-w-xs mb-8 leading-relaxed text-slate-500">
               {settings.tagline || "L'équipementier sportif n°1 au Sénégal."}
             </p>
             <div className="flex gap-3">
@@ -210,7 +206,7 @@ export default function StoreFooter({ settings = defaultSettings }: StoreFooterP
 
           {/* Navigation Column */}
           <div>
-            <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
+            <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/40 mb-6">
               Navigation
             </h3>
             <ul className="space-y-3">
@@ -218,7 +214,7 @@ export default function StoreFooter({ settings = defaultSettings }: StoreFooterP
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm hover:text-white transition-colors"
+                    className="text-xs text-slate-500 hover:text-white transition-colors font-medium"
                   >
                     {link.label}
                   </Link>
@@ -229,12 +225,12 @@ export default function StoreFooter({ settings = defaultSettings }: StoreFooterP
 
           {/* Contact Column */}
           <div>
-            <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
+            <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/40 mb-6">
               Contact
             </h3>
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div>
-                <h4 className="text-white text-xs font-semibold uppercase tracking-wider mb-2">
+                <h4 className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/30 mb-2">
                   Telephones
                 </h4>
                 <ul className="space-y-1.5">
@@ -242,7 +238,7 @@ export default function StoreFooter({ settings = defaultSettings }: StoreFooterP
                     <li key={phone.number}>
                       <a
                         href={`tel:${phone.number.replace(/\s/g, "")}`}
-                        className="flex items-center gap-2 text-sm hover:text-white transition-colors"
+                        className="flex items-center gap-2 text-xs hover:text-white transition-colors"
                       >
                         <PhoneIcon className="shrink-0" />
                         {phone.number}
@@ -252,22 +248,22 @@ export default function StoreFooter({ settings = defaultSettings }: StoreFooterP
                 </ul>
               </div>
               <div>
-                <h4 className="text-white text-xs font-semibold uppercase tracking-wider mb-2">
+                <h4 className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/30 mb-2">
                   Email
                 </h4>
                 <a
                   href={`mailto:${settings.email}`}
-                  className="flex items-center gap-2 text-sm hover:text-white transition-colors"
+                  className="flex items-center gap-2 text-xs hover:text-white transition-colors"
                 >
                   <MailIcon className="shrink-0" />
                   {settings.email}
                 </a>
               </div>
               <div>
-                <h4 className="text-white text-xs font-semibold uppercase tracking-wider mb-2">
+                <h4 className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/30 mb-2">
                   Adresse
                 </h4>
-                <div className="flex items-start gap-2 text-sm">
+                <div className="flex items-start gap-2 text-xs">
                   <MapPinIcon className="shrink-0 mt-0.5" />
                   <span>{settings.address}</span>
                 </div>
@@ -277,11 +273,11 @@ export default function StoreFooter({ settings = defaultSettings }: StoreFooterP
         </div>
 
           {/* Bottom Bar */}
-          <div className="mt-20 border-t border-slate-800/50 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-slate-500 font-medium">
-              &copy; {new Date().getFullYear()} {settings.siteName}. TOUS DROITS RÉSERVÉS.
+          <div className="mt-20 border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-[10px] text-slate-600 font-medium uppercase tracking-[0.2em]">
+              &copy; {new Date().getFullYear()} {settings.siteName}
             </p>
-            <div className="flex items-center gap-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+            <div className="flex items-center gap-6 text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em]">
               <Link href="/politique-de-confidentialite" className="hover:text-white transition-colors">Confidentialité</Link>
               <Link href="/cgv" className="hover:text-white transition-colors">CGV</Link>
             </div>

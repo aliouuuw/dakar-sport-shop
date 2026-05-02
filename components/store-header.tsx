@@ -195,16 +195,16 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200/50 shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200/30">
       {/* Announcement Bar */}
       {announcement && (
-        <div className="bg-red-600 text-white text-center py-2 text-sm font-medium">
+        <div className="bg-[oklch(0.1_0.02_265)] text-white text-center py-2 text-[10px] font-bold uppercase tracking-[0.25em]">
           {announcement}
         </div>
       )}
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between gap-4">
+      <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14">
+        <div className="flex h-14 items-center justify-between gap-4">
           {/* Mobile Menu + Logo */}
           <div className="flex items-center gap-3 lg:hidden">
             <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
@@ -216,8 +216,7 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
               <SheetContent side="left" className="w-72 p-0">
                 <SheetHeader className="border-b border-slate-200 p-4">
                   <SheetTitle className="flex items-center gap-2">
-                    <StoreIcon className="text-slate-900" />
-                    <span className="text-slate-900 font-black text-lg tracking-tighter uppercase">{settings.siteName}</span>
+                    <span className="font-heading font-bold italic text-xl text-slate-900 tracking-tight">{settings.siteName}</span>
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col py-4">
@@ -227,10 +226,10 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
                       href={item.href}
                       onClick={() => setMobileNavOpen(false)}
                       className={cn(
-                        "px-6 py-4 text-base font-bold uppercase tracking-wider transition-colors hover:bg-slate-50 hover:text-slate-900",
+                        "px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] transition-colors hover:bg-slate-50 hover:text-slate-900",
                         pathname === item.href
-                          ? "bg-slate-900 text-white hover:bg-slate-800 hover:text-white"
-                          : "text-slate-600"
+                          ? "bg-[oklch(0.1_0.02_265)] text-white hover:bg-[oklch(0.15_0.02_265)] hover:text-white"
+                          : "text-slate-500"
                       )}
                     >
                       {item.label}
@@ -289,34 +288,28 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
               </SheetContent>
             </Sheet>
             <Link href="/" className="flex items-center gap-2">
-              <StoreIcon className="text-slate-900 h-7 w-7" />
-              <span className="text-slate-900 font-black text-lg tracking-tighter uppercase">{settings.siteName}</span>
+              <span className="font-heading font-bold italic text-xl text-slate-900 tracking-tight">{settings.siteName}</span>
             </Link>
           </div>
 
           {/* Desktop Logo */}
-          <Link href="/" className="hidden lg:flex items-center gap-3 shrink-0">
-            <div className="bg-slate-900 p-2 rounded-lg">
-              <StoreIcon className="text-white h-6 w-6" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-slate-900 font-black text-xl tracking-tighter uppercase leading-none">
-                {settings.siteName}
-              </span>
-            </div>
+          <Link href="/" className="hidden lg:flex items-center shrink-0">
+            <span className="font-heading font-bold italic text-2xl text-[oklch(0.1_0.02_265)] tracking-tight leading-none">
+              {settings.siteName}
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-2">
+          <nav className="hidden lg:flex items-center gap-0">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-5 py-2.5 text-sm font-bold uppercase tracking-wider rounded-full transition-all",
+                  "px-4 py-2 text-[10px] font-bold uppercase tracking-[0.25em] transition-colors",
                   pathname === item.href
-                    ? "bg-slate-900 text-white"
-                    : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"
+                    ? "text-[oklch(0.1_0.02_265)]"
+                    : "text-slate-400 hover:text-[oklch(0.1_0.02_265)]"
                 )}
               >
                 {item.label}
@@ -362,9 +355,9 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
                 href={`https://wa.me/${settings.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-green-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-green-600 transition-colors h-10"
+                className="hidden sm:inline-flex items-center gap-1.5 bg-[oklch(0.1_0.02_265)] px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:bg-[#DC2626] transition-colors"
               >
-                <WhatsAppIcon className="h-4 w-4" />
+                <WhatsAppIcon className="h-3.5 w-3.5" />
                 WhatsApp
               </a>
             )}

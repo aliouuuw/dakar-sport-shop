@@ -61,29 +61,29 @@ export default async function ProductDetailPage({
   return (
     <div className="bg-white">
       {/* Breadcrumb */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 border-b border-slate-200">
-        <div className="flex items-center gap-2 text-sm">
-          <Link href="/" className="text-slate-500 hover:text-slate-700">
+      <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-5 border-b border-slate-100">
+        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em]">
+          <Link href="/" className="text-slate-400 hover:text-slate-700 transition-colors">
             Accueil
           </Link>
           <span className="text-slate-300">/</span>
-          <Link href="/produits" className="text-slate-500 hover:text-slate-700">
+          <Link href="/produits" className="text-slate-400 hover:text-slate-700 transition-colors">
             Produits
           </Link>
           <span className="text-slate-300">/</span>
           <Link
             href={`/produits?category=${product.categorySlug ?? ""}`}
-            className="text-slate-500 hover:text-slate-700"
+            className="text-slate-400 hover:text-slate-700 transition-colors"
           >
             {product.categoryName}
           </Link>
           <span className="text-slate-300">/</span>
-          <span className="text-slate-900 font-semibold">{product.name}</span>
+          <span className="text-slate-900">{product.name}</span>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Product Gallery */}
           <div>
             <ProductGallery
@@ -96,35 +96,12 @@ export default async function ProductDetailPage({
           <div className="flex flex-col gap-8">
             {/* Header */}
             <div>
-              <div className="flex flex-col-reverse sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                <div>
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter text-slate-900 uppercase leading-[0.9]">
-                    {product.name}
-                  </h1>
-                  <p className="mt-4 text-sm text-[#1E40AF] uppercase tracking-[0.2em] font-black">
-                    {product.categoryName}
-                  </p>
-                </div>
-              </div>
-
-              {/* Rating */}
-              <div className="flex items-center gap-2 mt-4">
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
-                      key={i}
-                      className={`h-4 w-4 ${
-                        i < 4 ? "fill-amber-400 text-amber-400" : "fill-slate-300 text-slate-300"
-                      }`}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <span className="text-sm text-slate-500">(42 avis)</span>
-              </div>
+              <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-[#1E40AF] mb-3">
+                {product.categoryName}
+              </span>
+              <h1 className="font-heading font-bold italic text-5xl sm:text-6xl text-slate-900 leading-none tracking-tight">
+                {product.name}
+              </h1>
             </div>
 
             {/* Price & Variants (Replaces static price and CTA buttons) */}
@@ -169,25 +146,25 @@ export default async function ProductDetailPage({
 
             {/* Description */}
             <div>
-              <h2 className="text-sm font-black text-slate-900 uppercase tracking-[0.1em] mb-4">Description</h2>
-              <p className="text-slate-600 text-lg leading-relaxed font-medium">{product.description}</p>
+              <h2 className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400 mb-4">Description</h2>
+              <p className="text-slate-600 text-sm leading-relaxed">{product.description}</p>
             </div>
 
             {/* Info Cards */}
-            <div className="grid grid-cols-2 gap-4 pt-6 border-t border-slate-100">
-              <div className="bg-slate-50 rounded-2xl p-5 text-center flex flex-col items-center justify-center">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">
+            <div className="grid grid-cols-2 gap-px pt-6 border-t border-slate-100 bg-slate-100">
+              <div className="bg-white p-5 text-center flex flex-col items-center justify-center">
+                <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-slate-400 mb-1">
                   Livraison
                 </p>
-                <p className="text-sm font-bold text-slate-900">
+                <p className="text-xs font-bold text-slate-900">
                   Gratuite à Dakar
                 </p>
               </div>
-              <div className="bg-slate-50 rounded-2xl p-5 text-center flex flex-col items-center justify-center">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">
+              <div className="bg-white p-5 text-center flex flex-col items-center justify-center">
+                <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-slate-400 mb-1">
                   Garantie
                 </p>
-                <p className="text-sm font-bold text-slate-900">
+                <p className="text-xs font-bold text-slate-900">
                   12 mois inclus
                 </p>
               </div>
@@ -197,11 +174,14 @@ export default async function ProductDetailPage({
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
-          <div className="mt-24 border-t border-slate-200 pt-16">
-            <h2 className="text-3xl font-black tracking-tighter text-slate-900 uppercase mb-8">
+          <div className="mt-24 border-t border-slate-100 pt-16">
+            <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-3">
+              Dans la même catégorie
+            </span>
+            <h2 className="font-heading font-bold italic text-4xl text-slate-900 leading-none tracking-tight mb-10">
               Produits similaires
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {relatedProducts.map((relProduct) => (
                 <ProductCard
                   key={relProduct.id}

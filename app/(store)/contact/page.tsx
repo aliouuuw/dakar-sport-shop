@@ -12,28 +12,30 @@ export const metadata = {
 export default async function ContactPage() {
   const siteSettings = await getStoreSettings();
   return (
-    <div className="bg-slate-50 min-h-screen pb-24">
+    <div className="bg-white min-h-screen pb-24">
       {/* Page Header */}
-      <div className="bg-slate-900 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-10" />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-20">
+      <div className="bg-[oklch(0.1_0.02_265)] text-white relative overflow-hidden">
+        <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-20 lg:py-28 relative z-20">
           <ScrollReveal direction="down">
-            <h1 className="text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-4">
-              Contactez-<span className="text-[#1E40AF]">nous</span>
+            <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 mb-4">
+              Parlons ensemble
+            </span>
+            <h1 className="font-heading font-bold italic text-6xl lg:text-7xl text-white leading-none tracking-tight mb-3">
+              Contactez-nous
             </h1>
-            <p className="max-w-2xl text-xl text-slate-300 font-medium">
-              Vous avez une question? Nous sommes là pour vous aider. Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.
+            <p className="max-w-2xl text-sm text-white/60 font-medium">
+              Vous avez une question? Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.
             </p>
           </ScrollReveal>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 relative z-30 -mt-8">
+      <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-16 relative z-30">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Contact Form */}
           <ScrollReveal direction="up" delay={100}>
-            <div className="bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 p-8 lg:p-12 border border-slate-100">
-              <h2 className="text-3xl font-black tracking-tighter text-slate-900 uppercase mb-8">
+            <div className="bg-white border border-slate-100 p-8 lg:p-12">
+              <h2 className="font-heading font-bold italic text-3xl text-slate-900 leading-none tracking-tight mb-8">
                 Envoyez-nous un message
               </h2>
               <ContactForm />
@@ -45,12 +47,12 @@ export default async function ContactPage() {
             {/* Contact Info Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <ScrollReveal direction="up" delay={200}>
-                <div className="bg-white rounded-3xl border border-slate-200 p-6 h-full hover:border-[#1E40AF]/30 transition-colors">
+                <div className="bg-white border border-slate-200 p-6 h-full hover:border-[#1E40AF]/30 transition-colors">
                   <div className="flex flex-col">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#1E40AF] mb-4">
-                      <HugeiconsIcon icon={Call02Icon} size={24} />
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[oklch(0.1_0.02_265)] text-white mb-4">
+                      <HugeiconsIcon icon={Call02Icon} size={18} />
                     </div>
-                    <h3 className="text-lg font-black text-slate-900 uppercase tracking-wider mb-3">
+                    <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400 mb-3">
                       Téléphone
                     </h3>
                     <div className="space-y-2">
@@ -70,12 +72,12 @@ export default async function ContactPage() {
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={300}>
-                <div className="bg-white rounded-3xl border border-slate-200 p-6 h-full hover:border-[#1E40AF]/30 transition-colors">
+                <div className="bg-white border border-slate-200 p-6 h-full hover:border-[#1E40AF]/30 transition-colors">
                   <div className="flex flex-col">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#1E40AF] mb-4">
-                      <HugeiconsIcon icon={Mail01Icon} size={24} />
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[oklch(0.1_0.02_265)] text-white mb-4">
+                      <HugeiconsIcon icon={Mail01Icon} size={18} />
                     </div>
-                    <h3 className="text-lg font-black text-slate-900 uppercase tracking-wider mb-2">
+                    <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400 mb-2">
                       Email
                     </h3>
                     <a
@@ -89,12 +91,12 @@ export default async function ContactPage() {
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={400} className="sm:col-span-2">
-                <div className="bg-white rounded-3xl border border-slate-200 p-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center hover:border-[#1E40AF]/30 transition-colors">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#1E40AF]">
-                    <HugeiconsIcon icon={Location01Icon} size={24} />
+                <div className="bg-white border border-slate-200 p-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center hover:border-[#1E40AF]/30 transition-colors">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[oklch(0.1_0.02_265)] text-white">
+                    <HugeiconsIcon icon={Location01Icon} size={18} />
                   </div>
                   <div>
-                    <h3 className="text-lg font-black text-slate-900 uppercase tracking-wider mb-1">
+                    <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400 mb-1">
                       Adresse
                     </h3>
                     <p className="text-slate-600 font-medium">
@@ -107,7 +109,7 @@ export default async function ContactPage() {
 
             {/* Google Maps Embed */}
             <ScrollReveal direction="up" delay={500}>
-              <div className="bg-white rounded-[2rem] border border-slate-200 overflow-hidden shadow-sm h-[300px]">
+              <div className="bg-white border border-slate-200 overflow-hidden h-[300px]">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3858.7475849999997!2d-17.0596!3d14.6928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec172f5c5c5c5c5d%3A0x1234567890abcdef!2sAvenue%20G.%20Pompidou%2C%20Dakar!5e0!3m2!1sfr!2ssn!4v1234567890"
                   width="100%"
@@ -125,18 +127,20 @@ export default async function ContactPage() {
       </div>
 
       {/* FAQ Section */}
-      <div className="bg-slate-900 text-white py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent pointer-events-none" />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="bg-[oklch(0.1_0.02_265)] text-white py-24 relative overflow-hidden">
+        <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 relative z-10">
           <ScrollReveal>
-            <h2 className="text-4xl sm:text-5xl font-black tracking-tighter uppercase mb-16 text-center">
-              Questions <span className="text-[#1E40AF]">Fréquentes</span>
+            <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 mb-4 text-center">
+              FAQ
+            </span>
+            <h2 className="font-heading font-bold italic text-5xl text-white leading-none tracking-tight mb-16 text-center">
+              Questions fréquentes
             </h2>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <ScrollReveal delay={100} direction="up">
-              <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 hover:bg-white/10 transition-colors">
-                <h3 className="text-xl font-black uppercase tracking-wider mb-4">
+              <div className="bg-white/5 border border-white/10 p-8 hover:bg-white/10 transition-colors">
+                <h3 className="font-heading font-bold italic text-xl text-white leading-tight mb-4">
                   Quel est le délai de livraison?
                 </h3>
                 <p className="text-slate-300 leading-relaxed font-medium">
@@ -145,8 +149,8 @@ export default async function ContactPage() {
               </div>
             </ScrollReveal>
             <ScrollReveal delay={200} direction="up">
-              <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 hover:bg-white/10 transition-colors">
-                <h3 className="text-xl font-black uppercase tracking-wider mb-4">
+              <div className="bg-white/5 border border-white/10 p-8 hover:bg-white/10 transition-colors">
+                <h3 className="font-heading font-bold italic text-xl text-white leading-tight mb-4">
                   Acceptez-vous les retours?
                 </h3>
                 <p className="text-slate-300 leading-relaxed font-medium">
@@ -155,8 +159,8 @@ export default async function ContactPage() {
               </div>
             </ScrollReveal>
             <ScrollReveal delay={300} direction="up">
-              <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 hover:bg-white/10 transition-colors">
-                <h3 className="text-xl font-black uppercase tracking-wider mb-4">
+              <div className="bg-white/5 border border-white/10 p-8 hover:bg-white/10 transition-colors">
+                <h3 className="font-heading font-bold italic text-xl text-white leading-tight mb-4">
                   Puis-je commander en gros?
                 </h3>
                 <p className="text-slate-300 leading-relaxed font-medium">
@@ -165,8 +169,8 @@ export default async function ContactPage() {
               </div>
             </ScrollReveal>
             <ScrollReveal delay={400} direction="up">
-              <div className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 hover:bg-white/10 transition-colors">
-                <h3 className="text-xl font-black uppercase tracking-wider mb-4">
+              <div className="bg-white/5 border border-white/10 p-8 hover:bg-white/10 transition-colors">
+                <h3 className="font-heading font-bold italic text-xl text-white leading-tight mb-4">
                   Quels modes de paiement acceptez-vous?
                 </h3>
                 <p className="text-slate-300 leading-relaxed font-medium">

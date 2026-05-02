@@ -39,14 +39,14 @@ export function MobileFilters({
       </p>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Button variant="outline" className="h-11 rounded-xl bg-white border-slate-200">
+          <Button variant="outline" className="h-11 bg-white border-slate-200">
             <HugeiconsIcon icon={FilterIcon} size={18} className="mr-2 text-slate-500" />
             Filtres & Tri
           </Button>
         </SheetTrigger>
         <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto">
           <SheetHeader className="pb-6 border-b border-slate-100 mb-6">
-            <SheetTitle className="text-xl font-extrabold">Filtres</SheetTitle>
+            <SheetTitle className="font-heading font-bold italic text-2xl">Filtres</SheetTitle>
           </SheetHeader>
           
           <div className="pb-10">
@@ -59,7 +59,7 @@ export function MobileFilters({
 
           <div className="sticky bottom-0 left-0 right-0 p-4 bg-white border-t border-slate-100 mt-auto">
             <Button 
-              className="w-full h-12 bg-[#1E40AF] hover:bg-[#1e3a8a] text-white font-bold rounded-xl"
+              className="w-full h-12 bg-[oklch(0.1_0.02_265)] hover:bg-[oklch(0.15_0.02_265)] text-white text-[10px] font-bold uppercase tracking-[0.2em]"
               onClick={() => setOpen(false)}
             >
               Afficher {filteredCount} résultat{filteredCount !== 1 ? "s" : ""}
