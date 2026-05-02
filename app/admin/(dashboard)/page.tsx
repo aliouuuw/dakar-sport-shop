@@ -83,7 +83,7 @@ export default async function AdminDashboardPage() {
         </div>
 
         {/* URGENT METRIC - High contrast red */}
-        <div className="md:col-span-2 lg:col-span-3 row-span-1 relative flex flex-col justify-center rounded-3xl bg-[#DC2626] text-white p-6 shadow-md shadow-red-900/20 transition-transform hover:-translate-y-1 overflow-hidden">
+        <Link href="/admin/messages" className="md:col-span-2 lg:col-span-3 row-span-1 relative flex flex-col justify-center rounded-3xl bg-[#DC2626] text-white p-6 shadow-md shadow-red-900/20 transition-transform hover:-translate-y-1 overflow-hidden">
           <div className="absolute right-0 top-0 w-32 h-32 bg-white opacity-10 rounded-full blur-3xl -mr-10 -mt-10" />
           <div className="relative z-10 flex flex-col gap-2">
             <div className="flex items-center justify-between">
@@ -98,7 +98,7 @@ export default async function AdminDashboardPage() {
               </span>
             </div>
           </div>
-        </div>
+        </Link>
 
         {/* SECONDARY METRICS - Standard grid items */}
         <div className="md:col-span-2 lg:col-span-4 row-span-1 flex flex-col justify-between rounded-3xl border border-slate-200 bg-white p-6 transition-colors hover:bg-slate-50">

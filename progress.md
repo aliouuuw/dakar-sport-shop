@@ -1001,3 +1001,23 @@ All admin UI tasks are complete. Ready to begin storefront implementation.
 * **Files:** `app/admin/(dashboard)/quotes/[id]/page.tsx` (modify), `app/admin/(dashboard)/media/media-client.tsx` (modify), `app/admin/(dashboard)/activity/page.tsx` (modify), `app/admin/(dashboard)/activity/activity-client.tsx` (new), `app/admin/(dashboard)/page.tsx` (modify)
 * **Verification:** `bunx tsc --noEmit` passes
 * **Result:** Success — All admin routes now have proper data binding, functional filters, and no hardcoded values. Admin UI is fully functional and production-ready.
+
+---
+
+## Working on: Admin Critical Interactive Fixes
+
+* **Status:** Completed
+* **Started:** 2026-05-02 14:46
+* **Task:** Fix non-functional interactive elements in admin routes (quotes detail, dashboard).
+* **Plan & Execution:**
+  - **Quotes Detail Page:** Split into server page (data fetch) + `quote-detail-client.tsx` (interactive). Wired up status change dropdown with `updateQuoteStatus()` server action, delete button with confirmation dialog using `deleteQuote()`, "Envoyer par email" opens `mailto:`, "Générer PDF" shows toast placeholder. Fixed status dropdown values to use DB enum values (`new`, `pending`, etc.) instead of French labels.
+  - **Dashboard Unread Card:** Wrapped the red "Messages non lus" card in a `<Link href="/admin/messages">` so clicking it navigates to the messages inbox.
+* **Files:** `app/admin/(dashboard)/quotes/[id]/page.tsx` (simplify), `app/admin/(dashboard)/quotes/[id]/quote-detail-client.tsx` (new), `app/admin/(dashboard)/page.tsx` (modify)
+* **Verification:** `bunx tsc --noEmit` passes
+* **Result:** Success — Quotes detail page now fully interactive. Dashboard unread messages card is clickable.
+
+### Remaining Known Gaps (not critical, deferred):
+- Media upload handler (no backend yet)
+- Activity "Voir les détails" button (no detail page)
+- Pagination on Media/Activity (needs offset-based queries)
+- Leads page (placeholder — feature not built)
