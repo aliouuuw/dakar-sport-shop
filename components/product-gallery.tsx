@@ -12,22 +12,25 @@ interface ProductGalleryProps {
 export function ProductGallery({ images, productName }: ProductGalleryProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  // Use first image if no images provided
-  const displayImages = images && images.length > 0 ? images : [images[0]];
+  const displayImages = images && images.length > 0 ? images : [];
   const mainImage = displayImages[selectedIndex];
 
   return (
     <div className="flex flex-col gap-4">
       {/* Main Image */}
       <div className="relative aspect-square overflow-hidden rounded-3xl bg-slate-100 border border-slate-200">
-        <Image
-          src={mainImage}
-          alt={productName}
-          fill
-          className="object-cover object-center"
-          priority
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
+        {mainImage ? (
+          <Image
+            src={mainImage}
+            alt={productName}
+            fill
+            className="object-cover object-center"
+            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-200 to-slate-100" />
+        )}
       </div>
 
       {/* Thumbnails */}

@@ -22,10 +22,20 @@ export default async function StorePage() {
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <section className="relative noise-overlay bg-[oklch(0.1_0.02_265)] text-white overflow-hidden h-[92vh] min-h-[640px]">
-        {/* Background image — local gradient fallback, external image optional */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.25_0.15_265)] via-[oklch(0.15_0.12_265)] to-[oklch(0.08_0.08_265)]">
+        {/* Background video with poster fallback */}
+        <div className="absolute inset-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="https://images.unsplash.com/photo-1518605368461-1e1252220a22?q=80&w=1920&auto=format&fit=crop"
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="https://videos.pexels.com/video-files/6077718/6077718-hd_1920_1080_25fps.mp4" type="video/mp4" />
+          </video>
           {/* Two-layer overlay: deep blue tint + bottom vignette */}
-          <div className="absolute inset-0 bg-[oklch(0.2_0.12_265/0.55)]" />
+          <div className="absolute inset-0 bg-[oklch(0.1_0.02_265/0.70)]" />
           <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.1_0.02_265)] via-transparent to-transparent" />
         </div>
 
