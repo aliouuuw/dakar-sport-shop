@@ -36,6 +36,8 @@ export default function imageLoader({
     }
   }
 
-  // Fallback: return src as-is (pexels, picsum, localhost, etc.)
-  return src;
+  // Local / other images: use Next.js default image optimization via /_next/image
+  // We must include width to satisfy the loader contract
+  const q = quality ?? 75;
+  return `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${q}`;
 }

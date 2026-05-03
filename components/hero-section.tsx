@@ -51,22 +51,21 @@ export function HeroSection() {
       {/* ── MOBILE: stacked layout ─────────────────────────────────── */}
       <div className="flex flex-col h-full lg:hidden">
 
-        {/* Storefront image top half */}
+        {/* Video top half */}
         <motion.div
           className="relative flex-1 overflow-hidden"
           variants={cellVariant("down", 0)}
           initial="hidden"
           animate="show"
         >
-          <Image
-            src="/dakar-sport-storefront.jpeg"
-            alt="Boutique Dakar Sport — Avenue G. Pompidou, Dakar"
-            fill
-            className="object-cover object-center"
-            sizes="100vw"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/35" />
+          <video
+            autoPlay loop muted playsInline
+            poster="https://images.unsplash.com/photo-1518605368461-1e1252220a22?q=80&w=1920&auto=format&fit=crop"
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="https://videos.pexels.com/video-files/6077718/6077718-hd_1920_1080_25fps.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-black/40" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
           {/* Mobile headline overlay */}
@@ -122,22 +121,21 @@ export function HeroSection() {
         }}
       >
 
-        {/* ▸ Cell A — Storefront photo (top-left, large) */}
+        {/* ▸ Cell A — Video (top-left, large) */}
         <motion.div
           className="relative overflow-hidden noise-overlay"
           variants={cellVariant("down", 0)}
           initial="hidden"
           animate="show"
         >
-          <Image
-            src="/dakar-sport-storefront.jpeg"
-            alt="Boutique Dakar Sport — Avenue G. Pompidou, Dakar"
-            fill
-            className="object-cover object-center"
-            sizes="(max-width: 1024px) 100vw, 58vw"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/25" />
+          <video
+            autoPlay loop muted playsInline
+            poster="https://images.unsplash.com/photo-1518605368461-1e1252220a22?q=80&w=1920&auto=format&fit=crop"
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="https://videos.pexels.com/video-files/6077718/6077718-hd_1920_1080_25fps.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-black/30" />
           <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-transparent to-transparent" />
 
           {/* Edition stamp */}
@@ -171,59 +169,58 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* ▸ Cell B — Red monogram (top-right) */}
+        {/* ▸ Cell B — Storefront photo (top-right) */}
         <motion.div
-          className="relative overflow-hidden bg-[#DC2626] flex items-center justify-center"
+          className="relative overflow-hidden"
           variants={cellVariant("left", 0.12)}
           initial="hidden"
           animate="show"
         >
-          {/* Logo image */}
-          <motion.div
-            initial={{ scale: 1.1, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.5, ease: EXPO }}
-            className="relative"
-          >
-            <Image
-              src="/dakar-sport-logo.jpg"
-              alt="Dakar Sport"
-              width={200}
-              height={200}
-              className="w-[clamp(8rem,14vw,13rem)] h-auto object-contain brightness-0 invert opacity-20"
-            />
-          </motion.div>
-
-          {/* Diagonal accent line */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-y-0 left-[15%] w-[2px] bg-white/10"
-            style={{ transform: "skewX(-6deg)" }}
+          <Image
+            src="/dakar-sport-storefront.jpeg"
+            alt="Boutique Dakar Sport — Avenue G. Pompidou, Dakar"
+            fill
+            className="object-cover object-center"
+            sizes="42vw"
+            loading="eager"
           />
+          <div className="absolute inset-0 bg-black/15" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-          {/* Eyebrow text */}
+          {/* Label */}
           <motion.div
             className="absolute bottom-6 left-8 right-8 flex items-center gap-3"
             variants={FADE_UP(0.7)}
             initial="hidden"
             animate="show"
           >
-            <span className="block h-px w-6 bg-white/40" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/60">
-              Spécialiste Sport
+            <span className="block h-px w-6 bg-[#DC2626]" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/80">
+              Notre boutique — Av. G. Pompidou
             </span>
           </motion.div>
         </motion.div>
 
-        {/* ▸ Cell C — Blue type block (bottom-left) */}
+        {/* ▸ Cell C — Blue type block + logo (bottom-left) */}
         <motion.div
           className="relative overflow-hidden bg-[#1E40AF] flex flex-col justify-center px-8 xl:px-12"
           variants={cellVariant("right", 0.2)}
           initial="hidden"
           animate="show"
         >
+          {/* Ghost logo watermark */}
+          <div className="absolute top-1/2 right-4 -translate-y-1/2 pointer-events-none select-none">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/dakar-sport-logo.jpg"
+              alt=""
+              aria-hidden="true"
+              className="w-28 xl:w-36 h-auto object-contain brightness-0 invert opacity-[0.08]"
+            />
+          </div>
+
           <motion.h1
-            className="font-heading font-bold italic leading-[0.88]"
+            className="font-heading font-bold italic leading-[0.88] relative z-10"
             variants={FADE_UP(0.55)}
             initial="hidden"
             animate="show"
@@ -238,7 +235,7 @@ export function HeroSection() {
 
           {/* Thin red rule */}
           <motion.div
-            className="mt-5 h-[3px] bg-[#DC2626] origin-left"
+            className="mt-5 h-[3px] bg-[#DC2626] origin-left relative z-10"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.7, delay: 0.85, ease: EXPO }}
