@@ -198,7 +198,7 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
     <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200/30">
       {/* Announcement Bar */}
       {announcement && (
-        <div className="bg-[oklch(0.1_0.02_265)] text-white text-center py-2 text-[10px] font-bold uppercase tracking-[0.25em]">
+        <div className="bg-[#DC2626] text-white text-center py-2.5 text-[10px] font-bold uppercase tracking-[0.25em]">
           {announcement}
         </div>
       )}
@@ -216,7 +216,9 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
               <SheetContent side="left" className="w-72 p-0">
                 <SheetHeader className="border-b border-slate-200 p-4">
                   <SheetTitle className="flex items-center gap-2">
-                    <span className="font-heading font-bold italic text-xl text-slate-900 tracking-tight">{settings.siteName}</span>
+                    <span className="font-heading font-bold italic text-xl text-slate-900 tracking-tight">
+                      Dakar<span className="text-[#DC2626]">Sport</span>
+                    </span>
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col py-4">
@@ -288,14 +290,16 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
               </SheetContent>
             </Sheet>
             <Link href="/" className="flex items-center gap-2">
-              <span className="font-heading font-bold italic text-xl text-slate-900 tracking-tight">{settings.siteName}</span>
+              <span className="font-heading font-bold italic text-xl text-slate-900 tracking-tight">
+                Dakar<span className="text-[#DC2626]">Sport</span>
+              </span>
             </Link>
           </div>
 
           {/* Desktop Logo */}
           <Link href="/" className="hidden lg:flex items-center shrink-0">
-            <span className="font-heading font-bold italic text-2xl text-[oklch(0.1_0.02_265)] tracking-tight leading-none">
-              {settings.siteName}
+            <span className="font-heading font-bold italic text-2xl text-slate-900 tracking-tight leading-none">
+              Dakar<span className="text-[#DC2626]">Sport</span>
             </span>
           </Link>
 
@@ -308,8 +312,8 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
                 className={cn(
                   "px-4 py-2 text-[10px] font-bold uppercase tracking-[0.25em] transition-colors",
                   pathname === item.href
-                    ? "text-[oklch(0.1_0.02_265)]"
-                    : "text-slate-400 hover:text-[oklch(0.1_0.02_265)]"
+                    ? "text-[#1E40AF]"
+                    : "text-slate-400 hover:text-[#DC2626]"
                 )}
               >
                 {item.label}
@@ -355,7 +359,7 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
                 href={`https://wa.me/${settings.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 bg-[oklch(0.1_0.02_265)] px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:bg-[#DC2626] transition-colors"
+                className="hidden sm:inline-flex items-center gap-1.5 bg-[#1E40AF] px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:bg-[#DC2626] transition-colors"
               >
                 <WhatsAppIcon className="h-3.5 w-3.5" />
                 WhatsApp

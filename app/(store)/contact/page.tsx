@@ -14,16 +14,16 @@ export default async function ContactPage() {
   return (
     <div className="bg-white min-h-screen pb-24">
       {/* Page Header */}
-      <div className="bg-[oklch(0.1_0.02_265)] text-white relative overflow-hidden">
+      <div className="bg-white border-b border-slate-100 relative overflow-hidden">
         <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-20 lg:py-28 relative z-20">
           <ScrollReveal direction="down">
-            <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 mb-4">
+            <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-[#DC2626] mb-4">
               Parlons ensemble
             </span>
-            <h1 className="font-heading font-bold italic text-6xl lg:text-7xl text-white leading-none tracking-tight mb-3">
+            <h1 className="font-heading font-bold italic text-6xl lg:text-7xl text-slate-900 leading-none tracking-tight mb-3">
               Contactez-nous
             </h1>
-            <p className="max-w-2xl text-sm text-white/60 font-medium">
+            <p className="max-w-2xl text-sm text-slate-600 font-medium">
               Vous avez une question? Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.
             </p>
           </ScrollReveal>
@@ -49,7 +49,7 @@ export default async function ContactPage() {
               <ScrollReveal direction="up" delay={200}>
                 <div className="bg-white border border-slate-200 p-6 h-full hover:border-[#1E40AF]/30 transition-colors">
                   <div className="flex flex-col">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[oklch(0.1_0.02_265)] text-white mb-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#1E40AF] text-white mb-4 group-hover:scale-110 transition-transform">
                       <HugeiconsIcon icon={Call02Icon} size={18} />
                     </div>
                     <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400 mb-3">
@@ -74,7 +74,7 @@ export default async function ContactPage() {
               <ScrollReveal direction="up" delay={300}>
                 <div className="bg-white border border-slate-200 p-6 h-full hover:border-[#1E40AF]/30 transition-colors">
                   <div className="flex flex-col">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[oklch(0.1_0.02_265)] text-white mb-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#1E40AF] text-white mb-4 group-hover:scale-110 transition-transform">
                       <HugeiconsIcon icon={Mail01Icon} size={18} />
                     </div>
                     <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400 mb-2">
@@ -91,8 +91,8 @@ export default async function ContactPage() {
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={400} className="sm:col-span-2">
-                <div className="bg-white border border-slate-200 p-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center hover:border-[#1E40AF]/30 transition-colors">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[oklch(0.1_0.02_265)] text-white">
+                <div className="bg-white border border-slate-200 p-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center hover:border-[#DC2626] transition-colors group">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#1E40AF] text-white group-hover:scale-110 transition-transform">
                     <HugeiconsIcon icon={Location01Icon} size={18} />
                   </div>
                   <div>

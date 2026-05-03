@@ -29,8 +29,7 @@ export default async function PromotionsPage() {
   return (
     <div className="bg-white min-h-screen pb-24">
       {/* Header */}
-      <div className="bg-[oklch(0.1_0.02_265)] text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent z-10" />
+      <div className="bg-[#DC2626] text-white relative overflow-hidden">
         <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-20 lg:py-28 relative z-20">
           <ScrollReveal direction="down">
             <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 mb-4">
@@ -58,10 +57,10 @@ export default async function PromotionsPage() {
             {promotions.map((promo) => (
               <div key={promo.id} className="bg-white border border-slate-200 overflow-hidden flex flex-col">
                 {/* Promo Banner */}
-                <div className="bg-[oklch(0.1_0.02_265)] text-white p-8 sm:p-10 flex flex-col lg:flex-row gap-8 justify-between items-start lg:items-center relative overflow-hidden">
+                <div className="bg-[#1E40AF] text-white p-8 sm:p-10 flex flex-col lg:flex-row gap-8 justify-between items-start lg:items-center relative overflow-hidden">
                   <div className="flex-1 relative z-10">
                     <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <span className="bg-[#DC2626] text-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em]">
+                      <span className="bg-white text-[#DC2626] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em]">
                         {promo.discountType === "percentage"
                           ? `-${promo.discountValue}%`
                           : `-${(promo.discountValue / 1000).toFixed(0)}k FCFA`}

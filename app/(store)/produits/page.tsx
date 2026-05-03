@@ -75,7 +75,7 @@ export default async function ProduitsPage({
   return (
     <div className="bg-white min-h-screen">
       {/* Page Header */}
-      <div className="bg-[oklch(0.1_0.02_265)] text-white">
+      <div className="bg-[#1E40AF] text-white">
         <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-20 lg:py-28">
           <ScrollReveal direction="down">
             <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 mb-4">

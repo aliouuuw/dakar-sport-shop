@@ -18,23 +18,24 @@ export function ScrollReveal({
 }: ScrollRevealProps) {
   
   const getVariants = (): Variants => {
+    const easing = [0.16, 1, 0.3, 1] as const;
     const hidden = { opacity: 0 };
-    const visible = { 
-      opacity: 1, 
-      transition: { 
-        duration: 0.4, 
-        delay: delay / 1000, 
-        ease: "circOut" as const 
-      } 
+    const visible = {
+      opacity: 1,
+      transition: {
+        duration: 0.55,
+        delay: delay / 1000,
+        ease: easing,
+      },
     };
-    
+
     switch (direction) {
-      case "up": return { hidden: { ...hidden, y: 20 }, visible: { ...visible, y: 0 } };
-      case "down": return { hidden: { ...hidden, y: -20 }, visible: { ...visible, y: 0 } };
-      case "left": return { hidden: { ...hidden, x: 20 }, visible: { ...visible, x: 0 } };
-      case "right": return { hidden: { ...hidden, x: -20 }, visible: { ...visible, x: 0 } };
-      case "none": return { hidden, visible };
-      default: return { hidden, visible };
+      case "up":    return { hidden: { ...hidden, y: 40 },  visible: { ...visible, y: 0 } };
+      case "down":  return { hidden: { ...hidden, y: -40 }, visible: { ...visible, y: 0 } };
+      case "left":  return { hidden: { ...hidden, x: 40 },  visible: { ...visible, x: 0 } };
+      case "right": return { hidden: { ...hidden, x: -40 }, visible: { ...visible, x: 0 } };
+      case "none":  return { hidden, visible };
+      default:      return { hidden, visible };
     }
   };
 
