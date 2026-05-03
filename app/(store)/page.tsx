@@ -21,7 +21,7 @@ export default async function StorePage() {
     <div className="flex-1 bg-white">
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative noise-overlay bg-[oklch(0.1_0.02_265)] text-white overflow-hidden h-[92vh] min-h-[640px]">
+      <section className="relative noise-overlay bg-background text-white overflow-hidden h-[92vh] min-h-[640px]">
         {/* Background video with poster fallback */}
         <div className="absolute inset-0">
           <video
@@ -34,9 +34,9 @@ export default async function StorePage() {
           >
             <source src="https://videos.pexels.com/video-files/6077718/6077718-hd_1920_1080_25fps.mp4" type="video/mp4" />
           </video>
-          {/* Two-layer overlay: deep blue tint + bottom vignette */}
-          <div className="absolute inset-0 bg-[oklch(0.1_0.02_265/0.70)]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.1_0.02_265)] via-transparent to-transparent" />
+          {/* Two-layer overlay: brand blue tint + bottom vignette */}
+          <div className="absolute inset-0 bg-primary/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
         </div>
 
         {/* Edition label — top right */}
@@ -51,8 +51,8 @@ export default async function StorePage() {
 
           {/* Eyebrow */}
           <div className="clip-reveal clip-reveal-delay-1 mb-4 flex items-center gap-3">
-            <span className="block h-px w-8 bg-[#DC2626]" />
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/60">
+            <span className="block h-px w-8 bg-destructive" />
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-white/80">
               Spécialiste Sport — Dakar
             </span>
           </div>
@@ -62,14 +62,14 @@ export default async function StorePage() {
             <span className="block text-white text-[clamp(4.5rem,13vw,11rem)] tracking-tight">
               Dakar
             </span>
-            <span className="block text-[#DC2626] text-[clamp(4.5rem,13vw,11rem)] tracking-tight">
+            <span className="block text-destructive text-[clamp(4.5rem,13vw,11rem)] tracking-tight">
               Sport
             </span>
           </h1>
 
           {/* Sub + CTAs in one row */}
           <div className="clip-reveal clip-reveal-delay-3 flex flex-col sm:flex-row sm:items-end gap-6 sm:gap-12">
-            <p className="text-sm sm:text-base text-white/60 max-w-xs font-medium leading-relaxed">
+            <p className="text-sm sm:text-base text-white/80 max-w-xs font-medium leading-relaxed">
               L&apos;équipementier de référence pour les clubs et passionnés de sport au Sénégal.
             </p>
             <div className="flex items-center gap-4">
@@ -77,14 +77,14 @@ export default async function StorePage() {
                 href="https://wa.me/221770414930"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 bg-white text-[oklch(0.1_0.02_265)] px-6 py-3 text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:bg-[#DC2626] hover:text-white"
+                className="group inline-flex items-center gap-2 bg-white text-primary px-6 py-3 text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:bg-destructive hover:text-white"
               >
                 Commander
                 <HugeiconsIcon icon={ArrowRight01Icon} size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
               </a>
               <Link
                 href="/produits"
-                className="inline-flex items-center gap-2 text-white/60 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors duration-300"
+                className="inline-flex items-center gap-2 text-white/80 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors duration-300"
               >
                 Catalogue
                 <HugeiconsIcon icon={ArrowRight01Icon} size={14} />
@@ -134,8 +134,8 @@ export default async function StorePage() {
                     className="group relative overflow-hidden block h-[360px] md:h-full bg-slate-100"
                   >
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent z-10" />
-                    <div className="absolute inset-0 bg-[#1E40AF]/0 group-hover:bg-[#1E40AF]/20 transition-colors duration-500 z-10" />
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#1E40AF] to-[oklch(0.2_0.12_265)]" />
+                    <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/30 transition-colors duration-500 z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary to-background" />
                     {categories[0].image && (
                       <Image src={categories[0].image} alt={categories[0].name} fill className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]" sizes="(max-width: 768px) 100vw, 33vw" />
                     )}
@@ -157,11 +157,11 @@ export default async function StorePage() {
                   <ScrollReveal key={cat.slug} delay={(idx + 1) * 60}>
                     <Link
                       href={`/produits?category=${cat.slug}`}
-                      className="group relative overflow-hidden block h-[220px] bg-slate-100"
+                      className="group relative overflow-hidden block h-[220px] bg-muted"
                     >
                       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent z-10" />
-                      <div className="absolute inset-0 bg-[#1E40AF]/0 group-hover:bg-[#1E40AF]/20 transition-colors duration-500 z-10" />
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#1E40AF] to-[oklch(0.2_0.12_265)]" />
+                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/30 transition-colors duration-500 z-10" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary to-background" />
                       {cat.image && (
                         <Image src={cat.image} alt={cat.name} fill className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]" sizes="(max-width: 768px) 100vw, 25vw" />
                       )}
@@ -181,23 +181,23 @@ export default async function StorePage() {
 
       {/* ── FEATURED PRODUCTS ────────────────────────────────────────── */}
       {featuredProducts.length > 0 && (
-        <section className="py-20 lg:py-28 bg-[oklch(0.97_0.005_265)]">
+        <section className="py-20 lg:py-28 bg-muted">
           <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14">
 
             {/* Section label row */}
             <ScrollReveal>
               <div className="flex items-end justify-between mb-10">
                 <div>
-                  <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-3">
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-3">
                     02 — Tendances
                   </span>
-                  <h2 className="font-heading font-bold italic text-5xl lg:text-6xl text-slate-900 leading-none tracking-tight">
+                  <h2 className="font-heading font-bold italic text-5xl lg:text-6xl text-foreground leading-none tracking-tight">
                     Sélection du moment
                   </h2>
                 </div>
                 <Link
                   href="/produits"
-                  className="hidden md:inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400 hover:text-slate-900 transition-colors"
+                  className="hidden md:inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground hover:text-primary transition-colors"
                 >
                   Tout le catalogue <HugeiconsIcon icon={ArrowRight01Icon} size={12} />
                 </Link>
@@ -244,9 +244,9 @@ export default async function StorePage() {
       )}
 
       {/* ── STAT STRIP ───────────────────────────────────────────────── */}
-      <section className="bg-[oklch(0.1_0.02_265)] text-white">
+      <section className="bg-background border-y border-border text-foreground">
         <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14">
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-border">
             {[
               { stat: "150+",  label: "Clubs équipés" },
               { stat: "24h",   label: "Livraison Dakar" },
@@ -255,10 +255,10 @@ export default async function StorePage() {
             ].map(({ stat, label }, idx) => (
               <ScrollReveal key={idx} delay={idx * 70}>
                 <div className="py-10 px-6 lg:px-10 flex flex-col gap-1">
-                  <span className="font-heading font-bold italic text-3xl lg:text-4xl text-white tracking-tight leading-none">
+                  <span className="font-heading font-bold italic text-3xl lg:text-4xl text-primary tracking-tight leading-none">
                     {stat}
                   </span>
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 mt-1">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mt-1">
                     {label}
                   </span>
                 </div>
