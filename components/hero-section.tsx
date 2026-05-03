@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import Link from "next/link";
@@ -50,21 +51,22 @@ export function HeroSection() {
       {/* ── MOBILE: stacked layout ─────────────────────────────────── */}
       <div className="flex flex-col h-full lg:hidden">
 
-        {/* Video top half */}
+        {/* Storefront image top half */}
         <motion.div
           className="relative flex-1 overflow-hidden"
           variants={cellVariant("down", 0)}
           initial="hidden"
           animate="show"
         >
-          <video
-            autoPlay loop muted playsInline
-            poster="https://images.unsplash.com/photo-1518605368461-1e1252220a22?q=80&w=1920&auto=format&fit=crop"
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="https://videos.pexels.com/video-files/6077718/6077718-hd_1920_1080_25fps.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-black/40" />
+          <Image
+            src="/dakar-sport-storefront.jpeg"
+            alt="Boutique Dakar Sport — Avenue G. Pompidou, Dakar"
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/35" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
           {/* Mobile headline overlay */}
@@ -120,21 +122,22 @@ export function HeroSection() {
         }}
       >
 
-        {/* ▸ Cell A — Video (top-left, large) */}
+        {/* ▸ Cell A — Storefront photo (top-left, large) */}
         <motion.div
           className="relative overflow-hidden noise-overlay"
           variants={cellVariant("down", 0)}
           initial="hidden"
           animate="show"
         >
-          <video
-            autoPlay loop muted playsInline
-            poster="https://images.unsplash.com/photo-1518605368461-1e1252220a22?q=80&w=1920&auto=format&fit=crop"
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="https://videos.pexels.com/video-files/6077718/6077718-hd_1920_1080_25fps.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-black/30" />
+          <Image
+            src="/dakar-sport-storefront.jpeg"
+            alt="Boutique Dakar Sport — Avenue G. Pompidou, Dakar"
+            fill
+            className="object-cover object-center"
+            sizes="(max-width: 1024px) 100vw, 58vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/25" />
           <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-transparent to-transparent" />
 
           {/* Edition stamp */}
@@ -175,16 +178,21 @@ export function HeroSection() {
           initial="hidden"
           animate="show"
         >
-          {/* Giant DS monogram */}
-          <motion.span
-            className="font-heading font-bold italic text-white/[0.12] select-none pointer-events-none leading-none"
-            style={{ fontSize: "clamp(10rem, 18vw, 20rem)" }}
-            initial={{ scale: 1.15, opacity: 0 }}
+          {/* Logo image */}
+          <motion.div
+            initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.5, ease: EXPO }}
+            className="relative"
           >
-            DS
-          </motion.span>
+            <Image
+              src="/dakar-sport-logo.jpg"
+              alt="Dakar Sport"
+              width={200}
+              height={200}
+              className="w-[clamp(8rem,14vw,13rem)] h-auto object-contain brightness-0 invert opacity-20"
+            />
+          </motion.div>
 
           {/* Diagonal accent line */}
           <div

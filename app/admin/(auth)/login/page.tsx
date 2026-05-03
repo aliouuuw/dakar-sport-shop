@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition, Suspense } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
@@ -42,9 +43,13 @@ function LoginForm() {
     <div className="min-h-screen flex items-center justify-center bg-slate-50">
       <div className="w-full max-w-sm px-4">
         <div className="mb-8 text-center">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-800 text-white font-black text-lg mb-4">
-            DS
-          </div>
+          <Image
+            src="/dakar-sport-logo.jpg"
+            alt="Dakar Sport"
+            width={140}
+            height={46}
+            className="h-10 w-auto object-contain mx-auto mb-4"
+          />
           <p className="text-sm text-slate-500">Espace Administrateur</p>
         </div>
 
@@ -152,9 +157,13 @@ export default function AdminLoginPage() {
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="w-full max-w-sm px-4">
           <div className="mb-8 text-center">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-800 text-white font-black text-lg mb-4">
-              DS
-            </div>
+            <Image
+              src="/dakar-sport-logo.jpg"
+              alt="Dakar Sport"
+              width={140}
+              height={46}
+              className="h-10 w-auto object-contain mx-auto mb-4"
+            />
             <p className="text-sm text-slate-500">Espace Administrateur</p>
           </div>
           <Card className="border-0 shadow-lg">

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import {
@@ -216,9 +217,13 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
               <SheetContent side="left" className="w-72 p-0">
                 <SheetHeader className="border-b border-slate-200 p-4">
                   <SheetTitle className="flex items-center gap-2">
-                    <span className="font-heading font-bold italic text-xl text-slate-900 tracking-tight">
-                      Dakar<span className="text-[#DC2626]">Sport</span>
-                    </span>
+                    <Image
+                      src="/dakar-sport-logo.jpg"
+                      alt="Dakar Sport"
+                      width={120}
+                      height={40}
+                      className="h-8 w-auto object-contain"
+                    />
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col py-4">
@@ -290,17 +295,26 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
               </SheetContent>
             </Sheet>
             <Link href="/" className="flex items-center gap-2">
-              <span className="font-heading font-bold italic text-xl text-slate-900 tracking-tight">
-                Dakar<span className="text-[#DC2626]">Sport</span>
-              </span>
+              <Image
+                src="/dakar-sport-logo.jpg"
+                alt="Dakar Sport"
+                width={120}
+                height={40}
+                className="h-8 w-auto object-contain"
+              />
             </Link>
           </div>
 
           {/* Desktop Logo */}
           <Link href="/" className="hidden lg:flex items-center shrink-0">
-            <span className="font-heading font-bold italic text-2xl text-slate-900 tracking-tight leading-none">
-              Dakar<span className="text-[#DC2626]">Sport</span>
-            </span>
+            <Image
+              src="/dakar-sport-logo.jpg"
+              alt="Dakar Sport"
+              width={140}
+              height={46}
+              className="h-9 w-auto object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
