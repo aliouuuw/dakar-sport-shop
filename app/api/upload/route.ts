@@ -33,6 +33,15 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const result = await uploadImage(file);
-  return NextResponse.json(result);
+  try {
+    const result = await uploadImage(file);
+    return NextResponse.json(result);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Erreur inconnue lors de l'upload";
+    console.error("[UPLOAD_ERROR]", message);
+    return NextResponse.json(
+      { error: message },
+      { status: 500 }
+    );
+  }
 }

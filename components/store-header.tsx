@@ -354,12 +354,18 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
                 href={`https://wa.me/${settings.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={cn("hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-colors", storeCtaClassName.primary)}
+                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-colors bg-green-600 text-white hover:bg-green-700 rounded-lg"
               >
                 <WhatsAppIcon className="h-3.5 w-3.5" />
                 WhatsApp
               </a>
             )}
+            <Link
+              href="/admin"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-colors bg-slate-900 text-white hover:bg-slate-800 rounded-lg"
+            >
+              Admin
+            </Link>
           </div>
         </div>
       </div>
