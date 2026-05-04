@@ -201,46 +201,28 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* ▸ Cell C — Blue type block + logo (bottom-left) */}
+        {/* ▸ Cell C — Logo (bottom-left) */}
         <motion.div
-          className="relative overflow-hidden bg-[#1E40AF] flex flex-col justify-center px-8 xl:px-12"
+          className="relative overflow-hidden bg-[#1E40AF] flex items-center justify-center"
           variants={cellVariant("right", 0.2)}
           initial="hidden"
           animate="show"
         >
-          {/* Ghost logo watermark */}
-          <div className="absolute top-1/2 right-4 -translate-y-1/2 pointer-events-none select-none">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/dakar-sport-logo.jpg"
-              alt=""
-              aria-hidden="true"
-              className="w-28 xl:w-36 h-auto object-contain brightness-0 invert opacity-[0.08]"
-            />
-          </div>
-
-          <motion.h1
-            className="font-heading font-bold italic leading-[0.88] relative z-10"
-            variants={FADE_UP(0.55)}
-            initial="hidden"
-            animate="show"
-          >
-            <span className="block text-white text-[clamp(4rem,8vw,7.5rem)] tracking-tight">
-              Dakar
-            </span>
-            <span className="block text-white/20 text-[clamp(4rem,8vw,7.5rem)] tracking-tight">
-              Sport
-            </span>
-          </motion.h1>
-
-          {/* Thin red rule */}
           <motion.div
-            className="mt-5 h-[3px] bg-[#DC2626] origin-left relative z-10"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.7, delay: 0.85, ease: EXPO }}
-            style={{ width: "60px" }}
-          />
+            initial={{ scale: 1.15, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1.2, delay: 0.5, ease: EXPO }}
+            className="relative"
+          >
+            <Image
+              src="/dakar-sport-logo.jpg"
+              alt="Dakar Sport"
+              width={280}
+              height={94}
+              className="w-[clamp(12rem,20vw,16rem)] h-auto object-contain brightness-0 invert"
+              unoptimized
+            />
+          </motion.div>
         </motion.div>
 
         {/* ▸ Cell D — CTA + tagline (bottom-right) */}
