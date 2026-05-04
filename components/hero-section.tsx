@@ -201,20 +201,18 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* ▸ Cell C — Logo as full background (bottom-left) */}
+        {/* ▸ Cell C — Logo full tile (bottom-left) */}
         <motion.div
-          className="relative overflow-hidden bg-[#1E40AF]"
+          className="relative overflow-hidden bg-white"
           variants={cellVariant("right", 0.2)}
           initial="hidden"
           animate="show"
         >
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/dakar-sport-logo.jpg"
             alt="Dakar Sport"
-            fill
-            className="object-cover brightness-0 invert opacity-90"
-            sizes="58vw"
-            unoptimized
+            className="absolute inset-0 w-full h-full object-contain p-6"
           />
         </motion.div>
 
