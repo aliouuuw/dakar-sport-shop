@@ -17,7 +17,7 @@ const barlowCondensed = Barlow_Condensed({
   variable: "--font-heading",
 });
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://dakarsport.sn";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://dakarsport.net";
 
 export const metadata: Metadata = {
   title: {

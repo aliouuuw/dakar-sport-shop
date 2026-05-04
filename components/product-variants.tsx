@@ -52,7 +52,7 @@ export function ProductVariants({ product, sizes = [], colors = [] }: ProductVar
     `Bonjour, je suis intéressé par: ${product.name}\n` +
     `${variantDetails ? `Variante: ${variantDetails}\n` : ""}` +
     `Prix: ${formatPrice(currentPrice)}\n` +
-    `Lien: ${process.env.NEXT_PUBLIC_APP_URL || "https://dakarsport.sn"}/produits/${product.slug}`
+    `Lien: ${process.env.NEXT_PUBLIC_APP_URL || "https://dakarsport.net"}/produits/${product.slug}`
   );
 
   const handleWhatsAppClick = async () => {

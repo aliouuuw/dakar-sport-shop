@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Switch } from "@/components/ui/switch"
 import { toast } from "sonner"
+import { ImageUpload } from "@/components/image-upload"
 import { createProduct, updateProduct, deleteProduct, type ProductInput } from "@/lib/actions/products"
 
 type Category = { id: number; name: string; slug: string }
@@ -52,15 +53,17 @@ export function ProductForm({
   const [categoryId, setCategoryId] = useState(String(product?.categoryId ?? ""))
   const [price, setPrice] = useState(String(product?.price ?? ""))
   const [compareAtPrice, setCompareAtPrice] = useState(String(product?.compareAtPrice ?? ""))
-  const [images, setImages] = useState<string[]>(
-    product?.images?.length ? [...product.images, "", ""] : ["", "", ""]
-  )
+  const [images, setImages] = useState<string[]>(product?.images ?? [])
   const [active, setActive] = useState(product?.active ?? true)
   const [featured, setFeatured] = useState(product?.featured ?? false)
   const [stock, setStock] = useState(String(product?.stock ?? "0"))
 
-  const updateImage = (i: number, val: string) => {
-    setImages((prev) => prev.map((img, idx) => (idx === i ? val : img)))
+  const addImage = (url: string) => {
+    setImages((prev) => [...prev, url])
+  }
+
+  const removeImage = (i: number) => {
+    setImages((prev) => prev.filter((_, idx) => idx !== i))
   }
 
   const handleSubmit = () => {
@@ -88,20 +91,25 @@ export function ProductForm({
     }
 
     startTransition(async () => {
-      const result = isEdit
-        ? await updateProduct(product!.id, data)
-        : await createProduct(data)
+      try {
+        const result = isEdit
+          ? await updateProduct(product!.id, data)
+          : await createProduct(data)
 
-      if (result.success) {
-        toast.success(isEdit ? "Produit mis à jour" : "Produit créé", {
-          description: isEdit
-            ? "Les modifications ont été enregistrées."
-            : "Le produit a été créé avec succès.",
-        })
-        router.push("/admin/products")
-        router.refresh()
-      } else {
-        toast.error("Erreur", { description: result.error })
+        if (result.success) {
+          toast.success(isEdit ? "Produit mis à jour" : "Produit créé", {
+            description: isEdit
+              ? "Les modifications ont été enregistrées."
+              : "Le produit a été créé avec succès.",
+          })
+          await new Promise(resolve => setTimeout(resolve, 500))
+          router.refresh()
+          router.push("/admin/products")
+        } else {
+          toast.error("Erreur", { description: result.error })
+        }
+      } catch (error) {
+        toast.error("Erreur", { description: "Une erreur inattendue s'est produite." })
       }
     })
   }
@@ -109,13 +117,18 @@ export function ProductForm({
   const handleDelete = () => {
     if (!product) return
     startTransition(async () => {
-      const result = await deleteProduct(product.id)
-      if (result.success) {
-        toast.success("Produit supprimé")
-        router.push("/admin/products")
-        router.refresh()
-      } else {
-        toast.error("Erreur", { description: result.error })
+      try {
+        const result = await deleteProduct(product.id)
+        if (result.success) {
+          toast.success("Produit supprimé")
+          await new Promise(resolve => setTimeout(resolve, 500))
+          router.refresh()
+          router.push("/admin/products")
+        } else {
+          toast.error("Erreur", { description: result.error })
+        }
+      } catch (error) {
+        toast.error("Erreur", { description: "Une erreur inattendue s'est produite." })
       }
     })
   }
@@ -251,23 +264,30 @@ export function ProductForm({
           <Card className="border-slate-200 shadow-none rounded-xl">
             <CardHeader className="border-b border-slate-100 pb-4">
               <CardTitle className="text-base text-slate-900">Images</CardTitle>
-              <CardDescription>URLs des images du produit.</CardDescription>
+              <CardDescription>Uploadez les images du produit (drag & drop ou clic).</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-3 pt-4">
-              {images.map((url, i) => (
-                <div key={i}>
-                  <label className="mb-1 block text-sm font-medium text-slate-700">
-                    Image {i + 1}{i === 0 && <span className="text-[#DC2626]"> *</span>}
-                  </label>
-                  <input
-                    type="url"
-                    value={url}
-                    onChange={(e) => updateImage(i, e.target.value)}
-                    placeholder="https://..."
-                    className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1E40AF]/20"
-                  />
+            <CardContent className="space-y-4 pt-4">
+              {images.length > 0 && (
+                <div className="grid grid-cols-2 gap-3">
+                  {images.map((url, i) => (
+                    <ImageUpload
+                      key={`${url}-${i}`}
+                      value={url}
+                      onChange={(newUrl) => {
+                        if (!newUrl) removeImage(i)
+                      }}
+                    />
+                  ))}
                 </div>
-              ))}
+              )}
+              <ImageUpload
+                onChange={(url) => {
+                  if (url) addImage(url)
+                }}
+              />
+              {images.length === 0 && (
+                <p className="text-xs text-slate-400">Aucune image ajoutée.</p>
+              )}
             </CardContent>
           </Card>
         </div>

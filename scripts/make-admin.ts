@@ -10,7 +10,7 @@ const db = drizzle(pool);
 const result = await db
   .update(user)
   .set({ role: "admin" })
-  .where(eq(user.email, "admin@dakarsport.sn"))
+  .where(eq(user.email, "admin@dakarsport.net"))
   .returning({ id: user.id, email: user.email, role: user.role });
 
 console.log("Updated user:", result);

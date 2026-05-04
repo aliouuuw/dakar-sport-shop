@@ -4,7 +4,7 @@ import type { Quote, QuoteItem } from "@/lib/db/schema/quotes";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? "promosportsdakar@yahoo.fr";
-const FROM_EMAIL = process.env.FROM_EMAIL ?? "noreply@dakarsport.sn";
+const FROM_EMAIL = process.env.FROM_EMAIL ?? "noreply@dakarsport.net";
 
 function formatCFA(amount: number): string {
   return new Intl.NumberFormat("fr-SN", {

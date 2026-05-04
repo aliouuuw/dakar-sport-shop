@@ -198,7 +198,7 @@ export function AdminSidebar({ unreadCount = 0, onNavigate, collapsed = false }:
             <>
               <div className="flex-1 min-w-0">
                 <p className="truncate text-sm font-semibold text-white">Admin</p>
-                <p className="truncate text-xs text-blue-200/80">admin@dakarsport.sn</p>
+                <p className="truncate text-xs text-blue-200/80">admin@dakarsport.net</p>
               </div>
               <button
                 onClick={() => signOut({ fetchOptions: { onSuccess: () => { window.location.href = "/admin/login" } } })}

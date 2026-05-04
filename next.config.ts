@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "picsum.photos" },
       { protocol: "https", hostname: "res.cloudinary.com" },
       { protocol: "http", hostname: "localhost" },
+      { protocol: "https", hostname: "*.r2.dev" },
+      { protocol: "https", hostname: "*.cloudflarestorage.com" },
     ],
   },
 };

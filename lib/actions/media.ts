@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { media } from "@/lib/db/schema";
 import { requireAdmin } from "@/lib/auth-server";
 import { eq, desc, like, or } from "drizzle-orm";
+import { deleteFromR2 } from "@/lib/upload";
 import type { ActionResult } from "./site-settings";
 
 const createMediaSchema = z.object({
@@ -78,6 +79,13 @@ export async function deleteMedia(id: number): Promise<ActionResult> {
     return { success: false, error: "Accès refusé : rôle administrateur requis" };
   }
 
+  const [row] = await db.select({ filename: media.filename }).from(media).where(eq(media.id, id)).limit(1);
+
   await db.delete(media).where(eq(media.id, id));
+
+  if (row?.filename) {
+    await deleteFromR2(row.filename).catch(() => null);
+  }
+
   return { success: true, data: undefined };
 }
