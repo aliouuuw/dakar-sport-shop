@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { StoreSettings } from "@/lib/store-settings";
 
 interface StoreFooterProps {
@@ -161,32 +160,16 @@ export default function StoreFooter({ settings = defaultSettings }: StoreFooterP
           {/* Brand Column */}
           <div className="col-span-1 lg:col-span-2">
             <Link href="/" className="inline-block mb-6">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/dakar-sport-logo.jpg"
                 alt={settings.siteName}
-                width={160}
-                height={54}
-                className="h-12 w-auto object-contain brightness-0 invert"
+                className="h-16 w-auto object-contain"
               />
             </Link>
-            <p className="text-xs max-w-xs mb-6 leading-relaxed text-slate-500">
+            <p className="text-xs max-w-xs mb-8 leading-relaxed text-slate-500">
               {settings.tagline || "L'équipementier sportif n°1 au Sénégal."}
             </p>
-
-            {/* Storefront photo */}
-            <div className="relative w-full max-w-[240px] aspect-[3/4] mb-6 overflow-hidden">
-              <Image
-                src="/dakar-sport-storefront.jpeg"
-                alt="Boutique Dakar Sport — Avenue G. Pompidou"
-                fill
-                className="object-cover object-center"
-                sizes="240px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.02_265)] via-transparent to-transparent" />
-              <span className="absolute bottom-2 left-3 text-[9px] font-bold uppercase tracking-[0.2em] text-white/50">
-                Notre boutique
-              </span>
-            </div>
 
             <div className="flex gap-3">
               {settings.facebook && (

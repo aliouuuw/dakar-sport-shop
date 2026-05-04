@@ -314,7 +314,7 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
               alt="Dakar Sport"
               width={240}
               height={80}
-              className="h-16 w-auto object-contain"
+              className="h-20 w-auto object-contain"
               priority
             />
           </Link>
