@@ -94,7 +94,7 @@ export function HeroSection() {
           </p>
           <div className="flex items-center gap-3">
             <a
-              href="https://wa.me/221770414930"
+              href="https://wa.me/221776345115"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-white text-slate-900 px-5 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[#DC2626] hover:text-white transition-colors"
@@ -240,7 +240,7 @@ export function HeroSection() {
           >
             {/* Sweep CTA */}
             <motion.a
-              href="https://wa.me/221770414930"
+              href="https://wa.me/221776345115"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 bg-white text-[#DC2626] px-6 py-3.5 text-xs font-bold uppercase tracking-widest overflow-hidden relative w-fit"

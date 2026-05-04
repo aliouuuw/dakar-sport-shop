@@ -43,7 +43,7 @@ export async function getStoreSettings(): Promise<StoreSettings> {
     phones,
     email: settings.email || "promosportsdakar@yahoo.fr",
     address: settings.address || "Avenue G. Pompidou, Dakar",
-    whatsapp: settings.whatsapp || "221770414930",
+    whatsapp: settings.whatsapp || "221776345115",
     facebook: settings.facebook || "https://facebook.com/dakarsport",
     instagram: settings.instagram || "https://instagram.com/dakarsport",
     openingHours: settings.openingHours || "Lun-Sam: 8h-20h",

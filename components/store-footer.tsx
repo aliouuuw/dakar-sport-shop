@@ -146,7 +146,7 @@ const defaultSettings: StoreSettings = {
   ],
   email: "promosportsdakar@yahoo.fr",
   address: "Avenue G. Pompidou, en face Restaurant Ali baba, Dakar",
-  whatsapp: "221770414930",
+  whatsapp: "221776345115",
   facebook: "https://facebook.com/dakarsport",
   instagram: "https://instagram.com/dakarsport",
   openingHours: "Lun-Sam: 8h-20h",
