@@ -201,28 +201,21 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* ▸ Cell C — Logo (bottom-left) */}
+        {/* ▸ Cell C — Logo as full background (bottom-left) */}
         <motion.div
-          className="relative overflow-hidden bg-[#1E40AF] flex items-center justify-center"
+          className="relative overflow-hidden bg-[#1E40AF]"
           variants={cellVariant("right", 0.2)}
           initial="hidden"
           animate="show"
         >
-          <motion.div
-            initial={{ scale: 1.15, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.5, ease: EXPO }}
-            className="relative"
-          >
-            <Image
-              src="/dakar-sport-logo.jpg"
-              alt="Dakar Sport"
-              width={280}
-              height={94}
-              className="w-[clamp(12rem,20vw,16rem)] h-auto object-contain brightness-0 invert"
-              unoptimized
-            />
-          </motion.div>
+          <Image
+            src="/dakar-sport-logo.jpg"
+            alt="Dakar Sport"
+            fill
+            className="object-cover brightness-0 invert opacity-90"
+            sizes="58vw"
+            unoptimized
+          />
         </motion.div>
 
         {/* ▸ Cell D — CTA + tagline (bottom-right) */}
