@@ -216,15 +216,15 @@ export function HeroSection() {
           />
         </motion.div>
 
-        {/* ▸ Cell D — CTA + tagline (bottom-right) */}
+        {/* ▸ Cell D — CTA + tagline (bottom-right, red) */}
         <motion.div
-          className="relative overflow-hidden bg-white flex flex-col justify-center px-8 xl:px-12"
+          className="relative overflow-hidden bg-[#DC2626] flex flex-col justify-center px-8 xl:px-12"
           variants={cellVariant("up", 0.3)}
           initial="hidden"
           animate="show"
         >
           <motion.p
-            className="text-sm xl:text-base text-slate-500 font-medium leading-relaxed max-w-xs mb-8"
+            className="text-sm xl:text-base text-white/70 font-medium leading-relaxed max-w-xs mb-8"
             variants={FADE_UP(0.75)}
             initial="hidden"
             animate="show"
@@ -243,17 +243,17 @@ export function HeroSection() {
               href="https://wa.me/221770414930"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3.5 text-xs font-bold uppercase tracking-widest overflow-hidden relative w-fit"
+              className="group inline-flex items-center gap-2 bg-white text-[#DC2626] px-6 py-3.5 text-xs font-bold uppercase tracking-widest overflow-hidden relative w-fit"
               initial="rest"
               whileHover="hover"
               whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
             >
               <motion.span
                 aria-hidden="true"
-                className="absolute inset-0 bg-[#DC2626]"
+                className="absolute inset-0 bg-slate-900"
                 variants={SWEEP}
               />
-              <span className="relative z-10 flex items-center gap-2">
+              <span className="relative z-10 flex items-center gap-2 group-hover:text-white transition-colors">
                 Commander
                 <HugeiconsIcon icon={ArrowRight01Icon} size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
               </span>
@@ -261,17 +261,17 @@ export function HeroSection() {
 
             <Link
               href="/produits"
-              className="group inline-flex items-center gap-2 text-slate-400 text-xs font-bold uppercase tracking-widest hover:text-slate-900 transition-colors w-fit"
+              className="group inline-flex items-center gap-2 text-white/60 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors w-fit"
             >
               Tout le catalogue
               <HugeiconsIcon icon={ArrowRight01Icon} size={12} className="group-hover:translate-x-0.5 transition-transform duration-200" />
             </Link>
           </motion.div>
 
-          {/* Corner red dot accent */}
+          {/* Corner white dot accent */}
           <span
             aria-hidden="true"
-            className="absolute top-5 right-5 w-2.5 h-2.5 rounded-full bg-[#DC2626]"
+            className="absolute top-5 right-5 w-2.5 h-2.5 rounded-full bg-white/30"
           />
         </motion.div>
 

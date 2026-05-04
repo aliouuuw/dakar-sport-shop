@@ -72,7 +72,7 @@ export default async function StorePage() {
                     className="group relative overflow-hidden block h-[360px] md:h-full bg-slate-100"
                   >
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent z-10" />
-                    <div className="absolute inset-0 bg-[#1E40AF]/0 group-hover:bg-[#1E40AF]/90 mix-blend-multiply transition-colors duration-500 z-10" />
+                    <div className="absolute inset-0 bg-[#1E40AF]/0 group-hover:bg-[#1E40AF]/55 mix-blend-multiply transition-colors duration-500 z-10" />
                     <div className="absolute inset-0 bg-gradient-to-br from-[#1E40AF] to-[oklch(0.2_0.12_265)]" />
                     {categories[0].image && (
                       <Image src={categories[0].image} alt={categories[0].name} fill className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]" sizes="(max-width: 768px) 100vw, 33vw" />
@@ -100,7 +100,7 @@ export default async function StorePage() {
                       className="group relative overflow-hidden block h-[220px] bg-slate-100"
                     >
                       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent z-10" />
-                      <div className="absolute inset-0 bg-[#1E40AF]/0 group-hover:bg-[#1E40AF]/90 mix-blend-multiply transition-colors duration-500 z-10" />
+                      <div className="absolute inset-0 bg-[#1E40AF]/0 group-hover:bg-[#1E40AF]/55 mix-blend-multiply transition-colors duration-500 z-10" />
                       <div className="absolute inset-0 bg-gradient-to-br from-[#1E40AF] to-[oklch(0.2_0.12_265)]" />
                       {cat.image && (
                         <Image src={cat.image} alt={cat.name} fill className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]" sizes="(max-width: 768px) 100vw, 25vw" />

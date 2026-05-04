@@ -222,7 +222,7 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
                       alt="Dakar Sport"
                       width={200}
                       height={68}
-                      className="h-14 w-auto object-contain"
+                      className="h-14 w-auto object-contain mix-blend-multiply"
                       unoptimized
                     />
                   </SheetTitle>
@@ -301,7 +301,7 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
                 alt="Dakar Sport"
                 width={200}
                 height={68}
-                className="h-14 w-auto object-contain"
+                className="h-14 w-auto object-contain mix-blend-multiply"
                 loading="eager"
               />
             </Link>
@@ -314,7 +314,7 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
               alt="Dakar Sport"
               width={240}
               height={80}
-              className="h-20 w-auto object-contain"
+              className="h-20 w-auto object-contain mix-blend-multiply"
               priority
             />
           </Link>

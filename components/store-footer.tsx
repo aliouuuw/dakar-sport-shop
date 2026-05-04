@@ -160,12 +160,14 @@ export default function StoreFooter({ settings = defaultSettings }: StoreFooterP
           {/* Brand Column */}
           <div className="col-span-1 lg:col-span-2">
             <Link href="/" className="inline-block mb-6">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/dakar-sport-logo.jpg"
-                alt={settings.siteName}
-                className="h-16 w-auto object-contain"
-              />
+              <span className="inline-flex items-center justify-center bg-white px-4 py-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/dakar-sport-logo.jpg"
+                  alt={settings.siteName}
+                  className="h-12 w-auto object-contain"
+                />
+              </span>
             </Link>
             <p className="text-xs max-w-xs mb-8 leading-relaxed text-slate-500">
               {settings.tagline || "L'équipementier sportif n°1 au Sénégal."}
