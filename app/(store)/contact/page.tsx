@@ -2,6 +2,8 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { Call02Icon, Mail01Icon, Location01Icon } from "@hugeicons/core-free-icons";
 import { ContactForm } from "@/components/contact-form";
 import { ScrollReveal } from "@/components/scroll-reveal";
+import { StorePageHeader, storeSurfaceClassName } from "@/components/storefront-ui";
+import { cn } from "@/lib/utils";
 import { getStoreSettings } from "@/lib/store-settings";
 
 export const metadata = {
@@ -13,28 +15,20 @@ export default async function ContactPage() {
   const siteSettings = await getStoreSettings();
   return (
     <div className="bg-white min-h-screen pb-24">
-      {/* Page Header */}
-      <div className="bg-white border-b border-slate-100 relative overflow-hidden">
-        <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-20 lg:py-28 relative z-20">
-          <ScrollReveal direction="down">
-            <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-[#DC2626] mb-4">
-              Parlons ensemble
-            </span>
-            <h1 className="font-heading font-bold italic text-6xl lg:text-7xl text-slate-900 leading-none tracking-tight mb-3">
-              Contactez-nous
-            </h1>
-            <p className="max-w-2xl text-sm text-slate-600 font-medium">
-              Vous avez une question? Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.
-            </p>
-          </ScrollReveal>
-        </div>
-      </div>
+      <ScrollReveal direction="down">
+        <StorePageHeader
+          eyebrow="Parlons ensemble"
+          title="Contactez-nous"
+          description="Vous avez une question ? Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais."
+          variant="light"
+        />
+      </ScrollReveal>
 
       <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-16 relative z-30">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Contact Form */}
           <ScrollReveal direction="up" delay={100}>
-            <div className="bg-white border border-slate-100 p-8 lg:p-12">
+            <div className={cn(storeSurfaceClassName, "p-8 lg:p-12")}>
               <h2 className="font-heading font-bold italic text-3xl text-slate-900 leading-none tracking-tight mb-8">
                 Envoyez-nous un message
               </h2>
@@ -47,7 +41,7 @@ export default async function ContactPage() {
             {/* Contact Info Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <ScrollReveal direction="up" delay={200}>
-                <div className="bg-white border border-slate-200 p-6 h-full hover:border-[#1E40AF]/30 transition-colors">
+                <div className={cn(storeSurfaceClassName, "p-6 h-full hover:border-[#1E40AF]/30 transition-colors")}>
                   <div className="flex flex-col">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#1E40AF] text-white mb-4 group-hover:scale-110 transition-transform">
                       <HugeiconsIcon icon={Call02Icon} size={18} />
@@ -72,7 +66,7 @@ export default async function ContactPage() {
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={300}>
-                <div className="bg-white border border-slate-200 p-6 h-full hover:border-[#1E40AF]/30 transition-colors">
+                <div className={cn(storeSurfaceClassName, "p-6 h-full hover:border-[#1E40AF]/30 transition-colors")}>
                   <div className="flex flex-col">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#1E40AF] text-white mb-4 group-hover:scale-110 transition-transform">
                       <HugeiconsIcon icon={Mail01Icon} size={18} />
@@ -91,7 +85,7 @@ export default async function ContactPage() {
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={400} className="sm:col-span-2">
-                <div className="bg-white border border-slate-200 p-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center hover:border-[#DC2626] transition-colors group">
+                <div className={cn(storeSurfaceClassName, "p-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center hover:border-[#DC2626] transition-colors group")}>
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#1E40AF] text-white group-hover:scale-110 transition-transform">
                     <HugeiconsIcon icon={Location01Icon} size={18} />
                   </div>
@@ -109,7 +103,7 @@ export default async function ContactPage() {
 
             {/* Google Maps Embed */}
             <ScrollReveal direction="up" delay={500}>
-              <div className="bg-white border border-slate-200 overflow-hidden h-[300px]">
+              <div className={cn(storeSurfaceClassName, "overflow-hidden h-[300px]")}>
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3858.7475849999997!2d-17.0596!3d14.6928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec172f5c5c5c5c5d%3A0x1234567890abcdef!2sAvenue%20G.%20Pompidou%2C%20Dakar!5e0!3m2!1sfr!2ssn!4v1234567890"
                   width="100%"

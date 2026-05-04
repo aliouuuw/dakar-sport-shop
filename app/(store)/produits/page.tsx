@@ -3,6 +3,7 @@ import { ProductCard } from "@/components/product-card";
 import { ProductFilters, ProductPagination } from "@/components/product-filters";
 import { MobileFilters } from "@/components/mobile-filters";
 import { ScrollReveal } from "@/components/scroll-reveal";
+import { StorePageHeader } from "@/components/storefront-ui";
 import { getProducts, getProductCountByCategory } from "@/lib/actions/products";
 import { getCategories } from "@/lib/actions/categories";
 
@@ -74,22 +75,14 @@ export default async function ProduitsPage({
 
   return (
     <div className="bg-white min-h-screen">
-      {/* Page Header */}
-      <div className="bg-[#1E40AF] text-white">
-        <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-20 lg:py-28">
-          <ScrollReveal direction="down">
-            <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 mb-4">
-              Catalogue complet
-            </span>
-            <h1 className="font-heading font-bold italic text-6xl lg:text-7xl text-white leading-none tracking-tight mb-3">
-              Tous les équipements
-            </h1>
-            <p className="text-sm text-white/60 max-w-2xl font-medium">
-              Découvrez notre gamme complète d'équipements sportifs de qualité pour clubs, athlètes et passionnés.
-            </p>
-          </ScrollReveal>
-        </div>
-      </div>
+      <ScrollReveal direction="down">
+        <StorePageHeader
+          eyebrow="Catalogue complet"
+          title="Tous les équipements"
+          description="Découvrez notre gamme complète d'équipements sportifs de qualité pour clubs, athlètes et passionnés."
+          variant="blue"
+        />
+      </ScrollReveal>
 
       <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-16">
         <div className="flex flex-col lg:flex-row gap-12">

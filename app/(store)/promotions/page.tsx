@@ -2,6 +2,8 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { DiscountTag01Icon, Time01Icon } from "@hugeicons/core-free-icons";
 import { ProductCard } from "@/components/product-card";
 import { ScrollReveal } from "@/components/scroll-reveal";
+import { StorePageHeader, storeSurfaceClassName } from "@/components/storefront-ui";
+import { cn } from "@/lib/utils";
 import { getActivePromotions } from "@/lib/actions/promotions";
 import { getProducts } from "@/lib/actions/products";
 
@@ -28,22 +30,14 @@ export default async function PromotionsPage() {
 
   return (
     <div className="bg-white min-h-screen pb-24">
-      {/* Header */}
-      <div className="bg-[#DC2626] text-white relative overflow-hidden">
-        <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-20 lg:py-28 relative z-20">
-          <ScrollReveal direction="down">
-            <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 mb-4">
-              Offres spéciales
-            </span>
-            <h1 className="font-heading font-bold italic text-6xl lg:text-7xl text-white leading-none tracking-tight mb-3">
-              Promotions
-            </h1>
-            <p className="max-w-2xl text-sm text-white/60 font-medium">
-              Équipez-vous avec les meilleures marques à prix réduits. Offres valables dans la limite des stocks disponibles.
-            </p>
-          </ScrollReveal>
-        </div>
-      </div>
+      <ScrollReveal direction="down">
+        <StorePageHeader
+          eyebrow="Offres spéciales"
+          title="Promotions"
+          description="Équipez-vous avec les meilleures marques à prix réduits. Offres valables dans la limite des stocks disponibles."
+          variant="red"
+        />
+      </ScrollReveal>
 
       <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14 py-16 relative z-30">
         {promotions.length === 0 ? (
@@ -55,7 +49,7 @@ export default async function PromotionsPage() {
         ) : (
           <div className="flex flex-col gap-16">
             {promotions.map((promo) => (
-              <div key={promo.id} className="bg-white border border-slate-200 overflow-hidden flex flex-col">
+              <div key={promo.id} className={cn(storeSurfaceClassName, "overflow-hidden flex flex-col")}>
                 {/* Promo Banner */}
                 <div className="bg-[#1E40AF] text-white p-8 sm:p-10 flex flex-col lg:flex-row gap-8 justify-between items-start lg:items-center relative overflow-hidden">
                   <div className="flex-1 relative z-10">

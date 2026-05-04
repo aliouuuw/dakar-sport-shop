@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { FilterIcon, Search01Icon } from "@hugeicons/core-free-icons";
+import { FilterIcon } from "@hugeicons/core-free-icons";
 import { ProductFilters } from "./product-filters";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Sheet,
   SheetContent,
@@ -31,6 +32,7 @@ export function MobileFilters({
   filteredCount,
 }: MobileFiltersProps) {
   const [open, setOpen] = useState(false);
+  const hasActiveFilters = filteredCount !== totalCount;
 
   return (
     <div className="lg:hidden mb-6 flex items-center justify-between">
@@ -42,6 +44,11 @@ export function MobileFilters({
           <Button variant="outline" className="h-11 bg-white border-slate-200">
             <HugeiconsIcon icon={FilterIcon} size={18} className="mr-2 text-slate-500" />
             Filtres & Tri
+            {hasActiveFilters && (
+              <Badge className="ml-2 bg-[#1E40AF] text-white">
+                Actif
+              </Badge>
+            )}
           </Button>
         </SheetTrigger>
         <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto">

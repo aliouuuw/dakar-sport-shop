@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { storeCtaClassName } from "@/components/storefront-ui";
 import { cn } from "@/lib/utils";
 import type { StoreSettings } from "@/lib/store-settings";
 
@@ -348,34 +349,12 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
             >
               <SearchIcon className="text-slate-600" />
             </Button>
-            <Link
-              href="/admin/login"
-              className="inline-flex items-center justify-center h-10 w-10 rounded-md hover:bg-slate-100 transition-colors"
-              aria-label="Espace admin"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-slate-600"
-              >
-                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                <polyline points="10,17 15,12 10,7" />
-                <line x1="15" y1="12" x2="3" y2="12" />
-              </svg>
-            </Link>
             {settings.whatsapp && (
               <a
                 href={`https://wa.me/${settings.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 bg-[#1E40AF] px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white hover:bg-[#DC2626] transition-colors"
+                className={cn("hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-colors", storeCtaClassName.primary)}
               >
                 <WhatsAppIcon className="h-3.5 w-3.5" />
                 WhatsApp
