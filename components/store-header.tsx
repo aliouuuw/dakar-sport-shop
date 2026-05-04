@@ -205,7 +205,7 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
       )}
 
       <div className="mx-auto max-w-screen-xl px-5 sm:px-8 lg:px-14">
-        <div className="flex h-16 items-center justify-between gap-4">
+        <div className="flex h-20 items-center justify-between gap-4">
           {/* Mobile Menu + Logo */}
           <div className="flex items-center gap-3 lg:hidden">
             <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
@@ -220,9 +220,9 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
                     <Image
                       src="/dakar-sport-logo.jpg"
                       alt="Dakar Sport"
-                      width={160}
-                      height={54}
-                      className="h-10 w-auto object-contain"
+                      width={200}
+                      height={68}
+                      className="h-14 w-auto object-contain"
                       unoptimized
                     />
                   </SheetTitle>
@@ -299,9 +299,9 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
               <Image
                 src="/dakar-sport-logo.jpg"
                 alt="Dakar Sport"
-                width={160}
-                height={54}
-                className="h-10 w-auto object-contain"
+                width={200}
+                height={68}
+                className="h-14 w-auto object-contain"
                 loading="eager"
               />
             </Link>
@@ -312,9 +312,9 @@ export default function StoreHeader({ settings = defaultSettings, announcement }
             <Image
               src="/dakar-sport-logo.jpg"
               alt="Dakar Sport"
-              width={180}
-              height={60}
-              className="h-11 w-auto object-contain"
+              width={240}
+              height={80}
+              className="h-16 w-auto object-contain"
               priority
             />
           </Link>
